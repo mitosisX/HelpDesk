@@ -1,0 +1,44 @@
+Ticket
+	- id
+	- number
+	- title
+	- category
+	- department
+	- description
+	- dueDate
+	- location
+	- reported date
+	- priority
+
+	Status (hasMany) sorted in asc for latest ticket ststus 
+		- id
+		- type
+		- date
+
+	Assignee (hasOne) - delegated to whom
+		- id
+		- date
+		- user_id
+
+	Reporter(hasOne)
+		- id
+		- name
+		- email
+
+	Assigner (hasOne)
+		- id
+		- user_id
+
+	Tags(hasMany)
+		- id
+		- name
+
+	Tracker
+		- id
+		- ticket_id
+		- ref_code
+
+
+
+
+
