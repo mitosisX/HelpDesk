@@ -1,25 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('landing_page');
-});
+use App\Http\Controllers\Admin\AdminController;
 
 Route::fallback(function(){         //redirect all 404 to the landing page
     return view('landing_page');
+});
+
+//
+// Admin controller
+//
+Route::controller(AdminController::class)->group(function(){
+    Route::get('admin/create_ticket', 'createTicket')->name('admin.create_ticket');  
+    Route::get('admin/dashboard', 'dashboard')->name('admin.dashboard');  
 });
 
 Route::resource('admin', AdminController::class)->names([
@@ -27,5 +20,9 @@ Route::resource('admin', AdminController::class)->names([
     'create' => 'admin.create',
     'store' => 'admin.store',
     'update' => 'admin.update',
-    'destroy' => 'admin.delete'
+    'destroy' => 'admin.delete',
 ]);
+//
+// Admin controller - END
+//
+

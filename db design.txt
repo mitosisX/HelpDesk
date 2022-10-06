@@ -12,7 +12,7 @@ Ticket
 
 	Status (hasMany) sorted in asc for latest ticket ststus 
 		- id
-		- type
+		- status
 		- date
 
 	Assignee (hasOne) - delegated to whom
