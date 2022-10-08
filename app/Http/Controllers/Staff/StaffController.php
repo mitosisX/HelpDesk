@@ -14,7 +14,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        $this->profile();
     }
 
     /**
@@ -81,5 +81,21 @@ class StaffController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dashboard(){
+        return view('staff.dashboard');
+    }
+
+    public function profile(){
+        return view('staff.profile');
+    }
+
+    public function profileSave(Request $request){
+        return "saving";
+    }
+
+    public function tickets(){
+        return view('staff.all_tickets');
     }
 }

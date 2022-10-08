@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Staff\StaffController;
 
 Route::fallback(function(){         //redirect all 404 to the landing page
     return view('landing_page');
@@ -24,5 +25,26 @@ Route::resource('admin', AdminController::class)->names([
 ]);
 //
 // Admin controller - END
+//
+
+//
+// Staff controller
+//
+Route::controller(StaffController::class)->group(function(){
+    Route::get('staff/dashboard', 'dashboard')->name('staff.dashboard');  
+    Route::get('staff/profile', 'profile')->name('staff.profile');  
+    Route::get('staff/tickets', 'tickets')->name('staff.tickets');  
+    Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');  
+});
+
+Route::resource('staff', StaffController::class)->names([
+    'index' => 'staff.home',
+    'create' => 'staff.create',
+    'store' => 'staff.store',
+    'update' => 'staff.update',
+    'destroy' => 'staff.delete',
+]);
+//
+// Staff controller - END
 //
 

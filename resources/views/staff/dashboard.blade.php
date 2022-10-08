@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('staff.layout.app')
 
 @section('title')
     <title>Create Ticket - Admin</title>
@@ -115,15 +115,15 @@
                         <div class="column is-4 no-padding">
                           <input 
                           class="input is-rounded" 
-                          type="text" 
+                          type="email" 
                           name="reporter_email" 
                           value="{{ old('reporter_email') }}"
                           placeholder="Provide their email address">
                         </div>
                       </div>
-                      {{-- @error('reporter_email')
+                      @error('reporter_email')
                         <p class="help is-success">{{ $message }}</p>
-                      @enderror --}}
+                      @enderror
                     </div>
                     
                     <div class="field">

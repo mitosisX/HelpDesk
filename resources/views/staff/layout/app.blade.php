@@ -68,6 +68,8 @@
         <!-- END SIDE MENU -->
         @yield('content')
     </div>
+
+
     
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bulma-tagsinput.min.js') }}"></script>
