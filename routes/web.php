@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Staff\StaffController;
 
 Route::fallback(function(){         //redirect all 404 to the landing page
@@ -48,3 +49,20 @@ Route::resource('staff', StaffController::class)->names([
 // Staff controller - END
 //
 
+
+//
+// Staff controller
+//
+Route::controller(GuestController::class)->group(function(){
+    Route::get('guest/ticket', 'createTicket')->name('guest.ticket');  
+    Route::get('guest/reference/enter', 'enterReference')->name('guest.reference.enter');  
+    Route::get('guest/track', 'trackTicket')->name('guest.track');  
+});
+
+Route::resource('guest', GuestController::class)->names([
+    'create' => 'guest.create',
+    'store' => 'guest.store'
+]);
+//
+// Staff controller - END
+//
