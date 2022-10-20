@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    <title>Dashboard - Admin</title>
+    <title>Profile - Admin</title>
 @endsection
 
 @section('content')
@@ -76,7 +76,7 @@
         <!-- END ISSUES CARD LIST-->
 
         <div class="column box is-multiline">
-            <table class="table is-fullheight is-striped is-hoverable is-fullwidth">
+            <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
                 <thead>
                     <tr>
                         <th>Ticket #</th>
@@ -103,15 +103,11 @@
                         <td class="is-actions-cell">
                             <div class="buttons is-right">
                                 <button class="button is-rounded is-small is-primary" type="button">
-                                    <span class="icon">
-                                        <i class="mdi mdi-eye"></i>
-                                    </span>
+                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
                                 </button>
                                 <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
                                     type="button">
-                                    <span class="icon">
-                                        <i class="mdi mdi-trash-can-outline"></i>
-                                    </span>
+                                    <span class="icon"><i class="fab fa-facebook"></i></span>
                                 </button>
                             </div>
                         </td>

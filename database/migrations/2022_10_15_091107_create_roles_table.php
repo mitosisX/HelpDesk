@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,18 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('number');
-            $table->string('title');
-            $table->string('category');
-            $table->string('department');
-            $table->string('description');
-            $table->string('due_date')->nullable(true);
-            $table->string('location');
-            $table->string('priority')->nullable(true);
+            $table->mediumText('name');
             $table->timestamps();
         });
+
+        // foreach(['Admin', 'Staff'] as $role){
+        //     Role::create([
+        //         'name' => $role
+        //     ]);
+        // }
     }
 
     /**
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('roles');
     }
 };

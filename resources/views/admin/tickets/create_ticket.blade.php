@@ -1,4 +1,4 @@
-@extends('staff.layout.app')
+@extends('admin.layout.app')
 
 @section('title')
     <title>Create Ticket - Admin</title>
@@ -10,14 +10,14 @@
         <div class="column box">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">All ticket</h1>
+                    <h1 class="title is-size-3 has-text-info">Create ticket</h1>
                 </div>
-                {{-- <div class="navbar-end">
+                <div class="navbar-end">
                     <div class="tags has-addons">
-                      <span class="tag is-size-6 is-rounded">Ticket number</span>
-                      <span class="tag is-info is-size-6 is-rounded">{{ $ticketNumber }}</span>
+                        <span class="tag is-size-6 is-rounded">Ticket number</span>
+                        <span class="tag is-info is-size-6 is-rounded">{{ $ticketNumber }}</span>
                     </div>
-                  </div> --}}
+                </div>
             </nav>
         </div>
 
@@ -45,9 +45,9 @@
                         <div class="control">
                             <div class="select is-rounded">
                                 <select name="category">
-                                    <option>Computer</option>
-                                    <option>Hardware</option>
-                                    <option>Network</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -61,9 +61,9 @@
                         <div class="control">
                             <div class="select is-rounded">
                                 <select name="department">
-                                    <option>Water</option>
-                                    <option>Options</option>
-                                    <option>Board</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -89,8 +89,8 @@
                         <label class="label">Location</label>
                         <div class="control">
                             <div class="column is-4 is-gapless no-padding">
-                                <input class="input is-rounded" type="text" name="location" value="{{ old('location') }}"
-                                    placeholder="Provide location">
+                                <input class="input is-rounded" type="text" name="location"
+                                    value="{{ old('location') }}" placeholder="Provide location">
                             </div>
                         </div>
                         @error('location')
@@ -102,13 +102,13 @@
                         <label class="label">Their email</label>
                         <div class="control">
                             <div class="column is-4 no-padding">
-                                <input class="input is-rounded" type="email" name="reporter_email"
+                                <input class="input is-rounded" type="text" name="reporter_email"
                                     value="{{ old('reporter_email') }}" placeholder="Provide their email address">
                             </div>
                         </div>
-                        @error('reporter_email')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
+                        {{-- @error('reporter_email')
+                        <p class="help is-success">{{ $message }}</p>
+                      @enderror --}}
                     </div>
 
                     <div class="field">
@@ -128,8 +128,12 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Description</label>
-                        <div class="simple-tags is-6 column" id="container" name="tags" data-simple-tags="CodeHim, HTML">
+                        <label class="label">Tags</label>
+
+                        <div class="input" data-name="tags-input">
+                            <!--<span class="tag">CSS<span class="close"></span></span>
+                                                            <span class="tag">JavaScript<span class="close"></span></span>
+                                                            <span class="tag">HTML<span class="close"></span></span>-->
                         </div>
                         @error('tags')
                             <p class="help is-success">{{ $message }}</p>
@@ -164,11 +168,9 @@
                         <div class="control">
                             <div class="select is-rounded">
                                 <select name="assignee">
-                                    <option value="1">Staff 1</option>
-                                    <option value="2">Staff 2</option>
-                                    <option value="3">Staff 3</option>
-                                    <option value="4">Staff 4</option>
-                                    <option value="5">Staff 5</option>
+                                    @foreach ($staff as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -191,7 +193,7 @@
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <input type="submit" class="button is-info is-rounded" id="submit">
+                            <input type="submit" class="button is-info is-rounded" id="submit" disabled>
                         </div>
                         <div class="control">
                             <button class="button is-danger is-light is-rounded">Clear</button>

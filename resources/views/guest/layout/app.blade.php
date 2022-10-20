@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/simple-tags.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/tags.css') }}"/>
 
     @yield('title')
 </head>

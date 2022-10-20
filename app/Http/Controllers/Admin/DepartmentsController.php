@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class GuestController extends Controller
+class DepartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class GuestController extends Controller
      */
     public function index()
     {
-        return $this->createTicket();
+        //
     }
 
     /**
@@ -35,7 +35,7 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->department);
+        //
     }
 
     /**
@@ -81,19 +81,5 @@ class GuestController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function createTicket()
-    {
-        return view('guest.create_ticket');
-    }
-
-    public function enterReference()
-    {
-        return view('guest.enter_ticket_reference_number');
-    }
-
-    public function trackTicket(){
-
     }
 }
