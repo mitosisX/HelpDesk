@@ -47,17 +47,17 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $department->name }}</td>
                                 <td>
-                                    <a href="{{ route('admin.departments.edit', ['department' => $department->id]) }}">
-                                        <button class="button is-rounded is-small is-primary" type="button">
-                                            <span class="icon"><i class="mdi mdi-pencil-outline"></i></span>
-                                        </button>
-                                    </a>
                                     <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
                                         type="button">
                                         <span class="icon">
                                             <i class="mdi mdi-trash-can-outline"></i>
                                         </span>
                                     </button>
+                                    <a href="{{ route('admin.departments.edit', ['department' => $department->id]) }}">
+                                        <button class="button is-rounded is-small is-primary" type="button">
+                                            <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                        </button>
+                                    </a>
                                 </td>
                                 </tr>
                             @endforeach

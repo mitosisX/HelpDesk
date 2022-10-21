@@ -48,6 +48,7 @@
                     <li>
                         <a class="is-active has-background-info">Statistics</a>
                         <ul>
+                            <li><a>New (10)</a></li>
                             <li><a>Open (1)</a></li>
                             <li><a>Closed (19)</a></li>
                             <li><a>Overdue (200)</a></li>
@@ -57,11 +58,11 @@
                     <li><a href="{{ route('admin.create_ticket') }}">Create Ticket</a></li>
                     <li><a>Authentication</a></li>
                 </ul>
-                <p class="menu-label">Other</p>
+                <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
                     <li><a href="{{ route('admin.departments.index') }}">Departments</a></li>
-                    <li><a>Accounts</a></li>
+                    <li><a href="{{ route('admin.accounts.view') }}">Accounts</a></li>
                 </ul>
             </aside>
         </div>

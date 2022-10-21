@@ -20,7 +20,7 @@ class UsersSeed extends Seeder
                 ->insert([
                     'name' => fake()->name(),
                     'email' => fake()->email(),
-                    'password' => bcrypt(fake()->password()),
+                    'password' => bcrypt('password'),
                     'role_id' => 2
                 ]);
         }

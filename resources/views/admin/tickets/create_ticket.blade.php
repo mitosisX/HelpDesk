@@ -22,125 +22,123 @@
         </div>
 
         <section class="section" style="padding: 1.5rem;margin-top:-25px;">
-            <div class="column box is-multiline is-8">
-
-                <form action="{{ route('admin.store') }}" method='POST'>
-                    @csrf
-                    <div class="field">
-                        <label class="label">Ticket name</label>
-                        <div class="control">
-                            <div class="column is-6 no-padding">
-                                <input class="input is-rounded" type="text" name="title" value="{{ old('title') }}"
-                                    placeholder="Give the ticket a title">
-                                <input type="text" name="number" value="2" hidden>
+            <div class="columns is-multiline is-12">
+                <div class="column is-2"></div>
+                <div class="column box is-8">
+                    <form action="{{ route('admin.store') }}" method='POST'>
+                        @csrf
+                        <div class="field">
+                            <label class="label">Ticket name</label>
+                            <div class="control">
+                                <div class="column is-6 no-padding">
+                                    <input class="input is-rounded" type="text" name="title"
+                                        value="{{ old('title') }}" placeholder="Give the ticket a title">
+                                    <input type="text" name="number" value="2" hidden>
+                                </div>
                             </div>
+                            @error('title')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('title')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Category</label>
-                        <div class="control">
-                            <div class="select is-rounded">
-                                <select name="category">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
+                        <div class="field">
+                            <label class="label">Category</label>
+                            <div class="control">
+                                <div class="select is-rounded">
+                                    <select name="category">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+                            @error('category')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('category')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Department</label>
-                        <div class="control">
-                            <div class="select is-rounded">
-                                <select name="department">
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                    @endforeach
-                                </select>
+                        <div class="field">
+                            <label class="label">Department</label>
+                            <div class="control">
+                                <div class="select is-rounded">
+                                    <select name="department">
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+                            @error('department')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('department')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Reported by</label>
-                        <div class="control">
-                            <div class="column is-4 is-gapless no-padding">
-                                <input class="input is-rounded" type="text" name="reported_by"
-                                    value="{{ old('reported_by') }}" placeholder="Provide name">
+                        <div class="field">
+                            <label class="label">Reported by</label>
+                            <div class="control">
+                                <div class="column is-4 is-gapless no-padding">
+                                    <input class="input is-rounded" type="text" name="reported_by"
+                                        value="{{ old('reported_by') }}" placeholder="Provide name">
+                                </div>
                             </div>
+                            @error('reported_by')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('reported_by')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Location</label>
-                        <div class="control">
-                            <div class="column is-4 is-gapless no-padding">
-                                <input class="input is-rounded" type="text" name="location"
-                                    value="{{ old('location') }}" placeholder="Provide location">
+                        <div class="field">
+                            <label class="label">Location</label>
+                            <div class="control">
+                                <div class="column is-4 is-gapless no-padding">
+                                    <input class="input is-rounded" type="text" name="location"
+                                        value="{{ old('location') }}" placeholder="Provide location">
+                                </div>
                             </div>
+                            @error('location')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('location')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Their email</label>
-                        <div class="control">
-                            <div class="column is-4 no-padding">
-                                <input class="input is-rounded" type="text" name="reporter_email"
-                                    value="{{ old('reporter_email') }}" placeholder="Provide their email address">
+                        <div class="field">
+                            <label class="label">Their email</label>
+                            <div class="control">
+                                <div class="column is-4 no-padding">
+                                    <input class="input is-rounded" type="text" name="reporter_email"
+                                        value="{{ old('reporter_email') }}" placeholder="Provide their email address">
+                                </div>
                             </div>
-                        </div>
-                        {{-- @error('reporter_email')
+                            {{-- @error('reporter_email')
                         <p class="help is-success">{{ $message }}</p>
                       @enderror --}}
-                    </div>
+                        </div>
 
-                    <div class="field">
-                        <label class="label">Priority</label>
-                        <div class="control">
-                            <div class="select is-rounded">
-                                <select name="priority">
-                                    <option>Low</option>
-                                    <option>Medium</option>
-                                    <option>High</option>
-                                </select>
+                        <div class="field">
+                            <label class="label">Priority</label>
+                            <div class="control">
+                                <div class="select is-rounded">
+                                    <select name="priority">
+                                        <option>Low</option>
+                                        <option>Medium</option>
+                                        <option>High</option>
+                                    </select>
+                                </div>
                             </div>
+                            @error('priority')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('priority')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    <div class="field">
-                        <label class="label">Tags</label>
+                        <div class="field">
+                            <label class="label">Tags</label>
 
-                        <div class="input" data-name="tags-input">
-                            <!--<span class="tag">CSS<span class="close"></span></span>
-                                                            <span class="tag">JavaScript<span class="close"></span></span>
-                                                            <span class="tag">HTML<span class="close"></span></span>-->
+                            <div class="input" data-name="tags-input">
+                            </div>
+                            @error('tags')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('tags')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
 
-                    {{-- <div class="field">
+                        {{-- <div class="field">
                       <label class="label" for="user_skills">Tags</label>
                       <div class="simple-tags"
                           id="container"
@@ -152,54 +150,56 @@
                       </p>
                     </div> --}}
 
-                    <div class="field">
-                        <label class="label">Due date</label>
-                        <div class="control">
-                            <div class="column is-3 no-padding">
-                                <input type="date" id="duedate" value="{{ old('due_date') }}" name="due_date"
-                                    data-close-on-select="false">
+                        <div class="field">
+                            <label class="label">Due date</label>
+                            <div class="control">
+                                <div class="column is-3 no-padding">
+                                    <input type="date" id="duedate" value="{{ old('due_date') }}" name="due_date"
+                                        data-close-on-select="false">
+                                </div>
+                            </div>
+                            <p class="help is-link" id="datediff">-- days</p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Assign task to</label>
+                            <div class="control">
+                                <div class="select is-rounded">
+                                    <select name="assignee">
+                                        @foreach ($staff as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @error('priority')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <div class="column is-6 no-padding">
+                                    <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket"></textarea>
+                                </div>
+                            </div>
+                            @error('description')
+                                <p class="help is-success">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <input type="submit" class="button is-info is-rounded" id="submit" disabled>
+                            </div>
+                            <div class="control">
+                                <input type="button" class="button is-danger is-light is-rounded" value="Clear" />
                             </div>
                         </div>
-                        <p class="help is-link" id="datediff">-- days</p>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Assign task to</label>
-                        <div class="control">
-                            <div class="select is-rounded">
-                                <select name="assignee">
-                                    @foreach ($staff as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @error('priority')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Description</label>
-                        <div class="control">
-                            <div class="column is-6 no-padding">
-                                <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket"></textarea>
-                            </div>
-                        </div>
-                        @error('description')
-                            <p class="help is-success">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <input type="submit" class="button is-info is-rounded" id="submit" disabled>
-                        </div>
-                        <div class="control">
-                            <button class="button is-danger is-light is-rounded">Clear</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="column is-2"></div>
             </div>
         </section>
     </div>

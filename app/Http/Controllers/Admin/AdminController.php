@@ -240,4 +240,20 @@ class AdminController extends Controller
             ->route('admin.departments.index')
             ->with('department_status', 'Updated succefully!');
     }
+
+    public function showCategory(Department $department)
+    {
+        return view('admin.categories.index', compact('department'));
+    }
+
+    public function manageAccounts()
+    {
+        $users = User::all()->where('role_id', '2');
+
+        return view('admin.accounts.index', compact('users'));
+    }
+
+    public function createAccount()
+    {
+    }
 }

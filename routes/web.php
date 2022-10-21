@@ -23,18 +23,23 @@ Route::controller(AdminController::class)->group(function () {
     Route::post('admin/auth/register_account', 'registerAccount')->name('admin.auth.register_account');
 
     //Categories
-    Route::get('admin/categories/create', 'createCategories')->name('admin.categories.create');
-    Route::post('admin/categories/create', 'storeCategories')->name('admin.categories.store');
-    Route::get('admin/categories/edit/{category}', 'editCategories')->name('admin.categories.edit');
-    Route::get('admin/categories/all', 'allCategories')->name('admin.categories.index');
-    Route::patch('admin/categories/update/{category}', 'updateCategory')->name('admin.categories.update');
+    Route::get('admin/manage/categories/create', 'createCategories')->name('admin.categories.create');
+    Route::post('admin/manage/categories/create', 'storeCategories')->name('admin.categories.store');
+    Route::get('admin/manage/categories/edit/{category}', 'editCategories')->name('admin.categories.edit');
+    Route::get('admin/manage/categories/all', 'allCategories')->name('admin.categories.index');
+    Route::get('admin/manage/categories/show/{category}', 'showCategory')->name('admin.categories.show');
+    Route::patch('admin//managecategories/update/{category}', 'updateCategory')->name('admin.categories.update');
 
     //Departments
-    Route::get('admin/departments/create', 'createDepartments')->name('admin.departments.create');
-    Route::post('admin/departments/create', 'storeDepartments')->name('admin.departments.store');
-    Route::get('admin/departments/edit/{department}', 'editDepartments')->name('admin.departments.edit');
-    Route::get('admin/departments/all', 'allDepartments')->name('admin.departments.index');
-    Route::patch('admin/departments/update/{department}', 'updateDepartments')->name('admin.departments.update');
+    Route::get('admin/manage/departments/create', 'createDepartments')->name('admin.departments.create');
+    Route::post('admin/manage/departments/create', 'storeDepartments')->name('admin.departments.store');
+    Route::get('admin/manage/departments/edit/{department}', 'editDepartments')->name('admin.departments.edit');
+    Route::get('admin/manage/departments/all', 'allDepartments')->name('admin.departments.index');
+    Route::patch('admin/manage/departments/update/{department}', 'updateDepartments')->name('admin.departments.update');
+
+    //Accounts
+    Route::get('admin/manage/accounts', 'manageAccounts')->name('admin.accounts.view');
+    Route::get('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
 });
 
 Route::resource('admin', AdminController::class)->names([
@@ -83,6 +88,16 @@ Route::resource('guest', GuestController::class)->names([
     'create' => 'guest.create',
     'store' => 'guest.store'
 ]);
+
 //
 // Staff controller - END
 //
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

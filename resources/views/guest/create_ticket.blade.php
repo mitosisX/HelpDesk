@@ -1,7 +1,7 @@
 @extends('guest.layout.app')
 
 @section('title')
-    <title>Create a Ticket</title>
+    <title>Create a Ticket - Help Desk</title>
 @endsection
 
 @section('content')
@@ -96,8 +96,8 @@
                     <label class="label" for="user_skills">Tags</label>
                     <div class="input" data-name="tags-input">
                         <!--<span class="tag">CSS<span class="close"></span></span>
-                            <span class="tag">JavaScript<span class="close"></span></span>
-                            <span class="tag">HTML<span class="close"></span></span>-->
+                                                <span class="tag">JavaScript<span class="close"></span></span>
+                                                <span class="tag">HTML<span class="close"></span></span>-->
                     </div>
                     <p class="help has-text-info">
                         Comma-separated

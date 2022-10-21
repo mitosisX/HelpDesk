@@ -93,7 +93,7 @@ class GuestController extends Controller
         return view('guest.enter_ticket_reference_number');
     }
 
-    public function trackTicket(){
-
+    public function trackTicket()
+    {
     }
 }
