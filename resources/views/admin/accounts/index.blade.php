@@ -26,6 +26,15 @@
             <div class="columns is-multiline is-12">
                 <div class="column is-2"></div>
                 <div class="column box is-8">
+
+                    <div class="tabs is-centered">
+                        <ul>
+                            <li class="is-active"><a>All</a></li>
+                            <li><a>Administrators</a></li>
+                            <li><a>IT Staff</a></li>
+                        </ul>
+                    </div>
+
                     <table class="table is-fullheight is-striped is-hoverable is-fullwidth">
                         <thead>
                             <tr>

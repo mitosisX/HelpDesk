@@ -85,8 +85,8 @@
                     <div class="control">
                         <div class="select is-rounded">
                             <select>
-                                <option>Urgent</option>
-                                <option>Not Urgent</option>
+                                <option value="High">Urgent</option>
+                                <option value="Low">Not Urgent</option>
                             </select>
                         </div>
                     </div>
@@ -96,8 +96,8 @@
                     <label class="label" for="user_skills">Tags</label>
                     <div class="input" data-name="tags-input">
                         <!--<span class="tag">CSS<span class="close"></span></span>
-                                                <span class="tag">JavaScript<span class="close"></span></span>
-                                                <span class="tag">HTML<span class="close"></span></span>-->
+                                                            <span class="tag">JavaScript<span class="close"></span></span>
+                                                            <span class="tag">HTML<span class="close"></span></span>-->
                     </div>
                     <p class="help has-text-info">
                         Comma-separated

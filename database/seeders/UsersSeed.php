@@ -21,7 +21,7 @@ class UsersSeed extends Seeder
                     'name' => fake()->name(),
                     'email' => fake()->email(),
                     'password' => bcrypt('password'),
-                    'role_id' => 2
+                    'role_id' => fake()->numberBetween(1, 2)
                 ]);
         }
     }

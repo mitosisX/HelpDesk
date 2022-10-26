@@ -14,7 +14,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $this->profile();
+        return $this->profile();
     }
 
     /**
@@ -83,19 +83,23 @@ class StaffController extends Controller
         //
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('staff.dashboard');
     }
 
-    public function profile(){
+    public function profile()
+    {
         return view('staff.profile');
     }
 
-    public function profileSave(Request $request){
+    public function profileSave(Request $request)
+    {
         return "saving";
     }
 
-    public function tickets(){
+    public function tickets()
+    {
         return view('staff.all_tickets');
     }
 }

@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('reporters', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('name');
-            $table->mediumText('email');
+            $table->mediumText('email')->nullable();
+            $table->mediumText('location');
             $table->unsignedInteger('tickets_id');
             $table->timestamps();
-            
+
             $table->foreign('tickets_id')
-            ->references('id')
-            ->on('tickets')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('tickets')
+                ->onDelete('cascade');
         });
     }
 

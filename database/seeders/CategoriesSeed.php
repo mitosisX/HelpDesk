@@ -15,10 +15,10 @@ class CategoriesSeed extends Seeder
      */
     public function run()
     {
-        foreach (range(0, 5) as $loop) {
+        foreach (range(1, 4) as $loop) {
             DB::table('categories')
                 ->insert([
-                    'name' => "Cat {$loop}"
+                    'name' => "Category {$loop}"
                 ]);
         }
     }

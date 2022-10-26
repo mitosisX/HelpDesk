@@ -11,4 +11,9 @@ class Tracker extends Model
 
     protected $table = 'tickets';
     protected $primaryKey = 'id';
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
 }

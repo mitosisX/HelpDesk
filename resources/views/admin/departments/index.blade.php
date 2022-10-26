@@ -6,6 +6,41 @@
 
 @section('content')
     <!-- START ISSUES LIST-->
+
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-danger">
+                <p class="modal-card-title">Confirm Delete</p>
+            </header>
+            <section class="modal-card-body">
+                <div class="content">
+                    Are you sure you want to delete the selected item?
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-danger">Confirm Delete</button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    {{-- <div class='modal modal is-active'>
+        <div class="modal-background"></div>
+        <div class="modal-card column is-one-quarter">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Removal</p>
+            </header>
+            <section class="modal-card-body">
+                <p class="subtitle">Are you sure you want to delete?</p>
+                <button class="button is-danger">Delete
+                </button>
+                <button class="button">Cancel
+                </button>
+            </section>
+        </div>
+    </div> --}}
+
     <div class="column">
         @if (session('created'))
             <div class="block is-10 is-centered">
@@ -47,17 +82,17 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $department->name }}</td>
                                 <td>
+                                    <a href="{{ route('admin.departments.edit', ['department' => $department->id]) }}">
+                                        <button class="button is-rounded is-small is-primary" type="button">
+                                            <span class="icon"><i class="mdi mdi-pencil-outline"></i></span>
+                                        </button>
+                                    </a>
                                     <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
                                         type="button">
                                         <span class="icon">
                                             <i class="mdi mdi-trash-can-outline"></i>
                                         </span>
                                     </button>
-                                    <a href="{{ route('admin.departments.edit', ['department' => $department->id]) }}">
-                                        <button class="button is-rounded is-small is-primary" type="button">
-                                            <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                        </button>
-                                    </a>
                                 </td>
                                 </tr>
                             @endforeach

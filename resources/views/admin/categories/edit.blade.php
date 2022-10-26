@@ -10,7 +10,7 @@
         <div class="column box">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">Edit</h1>
+                    <h1 class="title is-size-3 has-text-info">Edit Category</h1>
                 </div>
                 <div class="navbar-end">
                     <div class="tags has-addons">

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Guest\GuestController;
@@ -74,9 +75,8 @@ Route::resource('staff', StaffController::class)->names([
 // Staff controller - END
 //
 
-
 //
-// Staff controller
+// Guest controller
 //
 Route::controller(GuestController::class)->group(function () {
     Route::get('guest/ticket', 'createTicket')->name('guest.ticket');

@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Tracker;
+use App\Models\Assignee;
+use App\Models\Assigner;
 use App\Models\Category;
+use App\Models\Reporter;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,30 +48,56 @@ class AdminController extends Controller
      */
     public function store(AdminTicketRequest $request)
     {
-        $request->validated();
+        $forTicket = $request->safe();
+        // ->only([
+        //     'number', 'title', 'category',
+        //     'department', 'description',
+        //     'due_date', 'location', 'priority'
+        // ]);
 
-        $forTicket = $request->safe()->only([
-            'number', 'title', 'category',
-            'department', 'description',
-            'due_date', 'location', 'priority'
-        ]);
+        // dd($forTicket);
 
-        $forTicket = $request->safe()->only([
-            'number', 'title', 'category',
-            'department', 'description',
-            'due_date', 'location', 'priority'
-        ]);
 
-        $forTicket = $request->safe()->only([
-            'number', 'title', 'category',
-            'department', 'description',
-            'due_date', 'location', 'priority'
-        ]);
+
+        return;
 
         $created_ticket = Ticket::create($forTicket);
-        $id = $created_ticket->id;
+        $createdTicketID = $created_ticket->id;
 
-        return $id;
+        /*
+        A Ticket has:
+            > Assignee - staff
+            > Assigner - admin
+            > Reporter - issue reporter
+            > Tracker - reference number
+            > Tags
+            > Statuses - Open if admin, new if guest
+        */
+
+        Assignee::created([
+            'tickets_id' => $createdTicketID,
+            'users_id' => 1
+        ]);
+
+        Assigner::created([
+            'tickets_id' => $createdTicketID,
+            'users_id' => 1
+        ]);
+
+
+        Tracker::create([
+            'tickets_id' => $createdTicketID,
+            'reference_code' => 2
+        ]);
+
+        Reporter::created([
+            'name' => $forTicket['reported_by'],
+            'email' => $forTicket['reporter_email'],
+            'tickets_id' => $createdTicketID
+        ]);
+
+        return redirect()
+            ->route('staff.dashboard');
     }
 
     /**
@@ -145,7 +175,7 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        return view('admin.tickets.all_tickets');
     }
 
     //Auth

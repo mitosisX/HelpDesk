@@ -15,10 +15,10 @@ class DepartmentsSeed extends Seeder
      */
     public function run()
     {
-        foreach (range(0, 5) as $loop) {
+        foreach (range(1, 3) as $loop) {
             DB::table('departments')
                 ->insert([
-                    'name' => "Dep {$loop}"
+                    'name' => "Department {$loop}"
                 ]);
         }
     }

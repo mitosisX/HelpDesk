@@ -81,27 +81,22 @@
                     <tr>
                         <th>Ticket #</th>
                         <th>Ticket name</th>
-                        <th>Name</th>
-                        <th>Company</th>
-                        <th>City</th>
+                        <th>Department</th>
                         <th>Asignee</th>
                         <th>Priority</th>
                         <th>Due</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td data-label="Name">12</td>
-                        <td data-label="Company">Daugherty-Daniel</td>
-                        <td data-label="City">South Cory</td>
-                        <td data-label="Progress" class="is-progress-cell">
-                            <progress max="100" class="progress is-small is-primary" value="79">79</progress>
-                        </td>
-                        <td data-label="Created">
-                            <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">Oct 25, 2020</small>
-                        </td>
-                        <td class="is-actions-cell">
-                            <div class="buttons is-right">
+                        <td>12</td>
+                        <td>Daugherty-Daniel</td>
+                        <td>South Cory</td>
+                        <td> sdsd</td>
+                        <td>22323</td>
+                        <td>
+                            <div>
                                 <button class="button is-rounded is-small is-primary" type="button">
                                     <span class="icon">
                                         <i class="mdi mdi-eye"></i>

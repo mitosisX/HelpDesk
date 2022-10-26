@@ -27,7 +27,8 @@ class Ticket extends Model
     protected function number(): Attribute
     {
         return Attribute::make(
-            set: fn () => "Ticket #" . Ticket::all()->count() + 1
+            //set: fn () => "Ticket #" . Ticket::all()->count() + 1
+            set: fn () => fake()->code()
         );
     }
 
@@ -49,6 +50,16 @@ class Ticket extends Model
     public function tags()
     {
         return $this->hasMany(Tags::class, 'tickets_id');
+    }
+
+    public function department()
+    {
+        return $this->hasOne(Department::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
     }
 
     public function tracker()
