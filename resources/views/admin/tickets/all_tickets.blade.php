@@ -16,7 +16,7 @@
                             <div class="card-content">
                                 <div class="content">
                                     <div>
-                                        <p class="subtitle">Active</p>
+                                        <p class="subtitle">New</p>
                                         <p class="title">02</p>
                                     </div>
                                 </div>

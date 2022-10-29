@@ -13,8 +13,8 @@ class Ticket extends Model
     protected $table = 'tickets';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'number', 'title', 'category', 'department', 'description',
-        'due_date', 'location', 'priority'
+        'title', 'number', 'category', 'department', 'description',
+        'due_date', 'priority'
     ];
 
     public $timestamps = false;
@@ -26,9 +26,15 @@ class Ticket extends Model
 
     protected function number(): Attribute
     {
+        //tk-1000-ACB
+        $randNumber = fake()->numberBetween(1000, 9999);
+        $randAlpha1 = fake()->randomLetter();
+
+        $fullTicketCode = "tk-{$randNumber}{$randAlpha1}";
+
         return Attribute::make(
             //set: fn () => "Ticket #" . Ticket::all()->count() + 1
-            set: fn () => fake()->code()
+            set: fn () => $fullTicketCode
         );
     }
 

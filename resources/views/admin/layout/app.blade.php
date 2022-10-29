@@ -63,7 +63,7 @@
                 <ul class="menu-list">
                     <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
                     <li><a href="{{ route('admin.departments.index') }}">Departments</a></li>
-                    <li><a href="{{ route('admin.accounts.view') }}">Accounts</a></li>
+                    <li><a href="{{ route('admin.accounts.view', ['type' => 'admin']) }}">Accounts</a></li>
                 </ul>
             </aside>
         </div>
@@ -71,6 +71,7 @@
         @yield('content')
     </div>
 
+    <script src="{{ asset('js/alpinejs.min.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bulma-tagsinput.min.js') }}"></script>
     <script src="{{ asset('js/bulma-calendar.min.js') }}"></script>

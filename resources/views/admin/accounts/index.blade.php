@@ -29,9 +29,16 @@
 
                     <div class="tabs is-centered">
                         <ul>
-                            <li class="is-active"><a>All</a></li>
-                            <li><a>Administrators</a></li>
-                            <li><a>IT Staff</a></li>
+                            {{-- <li @class([
+                                'is-active',
+                                'font-bold' => $request->session()->get('for-all'),
+                            ])><a
+                                    href="{{ route('admin.accounts.view', ['type' => 'all']) }}">All</a>
+                            </li> --}}
+                            <li @class(['is-active' => session('for-admins')])><a
+                                    href="{{ route('admin.accounts.view', ['type' => 'admin']) }}">Administrators</a></li>
+                            <li @class(['is-active' => session('for-staff')])><a
+                                    href="{{ route('admin.accounts.view', ['type' => 'staff']) }}">IT Staff</a></li>
                         </ul>
                     </div>
 

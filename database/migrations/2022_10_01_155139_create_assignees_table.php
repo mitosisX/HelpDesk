@@ -15,13 +15,19 @@ return new class extends Migration
     {
         Schema::create('assignees', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('users_id');
             $table->unsignedInteger('tickets_id');
             $table->timestamps();
-            
+
+            $table->foreign('users_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->foreign('tickets_id')
-            ->references('id')
-            ->on('tickets')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('tickets')
+                ->onDelete('cascade');
         });
     }
 

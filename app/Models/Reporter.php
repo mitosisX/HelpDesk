@@ -10,6 +10,7 @@ class Reporter extends Model
     use HasFactory;
     protected $table = 'reporters';
     protected $primaryKey = 'id';
+    protected $fillable = ['name', 'email', 'location', 'tickets_id'];
 
     public function ticket()
     {

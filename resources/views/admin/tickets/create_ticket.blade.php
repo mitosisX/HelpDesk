@@ -33,6 +33,8 @@
                                 <div class="column is-6 no-padding">
                                     <input class="input is-rounded" type="text" name="title"
                                         value="{{ old('title') }}" placeholder="Give the ticket a title">
+
+                                    {{-- To be used fro getting the assignee ID --}}
                                     <input type="text" name="number" value="2" hidden>
                                 </div>
                             </div>

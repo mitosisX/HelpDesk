@@ -7,7 +7,7 @@
 @section('content')
     <!-- START ISSUES LIST-->
 
-    <div class="modal is-active">
+    <div class="modal" id='delete_dept_modal'>
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head is-danger">
@@ -20,7 +20,7 @@
             </section>
             <footer class="modal-card-foot">
                 <button class="button is-danger">Confirm Delete</button>
-                <button class="button">Cancel</button>
+                <button class="button" id='cancel'>Cancel</button>
             </footer>
         </div>
     </div>
@@ -88,7 +88,7 @@
                                         </button>
                                     </a>
                                     <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
-                                        type="button">
+                                        type="button" id='dlt_btn'>
                                         <span class="icon">
                                             <i class="mdi mdi-trash-can-outline"></i>
                                         </span>
@@ -111,6 +111,14 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            $('#dlt_btn').on('click', function() {
+                $('#delete_dept_modal').addClass('is-active');
+            });
+
+            $('#cancel').on('click', function() {
+                $('#delete_dept_modal').removeClass('is-active');
+            });
+
             const calendar = bulmaCalendar.attach("#duedate");
 
             $('.delete').click(function() {

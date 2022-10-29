@@ -41,6 +41,13 @@
                                 @endif
                             </div>
 
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="stay_on_page" checked>
+                                    Stay on this page
+                                </label>
+                            </div>
+
                             <div class="field is-grouped">
                                 <div class="control">
                                     <button class="button is-info is-rounded" id="submit">Submit</button>

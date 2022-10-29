@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Assignee extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['users_id', 'tickets_id'];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Tracker extends Model
 
     protected $table = 'tickets';
     protected $primaryKey = 'id';
+    protected $fillable = ['status', 'ticket_id'];
 
     public function ticket()
     {

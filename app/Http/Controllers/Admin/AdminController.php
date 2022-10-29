@@ -17,6 +17,9 @@ use App\Http\Requests\Admin\CategoryRequest;
 use App\Http\Requests\Admin\AdminTicketRequest;
 use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Requests\Authentication\RegisterRequest;
+use App\Models\Role;
+use App\Models\Status;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -41,28 +44,26 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly create resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AdminTicketRequest $request)
     {
-        $forTicket = $request->safe();
+        $forTicket = $request->validated();
         // ->only([
         //     'number', 'title', 'category',
         //     'department', 'description',
-        //     'due_date', 'location', 'priority'
+        //     'due_date', 'location', 'priority',
+        //     'reported_by', 'reporter_email'
         // ]);
 
         // dd($forTicket);
 
-
-
-        return;
-
         $created_ticket = Ticket::create($forTicket);
-        $createdTicketID = $created_ticket->id;
+
+        $createTicketID = $created_ticket->id;
 
         /*
         A Ticket has:
@@ -71,33 +72,40 @@ class AdminController extends Controller
             > Reporter - issue reporter
             > Tracker - reference number
             > Tags
-            > Statuses - Open if admin, new if guest
+            > Statuses - Open `if admin, new if guest
         */
 
-        Assignee::created([
-            'tickets_id' => $createdTicketID,
+        Assignee::create([
+            'tickets_id' => $createTicketID,
             'users_id' => 1
         ]);
 
-        Assigner::created([
-            'tickets_id' => $createdTicketID,
+        Assigner::create([
+            'tickets_id' => $createTicketID,
             'users_id' => 1
         ]);
 
-
-        Tracker::create([
-            'tickets_id' => $createdTicketID,
-            'reference_code' => 2
-        ]);
-
-        Reporter::created([
+        Reporter::create([
             'name' => $forTicket['reported_by'],
             'email' => $forTicket['reporter_email'],
-            'tickets_id' => $createdTicketID
+            'tickets_id' => $createTicketID,
+            'location' => $forTicket['location']
+        ]);
+
+        $randRef = fake()->numberBetween(1000, 90000);
+
+        Tracker::create([
+            'tickets_id' => $createTicketID,
+            'reference_code' => "tr-{$randRef}"
+        ]);
+
+        Status::create([
+            'status' => 'open',
+            'ticket_id' => $createTicketID
         ]);
 
         return redirect()
-            ->route('staff.dashboard');
+            ->route('admin.dashboard');
     }
 
     /**
@@ -220,12 +228,15 @@ class AdminController extends Controller
 
     public function storeCategories(CategoryRequest $request)
     {
-        //$request->validated();
-
         Category::create($request->validated());
 
+        if (!$request->input('stay_on_page')) {
+            return redirect()
+                ->route('admin.categories.index');
+        }
+
         return redirect()
-            ->route('admin.categories.index');
+            ->route('admin.categories.create');
     }
 
     public function updateCategory(CategoryRequest $request, Category $category)
@@ -259,7 +270,7 @@ class AdminController extends Controller
 
         return redirect()
             ->route('admin.departments.index')
-            ->with('department_status', 'Created succefully!');;
+            ->with('department_status', 'create succefully!');;
     }
 
     public function updateDepartments(DepartmentRequest $request, Department $department)
@@ -276,14 +287,52 @@ class AdminController extends Controller
         return view('admin.categories.index', compact('department'));
     }
 
-    public function manageAccounts()
+    public function manageAccounts($type)
     {
-        $users = User::all()->where('role_id', '2');
+        $roleToGet = '1';
+
+        /* The sessions are used in theview for listing available
+        accounts, more specifically in the tabs for selecting
+        between admins staff accounts
+        */
+        switch (Str::lower($type)) {
+            case ('admin'):
+                session(['for-admins' => true]);
+                session(['for-staff' => false]);
+
+                $roleToGet = '1';
+                break;
+
+            case ('staff'):
+                session(['for-staff' => true]);
+                session(['for-admins' => false]);
+
+                $roleToGet = '2';
+                break;
+
+            default:
+                session(['for-admins' => true]);
+                session(['for-staff' => false]);
+                $roleToGet = '1';
+
+                return redirect()
+                    ->route('admin.accounts.view', ['type' => 'admin']);
+                break;
+        }
+
+        $users = User::all()->where('role_id', $roleToGet);
 
         return view('admin.accounts.index', compact('users'));
     }
 
-    public function createAccount()
+    public function createAccountView()
     {
+        $roles = Role::all();
+        return view('admin.accounts.create', compact('roles'));
+    }
+
+    public function createAccount(Request $request)
+    {
+        return dd($request);
     }
 }
