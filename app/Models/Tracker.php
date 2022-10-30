@@ -10,9 +10,9 @@ class Tracker extends Model
 {
     use HasFactory;
 
-    protected $table = 'tickets';
+    protected $table = 'trackers';
     protected $primaryKey = 'id';
-    protected $fillable = ['status', 'ticket_id'];
+    protected $fillable = ['reference_code', 'tickets_id'];
 
     public function ticket()
     {

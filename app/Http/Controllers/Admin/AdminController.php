@@ -49,9 +49,14 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminTicketRequest $request)
+    public function store()
+    {
+    }
+
+    public function storeTicket(AdminTicketRequest $request)
     {
         $forTicket = $request->validated();
+
         // ->only([
         //     'number', 'title', 'category',
         //     'department', 'description',
@@ -95,13 +100,13 @@ class AdminController extends Controller
         $randRef = fake()->numberBetween(1000, 90000);
 
         Tracker::create([
+            'reference_code' => "tr-{$randRef}",
             'tickets_id' => $createTicketID,
-            'reference_code' => "tr-{$randRef}"
         ]);
 
         Status::create([
             'status' => 'open',
-            'ticket_id' => $createTicketID
+            'tickets_id' => $createTicketID
         ]);
 
         return redirect()
@@ -183,6 +188,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        $tickets = Ticket::all();
+
         return view('admin.tickets.all_tickets');
     }
 

@@ -13,11 +13,11 @@ class Ticket extends Model
     protected $table = 'tickets';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'title', 'number', 'category', 'department', 'description',
+        'name', 'categories_id', 'departments_id', 'description',
         'due_date', 'priority'
     ];
 
-    public $timestamps = false;
+    //public $timestamps = false;
 
     public function statuses()
     {

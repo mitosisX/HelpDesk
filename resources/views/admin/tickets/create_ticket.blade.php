@@ -25,20 +25,20 @@
             <div class="columns is-multiline is-12">
                 <div class="column is-2"></div>
                 <div class="column box is-8">
-                    <form action="{{ route('admin.store') }}" method='POST'>
+                    <form action="{{ route('admin.tickets.store') }}" method='POST'>
                         @csrf
                         <div class="field">
                             <label class="label">Ticket name</label>
                             <div class="control">
                                 <div class="column is-6 no-padding">
-                                    <input class="input is-rounded" type="text" name="title"
-                                        value="{{ old('title') }}" placeholder="Give the ticket a title">
+                                    <input class="input is-rounded" type="text" name="name"
+                                        value="{{ old('name') }}" placeholder="Give the ticket a title">
 
                                     {{-- To be used fro getting the assignee ID --}}
-                                    <input type="text" name="number" value="2" hidden>
+                                    {{-- <input type="text" name="number" value="2" hidden> --}}
                                 </div>
                             </div>
-                            @error('title')
+                            @error('name')
                                 <p class="help is-success">{{ $message }}</p>
                             @enderror
                         </div>
@@ -47,7 +47,7 @@
                             <label class="label">Category</label>
                             <div class="control">
                                 <div class="select is-rounded">
-                                    <select name="category">
+                                    <select name="categories_id">
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -63,7 +63,7 @@
                             <label class="label">Department</label>
                             <div class="control">
                                 <div class="select is-rounded">
-                                    <select name="department">
+                                    <select name="departments_id">
                                         @foreach ($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->name }}</option>
                                         @endforeach

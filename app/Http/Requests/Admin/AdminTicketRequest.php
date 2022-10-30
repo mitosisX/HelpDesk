@@ -24,10 +24,10 @@ class AdminTicketRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'name' => 'required',
             'number' => 'required',
-            'category' => 'required',
-            'department' => 'required',
+            'categories_id' => 'required',
+            'departments_id' => 'required',
             'reported_by' => 'required',
             'reporter_email' => 'required',
             'priority' => 'required',
@@ -41,9 +41,9 @@ class AdminTicketRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Please provide a name for the ticket',
-            'category.required' => 'Please select a category',
-            'department.required' => 'Please select a category',
+            'name.required' => 'Please provide a name for the ticket',
+            'categories_id.required' => 'Please select a category',
+            'departments_id.required' => 'Please select a category',
             'reported_by.required' => 'Please provide the name that reported the fault',
             'reporter_email.required' => 'Please provide the email that reported the fault',
             'priority.required' => 'Please select a priority',
