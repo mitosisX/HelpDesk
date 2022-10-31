@@ -23,6 +23,7 @@ Route::get('/redirect', function () {
 Route::controller(AdminController::class)->group(function () {
     Route::get('admin/create_ticket', 'createTicket')->name('admin.create_ticket');
     Route::post('admin/tickets/store', 'storeTicket')->name('admin.tickets.store');
+    Route::get('admin/tickets/view/{status}', 'viewTickets')->name('admin.tickets.view');
     Route::get('admin/dashboard', 'dashboard')->name('admin.dashboard');
 
     //Authentication

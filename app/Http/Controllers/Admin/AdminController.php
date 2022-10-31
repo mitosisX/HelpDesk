@@ -110,7 +110,10 @@ class AdminController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.dashboard');
+            ->route(
+                'admin.tickets.view',
+                ['status' => 'new']
+            );
     }
 
     /**
@@ -189,8 +192,17 @@ class AdminController extends Controller
     public function dashboard()
     {
         $tickets = Ticket::all();
+        return view('admin.tickets.all', compact('tickets'));
+    }
 
-        return view('admin.tickets.all_tickets');
+    function viewTickets($status)
+    {
+        $tickets = Ticket::all();
+
+        return view(
+            'admin.tickets.all',
+            compact('tickets')
+        );
     }
 
     //Auth

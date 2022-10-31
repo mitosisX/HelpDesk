@@ -183,7 +183,7 @@
                             <label class="label">Description</label>
                             <div class="control">
                                 <div class="column is-6 no-padding">
-                                    <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket"></textarea>
+                                    <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                             @error('description')

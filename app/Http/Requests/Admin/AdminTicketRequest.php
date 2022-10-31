@@ -25,7 +25,6 @@ class AdminTicketRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'number' => 'required',
             'categories_id' => 'required',
             'departments_id' => 'required',
             'reported_by' => 'required',

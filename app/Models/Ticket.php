@@ -60,7 +60,7 @@ class Ticket extends Model
 
     public function department()
     {
-        return $this->hasOne(Department::class);
+        return $this->belongsTo(Department::class, 'departments_id');
     }
 
     public function category()
