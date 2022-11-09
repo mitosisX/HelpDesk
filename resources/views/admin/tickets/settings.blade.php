@@ -1,7 +1,7 @@
 @extends('staff.layout.app')
 
 @section('title')
-    <title>Profile - Staff</title>
+    <title>Ticket Settings - Admin</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="column box">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">Profile</h1>
+                    <h1 class="title is-size-3 has-text-info">Ticket Settings</h1>
                 </div>
                 <div class="navbar-end">
                     <div class="tags has-addons">
@@ -29,16 +29,16 @@
                     <form action="{{ route('admin.categories.store') }}" method="POST">
                         @csrf
                         <div class="field">
-                            <label class="label">Name</label>
+                            <label class="label">Due date criterion</label>
                             <div class="control">
-                                <div class="column is-6 no-padding">
-                                    <input class="input is-rounded" id='category_name' name="name" type="text"
-                                        placeholder="Category name" value="{{ old('name') }}">
+                                <div class="select is-rounded">
+                                    <select name="categories_id">
+                                        <option value="1">Current Date</option>
+                                        <option value="2">Following Day</option>
+                                        <option value="3">2 Days</option>
+                                    </select>
                                 </div>
                             </div>
-                            @error('name')
-                                <p class="help has-text-info">{{ $message }}</p>
-                            @enderror
                         </div>
 
                         <div class="field">
@@ -46,7 +46,7 @@
                             <div class="control">
                                 <div class="column is-6 no-padding">
                                     <input class="input is-rounded" id='category_name' name="name" type="text"
-                                        placeholder="Category name" value="{{ old('name') }}">
+                                        placeholder="Your full name" value="{{ old('name') }}">
                                 </div>
                             </div>
                             @error('name')
@@ -69,11 +69,7 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-info is-rounded" id="submit">Update</button>
-                            </div>
-                            <div class="control">
-                                <input type="button" class="button is-danger is-light is-rounded" id="clear"
-                                    value="Clear"></button>
+                                <button class="button is-info is-rounded" id="submit">Save</button>
                             </div>
                         </div>
                     </form>
@@ -83,5 +79,4 @@
             </div>
         </section>
     </div>
-    <!-- END ISSUES LIST -->
 @endsection

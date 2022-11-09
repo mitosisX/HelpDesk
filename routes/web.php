@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\DepartmentsController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 
 Route::fallback(function () {         //redirect all 404 to the landing page
     return view('landing_page');
@@ -15,6 +20,10 @@ Route::get('/redirect', function () {
     return $role;
 });
 
+Route::get('logout', function () {
+    Session::flush();
+});
+
 // Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(
 //     function () {
 //
@@ -22,8 +31,9 @@ Route::get('/redirect', function () {
 //
 Route::controller(AdminController::class)->group(function () {
     Route::get('admin/create_ticket', 'createTicket')->name('admin.create_ticket');
+    Route::get('admin/ticket/settings', 'ticketSettings')->name('admin.ticket.settings');
     Route::post('admin/tickets/store', 'storeTicket')->name('admin.tickets.store');
-    Route::get('admin/tickets/view/{status}', 'viewTickets')->name('admin.tickets.view');
+    Route::get('admin/tickets/view/{status?}', 'viewTickets')->name('admin.tickets.view');
     Route::get('admin/dashboard', 'dashboard')->name('admin.dashboard');
 
     //Authentication
@@ -32,23 +42,8 @@ Route::controller(AdminController::class)->group(function () {
     Route::post('admin/auth/login_account', 'loginAccount')->name('admin.auth.login_account');
     Route::post('admin/auth/register_account', 'registerAccount')->name('admin.auth.register_account');
 
-    //Categories
-    Route::get('admin/manage/categories/create', 'createCategories')->name('admin.categories.create');
-    Route::post('admin/manage/categories/create', 'storeCategories')->name('admin.categories.store');
-    Route::get('admin/manage/categories/edit/{category}', 'editCategories')->name('admin.categories.edit');
-    Route::get('admin/manage/categories/all', 'allCategories')->name('admin.categories.index');
-    Route::get('admin/manage/categories/show/{category}', 'showCategory')->name('admin.categories.show');
-    Route::patch('admin//managecategories/update/{category}', 'updateCategory')->name('admin.categories.update');
-
-    //Departments
-    Route::get('admin/manage/departments/create', 'createDepartments')->name('admin.departments.create');
-    Route::post('admin/manage/departments/create', 'storeDepartments')->name('admin.departments.store');
-    Route::get('admin/manage/departments/edit/{department}', 'editDepartments')->name('admin.departments.edit');
-    Route::get('admin/manage/departments/all', 'allDepartments')->name('admin.departments.index');
-    Route::patch('admin/manage/departments/update/{department}', 'updateDepartments')->name('admin.departments.update');
-
     //Accounts
-    Route::get('admin/manage/accounts/view/{type}', 'manageAccounts')->name('admin.accounts.view');
+    Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
     Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
     Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
 });
@@ -65,6 +60,31 @@ Route::resource('admin', AdminController::class)->names([
 //
 //     }
 // );
+
+Route::controller(DepartmentsController::class)->group(function () {
+    Route::get('admin/manage/department/create', 'create')->name('admin.departments.create');
+    Route::post('admin/manage/department/store', 'store')->name('admin.departments.store');
+    Route::get('admin/manage/department/edit/{department}', 'edit')->name('admin.departments.edit');
+    Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
+    Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
+    Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.departments.update');
+});
+
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('admin/manage/profile/show', 'index')->name('admin.profile.show');
+    Route::post('admin/manage/department/store', 'store')->name('admin.profile.store');
+    Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.profile.update');
+});
+
+Route::controller(CategoriesController::class)->group(function () {
+    Route::get('admin/manage/categories/create', 'create')->name('admin.categories.create');
+    Route::post('admin/manage/categories/store', 'store')->name('admin.categories.store');
+    Route::get('admin/manage/categories/edit/{category}', 'edit')->name('admin.categories.edit');
+    Route::get('admin/manage/categories/categories/all', 'index')->name('admin.categories.index');
+    Route::get('admin/manage/categories/show/{category}', 'show')->name('admin.categories.show');
+    Route::patch('admin/manage/categories/update/{category}', 'update')->name('admin.categories.update');
+});
+
 //
 // Staff controller
 //

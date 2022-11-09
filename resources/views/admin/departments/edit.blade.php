@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    <title>Categories - Admin</title>
+    <title>Department - Admin</title>
 @endsection
 
 @section('content')
@@ -10,11 +10,11 @@
         <div class="column box">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">Edit Category</h1>
+                    <h1 class="title is-size-3 has-text-info">Edit Department</h1>
                 </div>
                 <div class="navbar-end">
                     <div class="tags has-addons">
-                        <a href="{{ route('admin.categories.index') }}"><button
+                        <a href="{{ route('admin.departments.index') }}"><button
                                 class="button is-rounded is-info is-hovered">Back</button></a>
                     </div>
                 </div>

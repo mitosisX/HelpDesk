@@ -35,7 +35,7 @@
                                         value="{{ old('name') }}" placeholder="Give the ticket a title">
 
                                     {{-- To be used fro getting the assignee ID --}}
-                                    {{-- <input type="text" name="number" value="2" hidden> --}}
+                                    <input type="text" name="assigned_by" value="1" hidden>
                                 </div>
                             </div>
                             @error('name')
@@ -167,7 +167,7 @@
                             <label class="label">Assign task to</label>
                             <div class="control">
                                 <div class="select is-rounded">
-                                    <select name="assignee">
+                                    <select name="assigned_to">
                                         @foreach ($staff as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach

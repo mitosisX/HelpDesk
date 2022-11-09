@@ -23,6 +23,10 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +60,7 @@ class AdminController extends Controller
     public function storeTicket(AdminTicketRequest $request)
     {
         $forTicket = $request->validated();
+        $forTicket['status'] = 'open';
 
         // ->only([
         //     'number', 'title', 'category',
@@ -65,30 +70,17 @@ class AdminController extends Controller
         // ]);
 
         // dd($forTicket);
-
         $created_ticket = Ticket::create($forTicket);
 
         $createTicketID = $created_ticket->id;
 
         /*
         A Ticket has:
-            > Assignee - staff
-            > Assigner - admin
             > Reporter - issue reporter
             > Tracker - reference number
             > Tags
             > Statuses - Open `if admin, new if guest
         */
-
-        Assignee::create([
-            'tickets_id' => $createTicketID,
-            'users_id' => 1
-        ]);
-
-        Assigner::create([
-            'tickets_id' => $createTicketID,
-            'users_id' => 1
-        ]);
 
         Reporter::create([
             'name' => $forTicket['reported_by'],
@@ -104,10 +96,10 @@ class AdminController extends Controller
             'tickets_id' => $createTicketID,
         ]);
 
-        Status::create([
-            'status' => 'open',
-            'tickets_id' => $createTicketID
-        ]);
+        // Status::create([
+        //     'status' => 'open',
+        //     'tickets_id' => $createTicketID
+        // ]);
 
         return redirect()
             ->route(
@@ -195,9 +187,37 @@ class AdminController extends Controller
         return view('admin.tickets.all', compact('tickets'));
     }
 
-    function viewTickets($status)
+    function viewTickets($status = 'new')
     {
-        $tickets = Ticket::all();
+        $tickets = [];
+
+        switch ($status) {
+            case ('new'):
+                $tickets = Ticket::where('status', 'new')
+                    ->get();
+                session(['status' => 'New']);
+                break;
+            case ('open'):
+                $tickets = Ticket::where('status', 'open')
+                    ->get();
+                session(['status' => 'Open']);
+                break;
+            case ('closed'):
+                $tickets = Ticket::where('status', 'open')
+                    ->get();
+                session(['status' => 'Closed']);
+                break;
+            case ('overdue'):
+                $tickets = Ticket::whereBetween('created_at', [
+                    '2022-11-04 17:39:52',
+                    '2022-11-22 17:38:28'
+                ])->get();
+
+                session(['status' => 'Overdue']);
+                break;
+        }
+        // $tickets = Ticket::all()
+        //     ->tracker()->get();
 
         return view(
             'admin.tickets.all',
@@ -228,85 +248,7 @@ class AdminController extends Controller
         dd($request->email);
     }
 
-    //Categories
-    public function createCategories()
-    {
-        return view('admin.categories.create');
-    }
-
-    public function editCategories(Category $category)
-    {
-        return view('admin.categories.edit', compact('category'));
-    }
-
-    public function allCategories()
-    {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
-    }
-
-    public function storeCategories(CategoryRequest $request)
-    {
-        Category::create($request->validated());
-
-        if (!$request->input('stay_on_page')) {
-            return redirect()
-                ->route('admin.categories.index');
-        }
-
-        return redirect()
-            ->route('admin.categories.create');
-    }
-
-    public function updateCategory(CategoryRequest $request, Category $category)
-    {
-        Category::find($category->id)->update($request->validated());
-
-        return redirect()
-            ->route('admin.categories.index');
-    }
-
-    //Departments
-    public function createDepartments()
-    {
-        return view('admin.departments.create');
-    }
-
-    public function editDepartments(Department $department)
-    {
-        return view('admin.departments.edit', compact('department'));
-    }
-
-    public function allDepartments()
-    {
-        $departments = Department::all();
-        return view('admin.departments.index', compact('departments'));
-    }
-
-    public function storeDepartments(DepartmentRequest $request)
-    {
-        Department::create($request->validated());
-
-        return redirect()
-            ->route('admin.departments.index')
-            ->with('department_status', 'create succefully!');;
-    }
-
-    public function updateDepartments(DepartmentRequest $request, Department $department)
-    {
-        Department::find($department->id)->update($request->validated());
-
-        return redirect()
-            ->route('admin.departments.index')
-            ->with('department_status', 'Updated succefully!');
-    }
-
-    public function showCategory(Department $department)
-    {
-        return view('admin.categories.index', compact('department'));
-    }
-
-    public function manageAccounts($type)
+    public function manageAccounts($type = 'admin')
     {
         $roleToGet = '1';
 
@@ -353,5 +295,10 @@ class AdminController extends Controller
     public function createAccount(Request $request)
     {
         return dd($request);
+    }
+
+    public function ticketSettings()
+    {
+        return view('admin.tickets.settings');
     }
 }

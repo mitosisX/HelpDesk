@@ -25,7 +25,7 @@
                 Nothern Region Water Board (NRWB)
             </p>
             <p class="subtitle">
-                Help desk system
+                Help desk & Ticketing system
             </p>
         </div>
     </section>
@@ -42,7 +42,7 @@
                 </p>
                 <ul class="menu-list">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a>Profile</a></li>
+                    <li><a href="{{ route('admin.profile.show') }}">Profile</a></li>
                 </ul>
                 <p class="menu-label">
                     Tickets
@@ -60,13 +60,13 @@
                     </li>
                     <li><a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">All tickets</a></li>
                     <li><a href="{{ route('admin.create_ticket') }}">Create Ticket</a></li>
-                    <li><a>Authentication</a></li>
+                    <li><a href="{{ route('admin.ticket.settings') }}">Ticket Settings</a></li>
                 </ul>
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
                     <li><a href="{{ route('admin.departments.index') }}">Departments</a></li>
-                    <li><a href="{{ route('admin.accounts.view', ['type' => 'admin']) }}">Accounts</a></li>
+                    <li><a href="{{ route('admin.accounts.view') }}">Accounts</a></li>
                 </ul>
             </aside>
         </div>

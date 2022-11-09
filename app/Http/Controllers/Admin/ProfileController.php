@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
@@ -14,7 +15,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $profile = User::all();
+
+        return view('admin.profile.index');
     }
 
     /**

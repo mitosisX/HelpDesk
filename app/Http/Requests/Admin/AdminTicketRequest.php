@@ -30,7 +30,8 @@ class AdminTicketRequest extends FormRequest
             'reported_by' => 'required',
             'reporter_email' => 'required',
             'priority' => 'required',
-            'assignee' => 'required',
+            'assigned_to' => 'required',
+            'assigned_by' => 'required',
             'due_date' => 'required',
             'location' => 'required',
             'description' => 'required'
@@ -46,7 +47,7 @@ class AdminTicketRequest extends FormRequest
             'reported_by.required' => 'Please provide the name that reported the fault',
             'reporter_email.required' => 'Please provide the email that reported the fault',
             'priority.required' => 'Please select a priority',
-            'assignee.required' => 'Please choose delegation',
+            'assigned_to.required' => 'Please choose delegation',
             'due_date.required' => 'Please provide a due date',
             'location.required' => 'Please provide location of the fault',
             'description.required' => 'Please provide a description for the fault'

@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('description');
             $table->string('due_date')->nullable();
             $table->string('priority')->nullable();
+            $table->mediumText('status');
+
+            $table->unsignedInteger('assigned_by');
+            $table->unsignedInteger('assigned_to');
+
             $table->timestamps();
 
             $table->foreign('categories_id')
@@ -34,7 +39,17 @@ return new class extends Migration
             $table->foreign('departments_id')
                 ->references('id')
                 ->on('departments')
-                ->onDelete('cascade');;
+                ->onDelete('cascade');
+
+            $table->foreign('assigned_by')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('assigned_to')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

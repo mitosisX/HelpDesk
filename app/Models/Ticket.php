@@ -14,14 +14,14 @@ class Ticket extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name', 'categories_id', 'departments_id', 'description',
-        'due_date', 'priority'
+        'due_date', 'priority', 'assigned_by', 'assigned_to', 'status'
     ];
 
     //public $timestamps = false;
 
-    public function statuses()
+    public function status()
     {
-        return $this->hasMany(Status::class, 'tickets_id');
+        return $this->hasMany(Status::class);
     }
 
     protected function number(): Attribute
@@ -38,11 +38,6 @@ class Ticket extends Model
         );
     }
 
-    public function assignee()
-    {
-        return $this->hasMany(Assignee::class, 'tickets_id');
-    }
-
     public function reporter()
     {
         return $this->hasMany(Reporter::class, 'tickets_id');
@@ -50,7 +45,12 @@ class Ticket extends Model
 
     public function assigner()
     {
-        return $this->hasMany(Assignee::class, 'tickets_id');
+        return $this->belongsTo(User::class, 'assigned_by');
+    }
+
+    public function assignee()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
     }
 
     public function tags()
@@ -76,7 +76,7 @@ class Ticket extends Model
     //Get next ticket number to be created
     public static function getTicketNumber()
     {
-        $nextTicketNumber = Ticket::all()->count() + 1;
+        $nextTicketNumber = Ticket::max('id') + 1;
         return $nextTicketNumber;
     }
 }

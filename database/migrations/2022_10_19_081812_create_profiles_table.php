@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->mediumText('name');
-            $table->mediumText('surname');
 
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')
+            $table->unsignedInteger('users_id');
+            $table->foreign('users_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

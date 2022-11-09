@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryRequest;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +16,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -35,7 +38,15 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->validated());
+
+        if (!$request->input('stay_on_page')) {
+            return redirect()
+                ->route('admin.categories.index');
+        }
+
+        return redirect()
+            ->route('admin.categories.create');
     }
 
     /**
@@ -55,9 +66,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -67,9 +78,12 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        Category::find($category->id)->update($request->validated());
+
+        return redirect()
+            ->route('admin.categories.index');
     }
 
     /**

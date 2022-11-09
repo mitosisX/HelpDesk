@@ -1,7 +1,7 @@
 @extends('staff.layout.app')
 
 @section('title')
-    <title>Profile - Staff</title>
+    <title>Profile - Admin</title>
 @endsection
 
 @section('content')
@@ -46,7 +46,7 @@
                             <div class="control">
                                 <div class="column is-6 no-padding">
                                     <input class="input is-rounded" id='category_name' name="name" type="text"
-                                        placeholder="Category name" value="{{ old('name') }}">
+                                        placeholder="Your full name" value="{{ old('name') }}">
                                 </div>
                             </div>
                             @error('name')

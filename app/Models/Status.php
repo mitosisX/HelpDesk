@@ -11,4 +11,9 @@ class Status extends Model
     protected $table = 'statuses';
     protected $primaryKey = 'id';
     protected $fillable = ['status', 'tickets_id'];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'tickets_id');
+    }
 }
