@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="{{ asset('css/bulma.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/sidebar-style.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/sidebar-style.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/extensions/modal-fx.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-radio-checkbox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-badge.min.css') }}">
@@ -16,9 +16,12 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tags.css') }}">
     @yield('title')
+    @notifyCss
 </head>
 
 <body>
+    {{-- @include('sweetalert::alert') --}}
+
     <section class="hero is-info" style="position: sticky;top:0px;z-index:100;">
         <div class="hero-body">
             <p class="title">
@@ -52,10 +55,15 @@
                     <li>
                         <a class="is-active has-background-info">Statistics</a>
                         <ul>
-                            <li><a>New (10)</a></li>
-                            <li><a>Open (1)</a></li>
-                            <li><a>Closed (19)</a></li>
+
+                            <li><a>New (2)</a></li>
+                            <li><a>Open (2)</a></li>
+                            <li><a>Closed (2)</a></li>
                             <li><a>Overdue (200)</a></li>
+                            {{-- <li><a>New ({{ $newCount }})</a></li>
+                            <li><a>Open ({{ $openCount }})</a></li>
+                            <li><a>Closed ({{ $closedCount }})</a></li>
+                            <li><a>Overdue (200)</a></li> --}}
                         </ul>
                     </li>
                     <li><a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">All tickets</a></li>
@@ -67,11 +75,11 @@
                     <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
                     <li><a href="{{ route('admin.departments.index') }}">Departments</a></li>
                     <li><a href="{{ route('admin.accounts.view') }}">Accounts</a></li>
+                    <li><a href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </aside>
         </div>
         <!-- END SIDE MENU -->
-
 
         {{-- <div class="column box is-2">
             <div class="sidebar">
@@ -204,6 +212,8 @@
     <script src="{{ asset('js/modal-fx.min.js') }}"></script>
     <script src="{{ asset('js/tags.js') }}"></script>
     @yield('script')
+    @notifyJs
+    <x:notify-messages />
 </body>
 
 </html>

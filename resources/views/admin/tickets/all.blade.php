@@ -563,7 +563,7 @@
                                     <div class="content">
                                         <div>
                                             <p class="subtitle">New</p>
-                                            <p class="title">02</p>
+                                            <p class="title">{{ $newCount }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -579,7 +579,7 @@
                                     <div class="content">
                                         <div>
                                             <p class="subtitle">Open</p>
-                                            <p class="title">56</p>
+                                            <p class="title">{{ $openCount }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -595,7 +595,7 @@
                                     <div class="content">
                                         <div>
                                             <p class="subtitle">Closed</p>
-                                            <p class="title">145</p>
+                                            <p class="title">{{ $closedCount }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -682,12 +682,14 @@
                                             <i class="mdi mdi-eye"></i>
                                         </span>
                                     </button>
-                                    <button class="button is-rounded is-small is-info jb-modal" data-target="sample-modal"
-                                        type="button">
-                                        <span class="icon">
-                                            <i class="mdi mdi-pencil-outline"></i>
-                                        </span>
-                                    </button>
+                                    <a href={{ route('admin.tickets.edit', ['ticket' => $ticket->id]) }}>
+                                        <button class="button is-rounded is-small is-info jb-modal"
+                                            data-target="sample-modal" type="button">
+                                            <span class="icon">
+                                                <i class="mdi mdi-pencil-outline"></i>
+                                            </span>
+                                        </button>
+                                    </a>
                                     <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
                                         type="button">
                                         <span class="icon">

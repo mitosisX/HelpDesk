@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -48,9 +50,9 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-        //
+        return 2;
     }
 
     /**
@@ -73,7 +75,7 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return view('admin.tickets.update_ticket');
     }
 
     /**
@@ -89,7 +91,8 @@ class StaffController extends Controller
 
     public function dashboard()
     {
-        return view('staff.dashboard');
+        return redirect()
+            ->route('staff.tickets.view');
     }
 
     public function profile()
@@ -105,5 +108,77 @@ class StaffController extends Controller
     public function tickets()
     {
         return view('staff.all_tickets');
+    }
+
+
+    function viewTickets($status = 'new')
+    {
+        $tickets = [];
+
+        switch ($status) {
+            case ('new'):
+                $tickets = Ticket::where([
+                    'status' => 'new',
+                    'assigned_to' => Auth::user()->id
+                ])
+                    ->get();
+                session(['status' => 'New']);
+                break;
+            case ('open'):
+                $tickets = Ticket::where([
+                    'status' => 'open',
+                    'assigned_to' => Auth::user()->id
+                ])
+                    ->get();
+                session(['status' => 'Open']);
+                break;
+            case ('closed'):
+                $tickets = Ticket::where([
+                    'status' => 'closed',
+                    'assigned_to' => Auth::user()->id
+                ])
+                    ->get();
+                session(['status' => 'Closed']);
+                break;
+            case ('overdue'):
+                $tickets = Ticket::whereBetween('created_at', [
+                    '2022-11-04 17:39:52',
+                    '2022-11-22 17:38:28'
+                ])->get();
+
+                session(['status' => 'Overdue']);
+                break;
+        }
+        // $tickets = Ticket::all()
+        //     ->tracker()->get();
+
+        $new = Ticket::where([
+            'status' => 'new',
+            'assigned_to' => Auth::user()->id
+        ])
+            ->get()
+            ->count();
+        $open = Ticket::where([
+            'status' => 'open',
+            'assigned_to' => Auth::user()->id
+        ])
+            ->get()
+            ->count();
+        $closed = Ticket::where([
+            'status' => 'closed',
+            'assigned_to' => Auth::user()->id
+        ])
+            ->get()
+            ->count();
+
+        return view(
+            'staff.all_tickets',
+            [
+                'tickets' => $tickets,
+                'newCount' => $new,
+                'openCount' => $open,
+                'closedCount' => $closed
+            ]
+        );
     }
 }

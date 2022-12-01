@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Status;
 use App\Models\Ticket;
 use App\Models\Tracker;
 use App\Models\Assignee;
@@ -10,22 +12,22 @@ use App\Models\Assigner;
 use App\Models\Category;
 use App\Models\Reporter;
 use App\Models\Department;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DepartmentRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Http\Requests\Admin\AdminTicketRequest;
 use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Requests\Authentication\RegisterRequest;
-use App\Models\Role;
-use App\Models\Status;
-use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -61,6 +63,7 @@ class AdminController extends Controller
     {
         $forTicket = $request->validated();
         $forTicket['status'] = 'open';
+        $forTicket['assigned_by'] = Auth::user()->id;
 
         // ->only([
         //     'number', 'title', 'category',
@@ -95,11 +98,6 @@ class AdminController extends Controller
             'reference_code' => "tr-{$randRef}",
             'tickets_id' => $createTicketID,
         ]);
-
-        // Status::create([
-        //     'status' => 'open',
-        //     'tickets_id' => $createTicketID
-        // ]);
 
         return redirect()
             ->route(
@@ -183,8 +181,13 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $tickets = Ticket::all();
-        return view('admin.tickets.all', compact('tickets'));
+        // $tickets = Ticket::all();
+        // return view('admin.tickets.all', compact('tickets'));
+
+        // Alert::alert('Title', 'Message', 'Type');
+
+        return redirect()
+            ->route('admin.tickets.view');
     }
 
     function viewTickets($status = 'new')
@@ -219,9 +222,24 @@ class AdminController extends Controller
         // $tickets = Ticket::all()
         //     ->tracker()->get();
 
+        $new = Ticket::where('status', 'new')
+            ->get()
+            ->count();
+        $open = Ticket::where('status', 'open')
+            ->get()
+            ->count();
+        $closed = Ticket::where(['status' => 'closed'])
+            ->get()
+            ->count();
+
         return view(
             'admin.tickets.all',
-            compact('tickets')
+            [
+                'tickets' => $tickets,
+                'newCount' => $new,
+                'openCount' => $open,
+                'closedCount' => $closed
+            ]
         );
     }
 
@@ -300,5 +318,26 @@ class AdminController extends Controller
     public function ticketSettings()
     {
         return view('admin.tickets.settings');
+    }
+
+    public function editTicket(Ticket $ticket)
+    {
+        $departments = Department::all();
+        $categories = Category::all();
+        $staff = User::where('role_id', 2)->get();
+
+        $ticketNumber = Ticket::getTicketNumber();
+        return view(
+            'admin.tickets.update_ticket',
+            [
+                'ticket' => $ticket,
+                'ticketNumber' => $ticketNumber,
+                'categories' => $categories,
+                'departments' => $departments,
+                'staff' => $staff
+            ]
+        );
+
+        return view('update');
     }
 }

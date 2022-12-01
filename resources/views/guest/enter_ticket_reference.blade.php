@@ -8,19 +8,21 @@
     <div class="columns my-2">
         <div class="column is-3"></div>
         <div class="column box">
-            <form action="">
+            <form action="{{ route('guest.reference.track') }}" method="POST">
+                @csrf
                 <div class="field">
                     <label class="label">Enter Tracking Number</label>
                     <div class="control">
                         <div class="column is-6 no-padding">
-                            <input class="input is-rounded" type="text" placeholder="What's wrong">
+                            <input class="input is-rounded" name="reference_code" type="text"
+                                placeholder="Reference code...">
                         </div>
                     </div>
                 </div>
 
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-info is-rounded" id="submit">Track</button>
+                        <input type="submit" class="button is-info is-rounded" id="submit" value="Track" />
                     </div>
                 </div>
             </form>

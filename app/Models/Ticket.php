@@ -40,7 +40,7 @@ class Ticket extends Model
 
     public function reporter()
     {
-        return $this->hasMany(Reporter::class, 'tickets_id');
+        return $this->hasOne(Reporter::class, 'tickets_id');
     }
 
     public function assigner()
@@ -70,7 +70,7 @@ class Ticket extends Model
 
     public function tracker()
     {
-        return $this->hasMany(Tracker::class, 'tickets_id');
+        return $this->hasOne(Tracker::class, 'tickets_id');
     }
 
     //Get next ticket number to be created
