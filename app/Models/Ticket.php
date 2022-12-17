@@ -13,8 +13,9 @@ class Ticket extends Model
     protected $table = 'tickets';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name', 'categories_id', 'departments_id', 'description',
-        'due_date', 'priority', 'assigned_by', 'assigned_to', 'status'
+        'description', 'categories_id',
+        'due_date', 'priority', 'assigned_by',
+        'assigned_to', 'status', 'reported_by'
     ];
 
     //public $timestamps = false;
@@ -33,14 +34,13 @@ class Ticket extends Model
         $fullTicketCode = "tk-{$randNumber}{$randAlpha1}";
 
         return Attribute::make(
-            //set: fn () => "Ticket #" . Ticket::all()->count() + 1
             set: fn () => $fullTicketCode
         );
     }
 
     public function reporter()
     {
-        return $this->hasOne(Reporter::class, 'tickets_id');
+        return $this->hasOne(User::class, 'id', 'reported_by');
     }
 
     public function assigner()
@@ -56,11 +56,6 @@ class Ticket extends Model
     public function tags()
     {
         return $this->hasMany(Tags::class, 'tickets_id');
-    }
-
-    public function department()
-    {
-        return $this->belongsTo(Department::class, 'departments_id');
     }
 
     public function category()

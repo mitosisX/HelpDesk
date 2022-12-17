@@ -53,6 +53,7 @@ class DepartmentsController extends Controller
      */
     public function show($id)
     {
+        return $id;
     }
 
     /**
@@ -88,8 +89,15 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($department)
     {
-        //
+        return "sdsds";
+    }
+
+    public function delete(Department $department)
+    {
+        $department->delete();
+        return redirect()
+            ->route('admin.departments.index');
     }
 }

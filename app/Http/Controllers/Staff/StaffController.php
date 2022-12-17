@@ -107,7 +107,27 @@ class StaffController extends Controller
 
     public function tickets()
     {
-        return view('staff.all_tickets');
+        $new = Ticket::where('status', 'new')
+            ->get()
+            ->count();
+        $open = Ticket::where('status', 'open')
+            ->get()
+            ->count();
+        $closed = Ticket::where(['status' => 'closed'])
+            ->get()
+            ->count();
+
+        $tickets = Ticket::where(
+            'assigned_to',
+            Auth::user()->id
+        )->get();
+
+        return view('staff.all_tickets', [
+            'tickets' => $tickets,
+            'newCount' => $new,
+            'openCount' => $open,
+            'closedCount' => $closed
+        ]);
     }
 
 

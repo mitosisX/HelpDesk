@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin.layout.app_old')
 
 @section('title')
     <title>Create Ticket - Admin</title>
@@ -27,6 +27,7 @@
                 <div class="column box is-8">
                     <form action="{{ route('admin.tickets.store') }}" method='POST'>
                         @csrf
+
                         <div class="field">
                             <label class="label">Ticket name</label>
                             <div class="control">

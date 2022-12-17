@@ -54,7 +54,7 @@
                         </ul>
                     </li>
                     <li><a>All tickets</a></li>
-                    <li><a href="{{ route('admin.create_ticket') }}">Create Ticket</a></li>
+                    <li><a href="{{ route('staff.tickets') }}">Create Ticket</a></li>
                     <li><a>Authentication</a></li>
                 </ul>
                 <p class="menu-label">

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('location')->nullable();
+            $table->unsignedInteger('departments_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -29,6 +31,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('roles')
                 ->onDelete('cascade');
+
+            $table->foreign('departments_id')
+                ->references('id')
+                ->on('departments')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

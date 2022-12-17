@@ -11,6 +11,12 @@ class Profile extends Model
 
     protected $table = 'profiles';
     protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'name', 'location', 'email',
+        'users_id', 'departments_id'
+    ];
 
     public function users()
     {

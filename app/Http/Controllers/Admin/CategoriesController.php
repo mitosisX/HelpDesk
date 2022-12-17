@@ -38,7 +38,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->validated());
+        Category::create($request->all());
 
         if (!$request->input('stay_on_page')) {
             return redirect()

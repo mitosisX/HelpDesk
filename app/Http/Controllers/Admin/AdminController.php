@@ -62,6 +62,7 @@ class AdminController extends Controller
     public function storeTicket(AdminTicketRequest $request)
     {
         $forTicket = $request->validated();
+
         $forTicket['status'] = 'open';
         $forTicket['assigned_by'] = Auth::user()->id;
 
@@ -84,13 +85,6 @@ class AdminController extends Controller
             > Tags
             > Statuses - Open `if admin, new if guest
         */
-
-        Reporter::create([
-            'name' => $forTicket['reported_by'],
-            'email' => $forTicket['reporter_email'],
-            'tickets_id' => $createTicketID,
-            'location' => $forTicket['location']
-        ]);
 
         $randRef = fake()->numberBetween(1000, 90000);
 
@@ -165,17 +159,31 @@ class AdminController extends Controller
     {
         $departments = Department::all();
         $categories = Category::all();
-        $staff = User::where('role_id', 2)->get();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
 
         $ticketNumber = Ticket::getTicketNumber();
         return view(
-            'admin.tickets.create_ticket',
-            [
-                'ticketNumber' => $ticketNumber,
-                'categories' => $categories,
-                'departments' => $departments,
-                'staff' => $staff
-            ]
+            'admin.tickets.create_tickets',
+            compact(
+                'ticketNumber',
+                'categories',
+                'departments',
+                'staffs',
+                'users'
+            )
         );
     }
 
@@ -186,8 +194,7 @@ class AdminController extends Controller
 
         // Alert::alert('Title', 'Message', 'Type');
 
-        return redirect()
-            ->route('admin.tickets.view');
+        return view('admin.tickets.dashboard');
     }
 
     function viewTickets($status = 'new')
@@ -206,7 +213,7 @@ class AdminController extends Controller
                 session(['status' => 'Open']);
                 break;
             case ('closed'):
-                $tickets = Ticket::where('status', 'open')
+                $tickets = Ticket::where('status', 'closed')
                     ->get();
                 session(['status' => 'Closed']);
                 break;
@@ -222,24 +229,48 @@ class AdminController extends Controller
         // $tickets = Ticket::all()
         //     ->tracker()->get();
 
-        $new = Ticket::where('status', 'new')
-            ->get()
-            ->count();
-        $open = Ticket::where('status', 'open')
-            ->get()
-            ->count();
-        $closed = Ticket::where(['status' => 'closed'])
+        $newCount = Ticket::where('status', 'new')
             ->get()
             ->count();
 
+        $openCount = Ticket::where('status', 'open')
+            ->get()
+            ->count();
+
+        $closedCount = Ticket::where(['status' => 'closed'])
+            ->get()
+            ->count();
+
+        $categories = Category::all();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
         return view(
-            'admin.tickets.all',
-            [
-                'tickets' => $tickets,
-                'newCount' => $new,
-                'openCount' => $open,
-                'closedCount' => $closed
-            ]
+            'admin.tickets.all_tickets',
+            compact(
+                'tickets',
+                'newCount',
+                'openCount',
+                'closedCount',
+                'categories',
+                'staffs',
+                'users'
+            )
         );
     }
 
@@ -268,7 +299,7 @@ class AdminController extends Controller
 
     public function manageAccounts($type = 'admin')
     {
-        $roleToGet = '1';
+        $roleToGet = 'admin';
 
         /* The sessions are used in theview for listing available
         accounts, more specifically in the tabs for selecting
@@ -278,30 +309,51 @@ class AdminController extends Controller
             case ('admin'):
                 session(['for-admins' => true]);
                 session(['for-staff' => false]);
+                session(['for-users' => false]);
 
-                $roleToGet = '1';
+                $roleToGet = 'admin';
                 break;
 
             case ('staff'):
                 session(['for-staff' => true]);
                 session(['for-admins' => false]);
+                session(['for-users' => false]);
 
-                $roleToGet = '2';
+                $roleToGet = 'staff';
+                break;
+
+            case ('user'):
+                session(['for-staff' => false]);
+                session(['for-admins' => false]);
+                session(['for-users' => true]);
+
+                $roleToGet = 'user';
                 break;
 
             default:
                 session(['for-admins' => true]);
                 session(['for-staff' => false]);
-                $roleToGet = '1';
+                session(['for-users' => false]);
+                $roleToGet = 'admin';
 
                 return redirect()
                     ->route('admin.accounts.view', ['type' => 'admin']);
                 break;
         }
 
-        $users = User::all()->where('role_id', $roleToGet);
+        $role = Role::where('name', $roleToGet)
+            ->first()
+            ->id;
 
-        return view('admin.accounts.index', compact('users'));
+        $users = User::where('role_id', $role)
+            ->get();
+
+        $departments = Department::all();
+
+        return view(
+            'admin.accounts.index',
+            compact('users', 'departments')
+        );
     }
 
     public function createAccountView()

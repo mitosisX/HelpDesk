@@ -15,19 +15,16 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
-            $table->mediumText('name');
+            $table->string('description');
 
             $table->unsignedInteger('categories_id');
-
-            $table->unsignedInteger('departments_id');
-
-            $table->string('description');
-            $table->string('due_date')->nullable();
-            $table->string('priority')->nullable();
-            $table->mediumText('status');
-
+            $table->unsignedInteger('reported_by');
             $table->unsignedInteger('assigned_by');
             $table->unsignedInteger('assigned_to');
+
+            $table->string('due_date'); //->nullable();
+            $table->string('priority'); //->nullable();
+            $table->mediumText('status');
 
             $table->timestamps();
 
@@ -36,17 +33,17 @@ return new class extends Migration
                 ->on('categories')
                 ->onDelete('cascade');
 
-            $table->foreign('departments_id')
-                ->references('id')
-                ->on('departments')
-                ->onDelete('cascade');
-
             $table->foreign('assigned_by')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
 
             $table->foreign('assigned_to')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('reported_by')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

@@ -4,73 +4,80 @@
     <title>Categories - Admin</title>
 @endsection
 
-@section('content')
-    <!-- START ISSUES LIST-->
-    <div class="column">
-        @if (session('department_status'))
-            <div class="block is-10 is-centered">
-                <div class="notification is-4 is-primary">
-                    <button class="delete"></button>
-                    <h1 class="title is-5">{{ session('department_status') }}</h1>
-                </div>
-            </div>
-        @endif
+@section('breadcrumb')
+    <li>Manage</li>
+    <li>Categories</li>
+@endsection
 
-        <div class="column box">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">Categories</h1>
-                </div>
-                <div class="navbar-end">
-                    <div class="tags has-addons">
-                        <a href="{{ route('admin.categories.create') }}"><button
-                                class="button is-rounded is-info is-hovered">Create</button></a>
+@section('content')
+    <section class="section is-main-section">
+
+        <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-6">
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <div class="card tile is-child">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
+                                    Departments
+                                </p>
+                                <a class="card-header-icon" id='create_ticket_modal'>
+                                    <button class="button is-small is-info is-rounded">
+                                        <span class="icon"><i class="mdi mdi-plus"></i></span>
+                                        <span>Create</span>
+                                    </button>
+
+                                </a>
+                            </header>
+                            <div class="card-content">
+                                <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($categories as $category)
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>{{ $category->name }}</td>
+                                            <td>
+                                                <div class="field has-addons">
+                                                    <p class="control">
+                                                        <a href="{{ route('admin.categories.edit', $category->id) }}">
+                                                            <button class="button is-rounded is-small is-info">
+                                                                <span class="icon is-small">
+                                                                    <i class="mdi mdi-pencil-outline"></i>
+                                                                </span>
+                                                                <span>Edit</span>
+                                                            </button>
+                                                        </a>
+                                                    </p>
+                                                    <p class="control">
+                                                        <button class="button is-rounded is-small is-danger" id="remove">
+                                                            <span class="icon is-small">
+                                                                <i class="mdi mdi-trash-can-outline"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </nav>
-        </div>
-
-        <section class="section" style="padding: 1.5rem;margin-top:-25px;">
-            <div class="columns is-multiline is-12">
-                <div class="column is-2"></div>
-                <div class="column box is-8">
-                    <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categories as $category)
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
-                                    <a href="{{ route('admin.categories.edit', ['category' => $category->id]) }}">
-                                        <button class="button is-rounded is-small is-primary" type="button">
-                                            <span class="icon"><i class="mdi mdi-pencil-outline"></i></span>
-                                        </button>
-                                    </a>
-                                    <button class="button is-rounded is-small is-danger jb-modal" data-target="sample-modal"
-                                        type="button">
-                                        <span class="icon">
-                                            <i class="mdi mdi-trash-can-outline"></i>
-                                        </span>
-                                    </button>
-                                </td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="column is-2"></div>
-
             </div>
-        </section>
-    </div>
-    <!-- END ISSUES LIST -->
+            <div class="column is-2"></div>
+        </div>
+    </section>
 @endsection
 
 @section('script')

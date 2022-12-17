@@ -1,219 +1,242 @@
-<html lang="en">
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="{{ asset('css/bulma.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('css/sidebar-style.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('css/extensions/modal-fx.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-radio-checkbox.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-badge.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/extensions/bulmatable.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/tags.css') }}">
     @yield('title')
-    @notifyCss
+
+    <!-- Bulma is included -->
+    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" />
+
+    @php
+        use App\Queries\SpecialQueries;
+        $counter = SpecialQueries::ticketCounter();
+    @endphp
 </head>
 
 <body>
-    {{-- @include('sweetalert::alert') --}}
+    <div id="app">
+        <nav id="navbar-main" class="navbar is-fixed-top">
+            <div class="navbar-brand">
+                <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
+                    <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+                </a>
+            </div>
+            <div class="navbar-brand is-right">
+                <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
+                    <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
+                </a>
+            </div>
+            <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+                <div class="navbar-end">
+                    <div
+                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                        <a class="navbar-link is-arrowless">
+                            <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
+                            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a href="profile.html" class="navbar-item">
+                                <span class="icon">
+                                    <i class="mdi mdi-account-badge-outline"></i>
+                                </span>
+                                <span>My Profile</span>
+                            </a>
+                            <a class="navbar-item">
+                                <span class="icon">
+                                    <i class="mdi mdi-cog-outline"></i>
+                                </span>
+                                <span>Settings</span>
+                            </a>
+                        </div>
+                    </div>
 
-    <section class="hero is-info" style="position: sticky;top:0px;z-index:100;">
-        <div class="hero-body">
-            <p class="title">
-                Nothern Region Water Board (NRWB)
-            </p>
-            <p class="subtitle">
-                Help desk & Ticketing system
-            </p>
-        </div>
-    </section>
-
-    <div class="columns my-1 mx-2">
-
-        {{-- Side menu --}}
-        <div class="column box is-2">
-
-            <!-- START SIDE MENU -->
-            <aside class="menu">
-                <p class="menu-label">
-                    General
-                </p>
+                    <a href="{{ route('logout') }}" title="Log out" class="navbar-item is-desktop-icon-only">
+                        <span class="icon"><i class="mdi mdi-logout"></i></span>
+                        <span>Log out</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <aside class="aside is-placed-left is-expanded">
+            <div class="aside-tools">
+                <div class="aside-tools-label">
+                    <span><b>ADMIN</b> account</span>
+                </div>
+            </div>
+            <div class="menu is-menu-main">
+                <p class="menu-label">General</p>
                 <ul class="menu-list">
-                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.profile.show') }}">Profile</a></li>
-                </ul>
-                <p class="menu-label">
-                    Tickets
-                </p>
-                <ul class="menu-list">
-                    <!-- <li><a>Team Settings</a></li> -->
                     <li>
-                        <a class="is-active has-background-info">Statistics</a>
+                        <a href="{{ route('admin.dashboard') }}" class="router-link-active has-icon">
+                            <span class="icon"><i class="mdi mdi-home"></i></span>
+                            <span class="menu-item-label">Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="menu-label">Tickets</p>
+                <ul class="menu-list">
+                    <li class="">
+                        <a class="has-icon has-dropdown-icon">
+                            <span class="icon"><i class="mdi mdi-chart-bar"></i></span>
+                            <span class="menu-item-label">Statistics</span>
+                            <div class="dropdown-icon">
+                                <span class="icon"><i class="mdi mdi-plus"></i></span>
+                            </div>
+                        </a>
                         <ul>
-
-                            <li><a>New (2)</a></li>
-                            <li><a>Open (2)</a></li>
-                            <li><a>Closed (2)</a></li>
-                            <li><a>Overdue (200)</a></li>
-                            {{-- <li><a>New ({{ $newCount }})</a></li>
-                            <li><a>Open ({{ $openCount }})</a></li>
-                            <li><a>Closed ({{ $closedCount }})</a></li>
-                            <li><a>Overdue (200)</a></li> --}}
+                            <li>
+                                <a href="">
+                                    <span>New</span>
+                                    <span class="icon">{{ $counter['newCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Open</span>
+                                    <span class="icon">{{ $counter['openCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Closed</span>
+                                    <span class="icon">{{ $counter['closedCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Overdue</span>
+                                    <span class="icon">12</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">All tickets</a></li>
-                    <li><a href="{{ route('admin.create_ticket') }}">Create Ticket</a></li>
-                    <li><a href="{{ route('admin.ticket.settings') }}">Ticket Settings</a></li>
+                    <li>
+                        <a href="{{ route('admin.tickets.view', ['status' => 'new']) }}" class="has-icon">
+                            <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
+                            <span class="menu-item-label">All Tickets</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.tickets.create') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+                            <span class="menu-item-label">Create Ticket</span>
+                        </a>
+                    </li>
                 </ul>
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
-                    <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
-                    <li><a href="{{ route('admin.departments.index') }}">Departments</a></li>
-                    <li><a href="{{ route('admin.accounts.view') }}">Accounts</a></li>
-                    <li><a href="{{ route('logout') }}">Logout</a></li>
-                </ul>
-            </aside>
-        </div>
-        <!-- END SIDE MENU -->
-
-        {{-- <div class="column box is-2">
-            <div class="sidebar">
-                <div class="logo-details">
-                    <i class='bx bxl-c-plus-plus'></i>
-                    <span class="logo_name">CodingLab</span>
-                </div>
-                <ul class="nav-links">
                     <li>
-                        <a href="#">
-                            <i class='bx bx-grid-alt'></i>
-                            <span class="link_name">Dashboard</span>
+                        <a href="{{ route('admin.departments.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-warehouse"></i></span>
+                            <span class="menu-item-label">Departments</span>
                         </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Category</a></li>
-                        </ul>
-                    </li>
-                    <li class="showMenu">
-                        <div class="iocn-link">
-                            <a href="#">
-                                <i class='bx bx-collection'></i>
-                                <span class="link_name">Category</span>
-                            </a>
-                            <i class='bx bxs-chevron-down arrow'></i>
-                        </div>
-                        <ul class="sub-menu">
-                            <li><a class="link_name" href="#">Category</a></li>
-                            <li><a href="#">HTML & CSS</a></li>
-                            <li><a href="#">JavaScript</a></li>
-                            <li><a href="#">PHP & MySQL</a></li>
-                        </ul>
                     </li>
                     <li>
-                        <div class="iocn-link">
-                            <a href="#">
-                                <i class='bx bx-book-alt'></i>
-                                <span class="link_name">Posts</span>
-                            </a>
-                            <i class='bx bxs-chevron-down arrow'></i>
-                        </div>
-                        <ul class="sub-menu">
-                            <li><a class="link_name" href="#">Posts</a></li>
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Login Form</a></li>
-                            <li><a href="#">Card Design</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt-2'></i>
-                            <span class="link_name">Analytics</span>
+                        <a href="{{ route('admin.categories.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                            <span class="menu-item-label">Categories</span>
                         </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Analytics</a></li>
-                        </ul>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class='bx bx-line-chart'></i>
-                            <span class="link_name">Chart</span>
+                        <a href="{{ route('admin.accounts.view') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-account"></i></span>
+                            <span class="menu-item-label">Accounts</span>
                         </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Chart</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div class="iocn-link">
-                            <a href="#">
-                                <i class='bx bx-plug'></i>
-                                <span class="link_name">Plugins</span>
-                            </a>
-                            <i class='bx bxs-chevron-down arrow'></i>
-                        </div>
-                        <ul class="sub-menu">
-                            <li><a class="link_name" href="#">Plugins</a></li>
-                            <li><a href="#">UI Face</a></li>
-                            <li><a href="#">Pigments</a></li>
-                            <li><a href="#">Box Icons</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-compass'></i>
-                            <span class="link_name">Explore</span>
-                        </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Explore</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-history'></i>
-                            <span class="link_name">History</span>
-                        </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">History</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-cog'></i>
-                            <span class="link_name">Setting</span>
-                        </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Setting</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div class="profile-details">
-                            <div class="profile-content">
-                                <!--<img src="image/profile.jpg" alt="profileImg">-->
-                            </div>
-                            <div class="name-job">
-                                <div class="profile_name">Prem Shahi</div>
-                                <div class="job">Web Desginer</div>
-                            </div>
-                            <i class='bx bx-log-out'></i>
-                        </div>
                     </li>
                 </ul>
             </div>
-        </div> --}}
+        </aside>
+        <section class="section is-title-bar">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <ul>
+                            <li>Admin</li>
+                            @yield('breadcrumb')
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- <section class="hero is-hero-bar">
+            <div class="hero-body">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title">Dashboard</h1>
+                        </div>
+                    </div>
+                    <div class="level-right" style="display: none">
+                        <div class="level-item"></div>
+                    </div>
+                </div>
+            </div>
+        </section> --}}
+
         @yield('content')
+
+        {{-- <footer class="footer" style="width:100%;position:sticky;bottom:0px;">
+            <div class="container-fluid">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">Help desk & ticketing system</div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <span>NRWB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer> --}}
     </div>
 
-    <script src="{{ asset('js/alpinejs.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/bulma-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('js/bulma-calendar.min.js') }}"></script>
-    <script src="{{ asset('js/modal-fx.min.js') }}"></script>
-    <script src="{{ asset('js/tags.js') }}"></script>
-    @yield('script')
-    @notifyJs
-    <x:notify-messages />
+    <div id="sample-modal" class="modal">
+        <div class="modal-background jb-modal-close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Confirm action</p>
+                <button class="delete jb-modal-close" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p>This will permanently delete <b>Some Object</b></p>
+                <p>This is sample modal</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button jb-modal-close">Cancel</button>
+                <button class="button is-danger jb-modal-close">Delete</button>
+            </footer>
+        </div>
+        <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+    </div>
+
+    <!-- Scripts below are for demo only -->
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/chart.sample.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
+
+    <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+
+    <!-- Code injected by live-server -->
+    @yield('scripts')
 </body>
 
 </html>
