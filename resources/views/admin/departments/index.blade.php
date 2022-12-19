@@ -1,6 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Departments - Admin</title>
 @endsection
 
@@ -31,41 +32,46 @@
                                 </a>
                             </header>
                             <div class="card-content">
-                                <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                                <table class="table is-fullwidth is-striped is-hoverable is-fullwidth"
+                                    id='departments_table'>
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            {{-- <th>#</th> --}}
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($departments as $department)
-                                            <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $department->name }}</td>
-                                            <td>
-                                                <div class="field has-addons">
-                                                    <p class="control">
-                                                        <a href="{{ route('admin.departments.edit', $department->id) }}">
-                                                            <button class="button is-rounded is-small is-info">
+                                            <tr>
+                                                {{-- <td>{{ $loop->index + 1 }}</td> --}}
+                                                {{-- <td>{{ $department->id }}</td> --}}
+                                                <td id='td_dept_name'>{{ $department->name }}</td>
+                                                <td>
+                                                    <div class="field has-addons">
+                                                        <p class="control">
+                                                            {{-- <a href="{{ route('admin.departments.edit', $department->id) }}"> --}}
+                                                            <button class="button is-rounded is-small is-info"
+                                                                id='edit' data-id="{{ $department->id }}"
+                                                                data-full_name="{{ $department->name }}">
                                                                 <span class="icon is-small">
                                                                     <i class="mdi mdi-pencil-outline"></i>
                                                                 </span>
                                                                 <span>Edit</span>
                                                             </button>
-                                                        </a>
-                                                    </p>
-                                                    <p class="control">
-                                                        <button class="button is-rounded is-small is-danger" id="remove"
-                                                            data-id="{{ $department->id }}"
-                                                            data-action="{{ route('admin.departments.destroy', $department->id) }}">
-                                                            <span class="icon is-small">
-                                                                <i class="mdi mdi-trash-can-outline"></i>
-                                                            </span>
-                                                        </button>
-                                                    </p>
-                                                </div>
-                                            </td>
+                                                            {{-- </a> --}}
+                                                        </p>
+                                                        <p class="control">
+                                                            <button class="button is-rounded is-small is-danger"
+                                                                id="remove" data-id="{{ $department->id }}"
+                                                                data-action="{{ route('admin.departments.destroy', $department->id) }}">
+                                                                <span class="icon is-small">
+                                                                    <i class="mdi mdi-trash-can-outline"></i>
+                                                                </span>
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         <tr>
@@ -88,40 +94,145 @@
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <form action="{{ route('admin.departments.store') }}" method="POST">
-                    @csrf
-                    <div class="field">
-                        <label class="label">Provide name</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" id='department_name' name="name" type="text"
-                                placeholder="Department's name" value="{{ old('name') }}" required>
-                            <span class="icon is-left">
-                                <i class="mdi mdi-rename-box"></i>
-                            </span>
-                        </div>
-                        @error('name')
-                            <p class="help has-text-info">{{ $message }}</p>
-                        @enderror
+                <div class="field">
+                    <label class="label">Provide name</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" id='department_name' name="name" type="text"
+                            placeholder="Department's name" required>
+                        <span class="icon is-left">
+                            <i class="mdi mdi-rename-box"></i>
+                        </span>
                     </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
-                <input type="submit" class="button is-info" value="Create" />
+                <button id='create_department_button' class="button is-info">Create</button>
             </footer>
-            </form>
+        </div>
+    </div>
+
+
+    <div id="edit_modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Edit Department</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Provide name</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" id='dept_edit_name' name="name" type="text"
+                            placeholder="Department's name" value="{{ old('name') }}" required>
+                        <span class="icon is-left">
+                            <i class="mdi mdi-rename-box"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button id='update_department_button' class="button is-info">Update</button>
+            </footer>
         </div>
     </div>
 @endsection
 
 @section('scripts')
     <script>
+        //The ID to be used in editing the department
+        var id = 0;
+
+        //Previously clicked <td> data, we'll use this to avoid reload
+        var tdElement = null;
+
         $(document).ready(function() {
             $('#create_ticket_modal').on('click', function() {
                 Bulma('#create_modal').modal().open();
-            })
+            });
+
+            $('#create_department_button').click(function() {
+                $('#create_department_button').toggleClass('is-loading');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var newDeptName = $('#department_name').val();
+
+                $.ajax({
+                    url: "{{ route('admin.departments.store') }}",
+                    type: "POST",
+                    data: {
+                        name: newDeptName,
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#create_department_button').toggleClass('is-loading');
+                        $('#create_department_button').attr('disabled', false);
+                        window.location.reload(true);
+                        Bulma('#edit_modal').modal().close();
+                    }
+                });
+            });
         });
 
+
+
+
+        $('#update_department_button').click(() => {
+            var valueToEdit = tdElement.closest('tr').children('td:nth-child(2)'); //.text();
+
+            //The new edit value
+            var editValue = $('#dept_edit_name').val();
+
+            $('#update_department_button').toggleClass('is-loading');
+            $('#update_department_button').attr('disabled', true);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: `{{ route('admin.department.update.json') }}` + `/${id}`,
+                type: "POST",
+                data: {
+                    name: editValue,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#update_department_button').toggleClass('is-loading');
+                    $('#update_department_button').attr('disabled', false);
+
+                    valueToEdit.text(editValue)
+                    Bulma('#edit_modal').modal().close();
+                    // window.location.reload(true);
+                }
+            });
+        });
+
+        $(document).on("click", "#edit", function() {
+            tdElement = $(this);
+
+            // event.preventDefault();
+            id = tdElement.data('id');
+            var modal = $('#edit_modal');
+
+            var dept = tdElement.data('full_name');
+
+            $('#dept_edit_name').val(tdElement.closest('tr').children('td:nth-child(2)').text());
+
+            Bulma('#edit_modal').modal().open();
+        });
+
+
+
         $(document).on("click", "#remove", function() {
-            var current_object = $(this);
+            tdElement = $(this);
             // swal({
             //     title: "",
             //     text: "",
@@ -144,52 +255,65 @@
                 allowOutsideClick: () => !Swal.isLoading()
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var action = current_object.attr('data-action');
-                    var token = jQuery('meta[name="csrf-token"]').attr('content');
-                    var id = current_object.attr('data-id');
 
-                    $('body').html(
-                        `<form class='form-inline remove-form' method='POST' action='${action}'>
-                        @csrf
-                        
-                        <input name="id" type="hidden" value="${id}"/>
-                        </form>`);
-                    // $('body').find('.remove-form').append(
-                    //     '<input name="_method" type="hidden" value="delete">');
-                    // $('body').find('.remove-form').append('<input name="_token" type="hidden" value="' +
-                    //     token + '">');
-                    // $('body').find('.remove-form').append('<input name="id" type="hidden" value="' + id +
-                    //     '">');
-                    $('body').find('.remove-form').submit();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    var action = tdElement.attr('data-action');
+                    var token = jQuery('meta[name="csrf-token"]').attr('content');
+                    var del_id = tdElement.attr('data-id');
+
+                    $.ajax({
+                        url: `{{ route('admin.department.destroy.json') }}` + `/${del_id}`,
+                        type: "DELETE",
+                        // data: {
+                        //     name: editValue,
+                        // },
+                        dataType: 'json',
+                        success: function(data) {
+                            tdElement.parent().parent().parent().parent().remove();
+                            // alert(JSON.stringify(data));
+                        }
+                    });
                 }
             })
         });
 
-        //     result = Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: 'You will not be able to recover this imaginary file!',
-        //         icon: 'question',
-        //         iconHtml: '?',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#dc3545',
-        //         confirmButtonText: 'Delete!',
-        //     });
-
-        //     if (result) {
-        //         var action = current_object.attr('data-action');
-        //         var token = jQuery('meta[name="csrf-token"]').attr('content');
-        //         var id = current_object.attr('data-id');
-
-        //         $('body').html("<form class='form-inline remove-form' method='post' action='" + action +
-        //             "'></form>");
-        //         $('body').find('.remove-form').append(
-        //             '<input name="_method" type="hidden" value="delete">');
-        //         $('body').find('.remove-form').append('<input name="_token" type="hidden" value="' +
-        //             token + '">');
-        //         $('body').find('.remove-form').append('<input name="id" type="hidden" value="' + id +
-        //             '">');
-        //         $('body').find('.remove-form').submit();
-        //     }
-        // });
+        function addToTable(id, text) {
+            $('#departments_table tr:last')
+                .after(`<tr>
+                            {{-- <td>{{ $loop->index + 1 }}</td> --}}
+                            <td>{{ $department->id }}</td>
+                            <td id='td_dept_name'>{{ $department->name }}</td>
+                            <td>
+                                <div class="field has-addons">
+                                    <p class="control">
+                                        {{-- <a href="{{ route('admin.departments.edit', ${id}) }}"> --}}
+                                        <button class="button is-rounded is-small is-info"
+                                            id='edit' data-id="{{ $department->id }}"
+                                            data-full_name="{{ $department->name }}">
+                                            <span class="icon is-small">
+                                                <i class="mdi mdi-pencil-outline"></i>
+                                            </span>
+                                            <span>Edit</span>
+                                        </button>
+                                        {{-- </a> --}}
+                                    </p>
+                                    <p class="control">
+                                        <button class="button is-rounded is-small is-danger"
+                                            id="remove" data-id="{{ $department->id }}"
+                                            data-action="{{ route('admin.departments.destroy', $department->id) }}">
+                                            <span class="icon is-small">
+                                                <i class="mdi mdi-trash-can-outline"></i>
+                                            </span>
+                                        </button>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>`);
+        }
     </script>
 @endsection

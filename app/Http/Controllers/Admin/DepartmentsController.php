@@ -38,11 +38,17 @@ class DepartmentsController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-        Department::create($request->validated());
+        $id = Department::create($request->validated())->id;
 
-        return redirect()
-            ->route('admin.departments.index')
-            ->with('department_status', 'create succefully!');
+        // Department::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['id' => $id]);
+
+        // return redirect()
+        //     ->route('admin.departments.index')
+        //     ->with('department_status', 'create succefully!');
     }
 
     /**
@@ -74,9 +80,10 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(DepartmentRequest $request, $department)
     {
-        Department::find($department->id)->update($request->validated());
+        Department::find($department->id)
+            ->update($request->validated());
 
         return redirect()
             ->route('admin.departments.index')
@@ -99,5 +106,22 @@ class DepartmentsController extends Controller
         $department->delete();
         return redirect()
             ->route('admin.departments.index');
+    }
+
+    public function updateDepartmentJson($id)
+    {
+        // Department::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['success' => $id]);
+    }
+
+    public function deleteDepartmentJson(Department $department)
+    {
+        $department->delete();
+
+        return response()
+            ->json(['success' => true]);
     }
 }

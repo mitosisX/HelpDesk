@@ -79,7 +79,10 @@ Route::controller(DepartmentsController::class)->group(function () {
     Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
     Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
     Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.departments.update');
+
     Route::post('admin/manage/department/remove/{department}', 'delete')->name('admin.departments.destroy');
+    Route::post('admin/manage/departments/update/json/{id?}', 'updateDepartmentJson')->name('admin.department.update.json');
+    Route::delete('admin/manage/departments/destroy/json/{department?}', 'deleteDepartmentJson')->name('admin.department.destroy.json');
 });
 
 Route::controller(ProfileController::class)->group(function () {
