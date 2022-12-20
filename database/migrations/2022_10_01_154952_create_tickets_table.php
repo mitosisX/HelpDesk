@@ -19,12 +19,16 @@ return new class extends Migration
 
             $table->unsignedInteger('categories_id');
             $table->unsignedInteger('reported_by');
-            $table->unsignedInteger('assigned_by');
-            $table->unsignedInteger('assigned_to');
+            $table->unsignedInteger('assigned_by')->nullable();
+            $table->unsignedInteger('assigned_to')->nullable();
 
-            $table->string('due_date'); //->nullable();
+            $table->string('due_date')->nullable();
             $table->string('priority'); //->nullable();
             $table->mediumText('status');
+
+            // Comments can be added by the admin to the IT staff
+            // being assigned to
+            $table->mediumText('comment')->nullable();
 
             $table->timestamps();
 

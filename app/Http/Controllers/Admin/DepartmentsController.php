@@ -114,7 +114,7 @@ class DepartmentsController extends Controller
         //     ->update(['name' => $request->name]);
 
         return response()
-            ->json(['success' => $id]);
+            ->json(['id' => $id]);
     }
 
     public function deleteDepartmentJson(Department $department)

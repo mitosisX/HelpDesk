@@ -11,6 +11,7 @@ use App\Models\Reporter;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Guest\GuestTicketRequest;
 use App\Http\Requests\Guest\TrackTicketRequest;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -102,12 +103,7 @@ class GuestController extends Controller
         $ticketNumber = Ticket::getTicketNumber();
         return view(
             'guest.create_ticket',
-            [
-                'ticketNumber' => $ticketNumber,
-                'categories' => $categories,
-                'departments' => $departments,
-                'staff' => $staff
-            ]
+            compact('categories')
         );
     }
 
@@ -118,18 +114,16 @@ class GuestController extends Controller
         return view('guest.enter_ticket_reference');
     }
 
-    public function referenceTicket(TrackTicketRequest $request)
+    public function referenceTicket(Ticket $reference)
     {
-        session(['ref' => $request->validated()]);
-
-        $ref = $request->reference_code;
+        $ref = $reference->reference_code;
         $ticket = Ticket::whereHas('tracker', function (Builder $query) {
             $query->where('reference_code', session('ref'));
         })->first();
         // /dd($ticket);
 
         return view(
-            'guest.tracking_status',
+            'guest.track_ticket',
             compact('ticket')
         );
     }
@@ -137,39 +131,15 @@ class GuestController extends Controller
     public function storeTicket(GuestTicketRequest $request)
     {
         $forTicket = $request->validated();
-        $forTicket['status'] = 'open';
-        $forTicket['assigned_to'] = '2';
-        $forTicket['assigned_by'] = '1';
+        $forTicket['status'] = 'new';
+        $forTicket['reported_by'] = Auth::user()->id;
 
-        // ->only([
-        //     'number', 'title', 'category',
-        //     'department', 'description',
-        //     'due_date', 'location', 'priority',
-        //     'reported_by', 'reporter_email'
-        // ]);
-
-        // dd($forTicket);
         $created_ticket = Ticket::create($forTicket);
 
         $createTicketID = $created_ticket->id;
 
-        /*
-        A Ticket has:
-            > Reporter - issue reporter
-            > Tracker - reference number
-            > Tags
-            > Statuses - Open `if admin, new if guest
-        */
-
-        Reporter::create([
-            'name' => $forTicket['reported_by'],
-            'email' => $forTicket['reporter_email'],
-            'tickets_id' => $createTicketID,
-            'location' => $forTicket['location']
-        ]);
-
-        $randRef = fake()->numberBetween(1000, 90000);
-        $ref = "tr-{$randRef}";
+        $ref = fake()->numberBetween(1000, 90000);
+        // $ref = "tr-{$randRef}";
 
         Tracker::create([
             'reference_code' => $ref,
@@ -178,7 +148,24 @@ class GuestController extends Controller
 
         return redirect()
             ->route(
-                'guest.reference.enter'
+                'user.reference.enter'
             )->with('ref_code', $ref);
+    }
+
+    public function allTickets()
+    {
+        $GetTickets = Ticket::where('reported_by', Auth::user()->id);
+
+        $openCount = $GetTickets->where('status', 'open')->count();
+
+        $closedCount = $GetTickets->where('status', 'closed')->count();
+
+        $tickets = Ticket::where('reported_by', Auth::user()->id)->get();
+
+
+        return view(
+            'guest.all_tickets',
+            compact('tickets', 'openCount', 'closedCount')
+        );
     }
 }

@@ -1,11 +1,11 @@
 @extends('guest.layout.app')
 
 @section('title')
-    <title>Create a Ticket - Help Desk</title>
+    <title>Track Tickets - Help Desk</title>
 @endsection
 
 @section('breadcrumb')
-    <li>Create</li>
+    <li>Track</li>
     <li>Tickets</li>
 @endsection
 
@@ -18,7 +18,7 @@
                     <header class="card-header">
                         <p class="card-header-title">
                             <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                            <span>Create Ticket</span>
+                            <span>Ticket Progress</span>
                         </p>
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
@@ -41,10 +41,10 @@
                                         <div>
                                             <div class="select">
                                                 <select name="categories_id">
-                                                    @foreach ($categories as $category)
+                                                    {{-- @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->name }}
                                                         </option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -83,8 +83,4 @@
 
 @section('scripts')
     <script src="{{ asset('js/bulma-calendar.min.js') }}"></script>
-    <script src="{{ asset('js/tags.js') }}"></script>
-    <script>
-        var calendars = bulmaCalendar.attach('[type="date"]');
-    </script>
 @endsection

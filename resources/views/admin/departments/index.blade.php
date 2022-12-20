@@ -36,7 +36,7 @@
                                     id='departments_table'>
                                     <thead>
                                         <tr>
-                                            {{-- <th>#</th> --}}
+                                            <th>#</th>
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
@@ -44,8 +44,7 @@
                                     <tbody>
                                         @foreach ($departments as $department)
                                             <tr>
-                                                {{-- <td>{{ $loop->index + 1 }}</td> --}}
-                                                {{-- <td>{{ $department->id }}</td> --}}
+                                                <td>{{ $loop->index + 1 }}</td>
                                                 <td id='td_dept_name'>{{ $department->name }}</td>
                                                 <td>
                                                     <div class="field has-addons">
@@ -172,8 +171,12 @@
                     success: function(data) {
                         $('#create_department_button').toggleClass('is-loading');
                         $('#create_department_button').attr('disabled', false);
-                        window.location.reload(true);
-                        Bulma('#edit_modal').modal().close();
+
+
+                        // window.location.reload(true);
+                        Bulma('#create_modal').modal().close();
+
+                        appendToTable(data.id, newDeptName);
                     }
                 });
             });
@@ -183,6 +186,7 @@
 
 
         $('#update_department_button').click(() => {
+            //The <td> to edit
             var valueToEdit = tdElement.closest('tr').children('td:nth-child(2)'); //.text();
 
             //The new edit value
@@ -275,37 +279,44 @@
                         dataType: 'json',
                         success: function(data) {
                             tdElement.parent().parent().parent().parent().remove();
-                            // alert(JSON.stringify(data));
+                            reNumber();
                         }
                     });
                 }
             })
         });
 
-        function addToTable(id, text) {
+        //This re-numbers the # section of the table upon each creation 
+        function reNumber() {
+            var reCounter = 1;
+            $('#departments_table > tbody  > tr').each(function(index, tr) {
+                $(tr).children('td:nth-child(1)').text(reCounter);
+                console.log(reCounter)
+                reCounter += 1;
+            });
+        }
+
+        function appendToTable(id, text) {
             $('#departments_table tr:last')
                 .after(`<tr>
-                            {{-- <td>{{ $loop->index + 1 }}</td> --}}
-                            <td>{{ $department->id }}</td>
-                            <td id='td_dept_name'>{{ $department->name }}</td>
+                            <td>2</td>
+                            <td id='td_dept_name'>${text}</td>
                             <td>
                                 <div class="field has-addons">
                                     <p class="control">
-                                        {{-- <a href="{{ route('admin.departments.edit', ${id}) }}"> --}}
                                         <button class="button is-rounded is-small is-info"
-                                            id='edit' data-id="{{ $department->id }}"
-                                            data-full_name="{{ $department->name }}">
+                                            id='edit' data-id="${id}"
+                                            data-full_name="${text}">
                                             <span class="icon is-small">
                                                 <i class="mdi mdi-pencil-outline"></i>
                                             </span>
                                             <span>Edit</span>
                                         </button>
-                                        {{-- </a> --}}
                                     </p>
                                     <p class="control">
                                         <button class="button is-rounded is-small is-danger"
-                                            id="remove" data-id="{{ $department->id }}"
-                                            data-action="{{ route('admin.departments.destroy', $department->id) }}">
+                                            id="remove" data-id="${id}"
+                                            data-action="{{ route('admin.department.destroy.json') }} + '/${id}'">
                                             <span class="icon is-small">
                                                 <i class="mdi mdi-trash-can-outline"></i>
                                             </span>
@@ -314,6 +325,8 @@
                                 </div>
                             </td>
                         </tr>`);
+
+            reNumber();
         }
     </script>
 @endsection

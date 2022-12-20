@@ -8,7 +8,7 @@
     <div class="columns my-2">
         <div class="column is-3"></div>
         <div class="column box">
-            <form action="{{ route('guest.reference.track') }}" method="POST">
+            <form action="{{ route('user.reference.track') }}" method="POST">
                 @csrf
                 <div class="field">
                     <label class="label">Enter Tracking Number</label>

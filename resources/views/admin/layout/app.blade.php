@@ -9,6 +9,7 @@
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/popper.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
@@ -224,6 +225,7 @@
 
     <!-- Scripts below are for demo only -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/popper.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>

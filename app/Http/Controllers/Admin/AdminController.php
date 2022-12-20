@@ -89,7 +89,7 @@ class AdminController extends Controller
         $randRef = fake()->numberBetween(1000, 90000);
 
         Tracker::create([
-            'reference_code' => "tr-{$randRef}",
+            'reference_code' => $randRef,
             'tickets_id' => $createTicketID,
         ]);
 
@@ -301,7 +301,7 @@ class AdminController extends Controller
     {
         $roleToGet = 'admin';
 
-        /* The sessions are used in theview for listing available
+        /* The sessions are used in the view for listing available
         accounts, more specifically in the tabs for selecting
         between admins staff accounts
         */
@@ -391,5 +391,40 @@ class AdminController extends Controller
         );
 
         return view('update');
+    }
+
+    public function assignTicket(Ticket $ticket)
+    {
+        $categories = Category::all();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
+        return view(
+            'admin.tickets.assign_ticket',
+            compact('staffs', 'users', 'ticket', 'categories')
+        );
+    }
+
+    public function updateTicket(Ticket $ticket, AdminTicketRequest $request)
+    {
+        $data = $request->validated();
+        $data['assigned_by'] = Auth::user()->id;
+        $data['status'] = 'open';
+
+        $ticket->update($data);
+
+        return redirect()->route('admin.tickets.view');
     }
 }

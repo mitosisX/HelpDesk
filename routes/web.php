@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(
             Route::get('admin/tickets/show/{ticket}', 'editTicket')->name('admin.tickets.edit');
             Route::post('admin/tickets/show/{ticket?}', 'updateTicket')->name('admin.tickets.update');
             Route::get('admin/tickets/view/{status?}', 'viewTickets')->name('admin.tickets.view');
+            Route::get('admin/tickets/assign/{ticket?}', 'assignTicket')->name('admin.tickets.assign');
+            Route::post('admin/tickets/update/{ticket?}', 'updateTicket')->name('admin.tickets.update');
             Route::get('admin/dashboard', 'dashboard')->name('admin.dashboard');
 
             //Authentication
@@ -69,21 +71,42 @@ Route::middleware(['auth'])->group(
         //
         //     }
         // );
+
+        Route::controller(AccountController::class)->group(function () {
+            Route::post('admin/account/staff/create', 'satffCreate')
+                ->name('account.staff.create');
+
+            Route::post('admin/account/admin/create', 'adminCreate')
+                ->name('account.admin.create');
+
+            Route::post('admin/account/user/create', 'userCreate')
+                ->name('account.user.create');
+        });
+
+        Route::controller(DepartmentsController::class)->group(function () {
+            Route::get('admin/manage/department/create', 'create')->name('admin.departments.create');
+            Route::post('admin/manage/department/store', 'store')->name('admin.departments.store');
+            Route::get('admin/manage/department/edit/{department}', 'edit')->name('admin.departments.edit');
+            Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
+            Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
+            Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.departments.update');
+
+            Route::post('admin/manage/department/remove/{department}', 'delete')->name('admin.departments.destroy');
+            Route::post('admin/manage/departments/update/json/{id?}', 'updateDepartmentJson')->name('admin.department.update.json');
+            Route::delete('admin/manage/departments/destroy/json/{department?}', 'deleteDepartmentJson')->name('admin.department.destroy.json');
+        });
+
+        Route::controller(CategoriesController::class)->group(function () {
+            Route::get('admin/manage/categories/create', 'create')->name('admin.categories.create');
+            Route::post('admin/manage/categories/store', 'store')->name('admin.categories.store');
+            Route::get('admin/manage/categories/edit/{category}', 'edit')->name('admin.categories.edit');
+            Route::get('admin/manage/categories/all', 'index')->name('admin.categories.index');
+            Route::get('admin/manage/categories/show/{category}', 'show')->name('admin.categories.show');
+            Route::patch('admin/manage/categories/update/{category}', 'update')->name('admin.categories.update');
+        });
     }
 );
 
-Route::controller(DepartmentsController::class)->group(function () {
-    Route::get('admin/manage/department/create', 'create')->name('admin.departments.create');
-    Route::post('admin/manage/department/store', 'store')->name('admin.departments.store');
-    Route::get('admin/manage/department/edit/{department}', 'edit')->name('admin.departments.edit');
-    Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
-    Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
-    Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.departments.update');
-
-    Route::post('admin/manage/department/remove/{department}', 'delete')->name('admin.departments.destroy');
-    Route::post('admin/manage/departments/update/json/{id?}', 'updateDepartmentJson')->name('admin.department.update.json');
-    Route::delete('admin/manage/departments/destroy/json/{department?}', 'deleteDepartmentJson')->name('admin.department.destroy.json');
-});
 
 Route::controller(ProfileController::class)->group(function () {
     Route::get('admin/manage/profile/show', 'index')->name('admin.profile.show');
@@ -91,25 +114,9 @@ Route::controller(ProfileController::class)->group(function () {
     // Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.profile.update');
 });
 
-Route::controller(CategoriesController::class)->group(function () {
-    Route::get('admin/manage/categories/create', 'create')->name('admin.categories.create');
-    Route::post('admin/manage/categories/store', 'store')->name('admin.categories.store');
-    Route::get('admin/manage/categories/edit/{category}', 'edit')->name('admin.categories.edit');
-    Route::get('admin/manage/categories/all', 'index')->name('admin.categories.index');
-    Route::get('admin/manage/categories/show/{category}', 'show')->name('admin.categories.show');
-    Route::patch('admin/manage/categories/update/{category}', 'update')->name('admin.categories.update');
-});
-
 //
 // Staff controller
 //
-Route::controller(StaffController::class)->group(function () {
-    Route::get('staff/dashboard', 'dashboard')->name('staff.dashboard');
-    Route::get('staff/profile', 'profile')->name('staff.profile');
-    Route::get('staff/tickets', 'tickets')->name('staff.tickets');
-    Route::get('staff/tickets/view/{status?}', 'viewTickets')->name('staff.tickets.view');
-    Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
-});
 
 Route::resource('staff', StaffController::class)->names([
     'index' => 'staff.home',
@@ -118,34 +125,34 @@ Route::resource('staff', StaffController::class)->names([
     'update' => 'staff.update',
     'destroy' => 'staff.delete',
 ]);
+
+Route::controller(StaffController::class)->group(function () {
+    Route::get('staff/dashboard', 'dashboard')->name('staff.dashboard');
+    Route::get('staff/profile', 'profile')->name('staff.profile');
+    Route::get('staff/tickets', 'tickets')->name('staff.tickets');
+    Route::get('staff/tickets/view/{status?}', 'viewTickets')->name('staff.tickets.view');
+    Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
+});
+
 //
 // Staff controller - END
 //
 
 //
-// Guest controller
+// user controller
 //
-Route::controller(GuestController::class)->group(function () {
-    Route::get('guest/ticket/create', 'createTicket')->name('guest.ticket');
-    Route::get('guest/reference/enter', 'enterReference')->name('guest.reference.enter');
-    Route::post('guest/reference/track/', 'referenceTicket')->name('guest.reference.track');
-    Route::post('guest/ticket/store', 'storeTicket')->name('guest.tickets.store');
-});
+Route::middleware(['auth'])->group(function () {
+    Route::controller(GuestController::class)->group(function () {
+        Route::get('user/tickets/create', 'createTicket')->name('user.tickets.create');
+        Route::get('user/tickets/view', 'allTickets')->name('user.tickets.view');
+        Route::get('user/tickets/reference/track/{reference}', 'referenceTicket')->name('user.tickets.reference.track');
+        Route::post('user/ticket/store', 'storeTicket')->name('user.tickets.store');
+    });
 
-Route::resource('guest', GuestController::class)->names([
-    'create' => 'guest.create',
-    'store' => 'guest.store'
-]);
-
-Route::controller(AccountController::class)->group(function () {
-    Route::post('admin/account/staff/create', 'satffCreate')
-        ->name('account.staff.create');
-
-    Route::post('admin/account/admin/create', 'adminCreate')
-        ->name('account.admin.create');
-
-    Route::post('admin/account/user/create', 'userCreate')
-        ->name('account.user.create');
+    Route::resource('user', GuestController::class)->names([
+        'create' => 'user.create',
+        'store' => 'user.store'
+    ]);
 });
 
 //

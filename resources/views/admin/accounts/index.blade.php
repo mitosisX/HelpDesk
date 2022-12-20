@@ -36,12 +36,6 @@
                             <div class="column is-full">
                                 <div class="tabs is-centered">
                                     <ul>
-                                        {{-- <li @class([
-                                'is-active',
-                                'font-bold' => $request->session()->get('for-all'),
-                            ])><a
-                                    href="{{ route('admin.accounts.view', ['type' => 'all']) }}">All</a>
-                            </li> --}}
                                         <li @class(['is-active' => session('for-admins')])><a
                                                 href="{{ route('admin.accounts.view', ['type' => 'admin']) }}">Administrators</a>
                                         </li>

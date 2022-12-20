@@ -49,8 +49,8 @@
                                 </div>
                                 <div class="level-item has-widget-icon">
                                     <div class="is-widget-icon">
-                                        <span class="icon has-text-primary is-large"><i
-                                                class="mdi mdi-moon-full mdi-48px"></i></span>
+                                        <span class="icon has-text-primary is-large">
+                                            <i class="mdi mdi-moon-full mdi-48px"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -156,9 +156,9 @@
                                 @foreach ($tickets as $ticket)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $ticket->name }}</td>
+                                        <td>{{ $ticket->description }}</td>
                                         <td>{{ $ticket->reporter->department->name }}</td>
-                                        <td>{{ $ticket->assignee->name }}</td>
+                                        <td>{{ isset($ticket->assignee->name) ? $ticket->assignee->name : '----' }}</td>
                                         {{-- {{ dd($ticket) }} --}}
                                         <td>
                                             @php
@@ -186,9 +186,9 @@
                                                         </span>
                                                         <span>View</span>
                                                     </button>
-                                                    <a href={{ route('admin.tickets.edit', ['ticket' => $ticket->id]) }}>
-                                                        <button class="button is-small is-info jb-modal"
-                                                            data-target="sample-modal" type="button">
+                                                    <a href={{ route('admin.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        <button class="button is-small is-info" data-target="sample-modal"
+                                                            type="button">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-pencil"></i>
                                                             </span>
@@ -237,7 +237,7 @@
     </section>
 
 
-    <div id="create_modal" class="modal">
+    {{-- <div id="create_modal" class="modal">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -247,7 +247,7 @@
                 </p>
                 <button class="delete" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body" style="overflow-y: auto;">
                 <div class="column">
                     <form action="{{ route('admin.tickets.store') }}" method='POST'>
                         @csrf
@@ -330,7 +330,7 @@
             </footer>
             </form>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('scripts')
@@ -343,7 +343,9 @@
                 Bulma('#create_modal').modal().open();
             })
 
-            const calendar = bulmaCalendar.attach("#duedate");
+            const calendar = bulmaCalendar.attach("#duedate", {
+                'isRange': false
+            });
 
             // To access to bulmaCalendar instance of an element
             const element = document.querySelector('#duedate');
