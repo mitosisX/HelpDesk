@@ -36,13 +36,13 @@
                             <div class="column is-full">
                                 <div class="tabs is-centered">
                                     <ul>
-                                        <li @class(['is-active' => session('for-admins')])><a
+                                        <li @class(['is-active' => session('account-type') === 'admins'])><a
                                                 href="{{ route('admin.accounts.view', ['type' => 'admin']) }}">Administrators</a>
                                         </li>
-                                        <li @class(['is-active' => session('for-staff')])><a
+                                        <li @class(['is-active' => session('account-type') === 'staff'])><a
                                                 href="{{ route('admin.accounts.view', ['type' => 'staff']) }}">IT
                                                 Staff</a></li>
-                                        <li @class(['is-active' => session('for-users')])><a
+                                        <li @class(['is-active' => session('account-type') === 'users'])><a
                                                 href="{{ route('admin.accounts.view', ['type' => 'user']) }}">User</a>
                                         </li>
                                     </ul>
@@ -95,7 +95,7 @@
             <div class="column is-1"></div>
         </div>
     </section>
-    @if (session('for-admins'))
+    @if (session('account-type') === 'admins')
         <div id="create_modal" class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
@@ -186,7 +186,7 @@
                 </form>
             </div>
         </div>
-    @elseif (session('for-staff'))
+    @elseif (session('account-type') === 'staff')
         <div id="create_modal" class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
@@ -278,7 +278,7 @@
                 </form>
             </div>
         </div>
-    @elseif(session('for-users'))
+    @elseif(session('account-type') === 'users')
         <div id="create_modal" class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">

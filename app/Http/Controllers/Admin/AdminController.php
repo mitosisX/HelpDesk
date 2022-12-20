@@ -307,33 +307,36 @@ class AdminController extends Controller
         */
         switch (Str::lower($type)) {
             case ('admin'):
-                session(['for-admins' => true]);
-                session(['for-staff' => false]);
-                session(['for-users' => false]);
+                session(['account-type' => 'admins']);
+                // session(['for-staff' => false]);
+                // session(['for-users' => false]);
 
                 $roleToGet = 'admin';
                 break;
 
             case ('staff'):
-                session(['for-staff' => true]);
-                session(['for-admins' => false]);
-                session(['for-users' => false]);
+                session(['account-type' => 'staff']);
+                // session(['for-staff' => true]);
+                // session(['for-admins' => false]);
+                // session(['for-users' => false]);
 
                 $roleToGet = 'staff';
                 break;
 
             case ('user'):
-                session(['for-staff' => false]);
-                session(['for-admins' => false]);
-                session(['for-users' => true]);
+                session(['account-type' => 'users']);
+                // session(['for-staff' => false]);
+                // session(['for-admins' => false]);
+                // session(['for-users' => true]);
 
                 $roleToGet = 'user';
                 break;
 
             default:
-                session(['for-admins' => true]);
-                session(['for-staff' => false]);
-                session(['for-users' => false]);
+                session(['account-type' => 'admins']);
+                // session(['for-admins' => true]);
+                // session(['for-staff' => false]);
+                // session(['for-users' => false]);
                 $roleToGet = 'admin';
 
                 return redirect()

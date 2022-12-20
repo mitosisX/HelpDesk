@@ -9,7 +9,9 @@
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-steps.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pulse.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
@@ -179,6 +181,7 @@
     <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bulma-steps.min.js') }}"></script>
 
     <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 

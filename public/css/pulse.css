@@ -1,0 +1,15 @@
+.pulse {
+  width: 55px;
+  height: 55px;
+  border-radius: 50px;
+  background: #1CD4FC;
+  animation: pulse 1500ms infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #1CD4FC;
+  }
+  100% {
+    box-shadow: 0 0 0 10px #fbb32f01;
+  }
+}
