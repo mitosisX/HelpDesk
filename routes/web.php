@@ -145,7 +145,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(GuestController::class)->group(function () {
         Route::get('user/tickets/create', 'createTicket')->name('user.tickets.create');
         Route::get('user/tickets/view', 'allTickets')->name('user.tickets.view');
-        Route::get('user/tickets/reference/track/{reference}', 'referenceTicket')->name('user.tickets.reference.track');
+        Route::get('user/tickets/track/{ticket}', 'referenceTicket')->name('user.tickets.reference.track');
         Route::post('user/ticket/store', 'storeTicket')->name('user.tickets.store');
     });
 

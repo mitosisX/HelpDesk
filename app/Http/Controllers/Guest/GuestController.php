@@ -114,14 +114,8 @@ class GuestController extends Controller
         return view('guest.enter_ticket_reference');
     }
 
-    public function referenceTicket(Ticket $reference)
+    public function referenceTicket(Ticket $ticket)
     {
-        $ref = $reference->reference_code;
-        $ticket = Ticket::whereHas('tracker', function (Builder $query) {
-            $query->where('reference_code', session('ref'));
-        })->first();
-        // /dd($ticket);
-
         return view(
             'guest.track_ticket',
             compact('ticket')
@@ -148,24 +142,35 @@ class GuestController extends Controller
 
         return redirect()
             ->route(
-                'user.reference.enter'
-            )->with('ref_code', $ref);
+                'user.tickets.view'
+            );
     }
 
     public function allTickets()
     {
-        $GetTickets = Ticket::where('reported_by', Auth::user()->id);
+        $GetTickets = Ticket::where(function ($query) {
+            $query->where('reported_by', Auth::user()->id)
+                ->where('status', '!=', 'closed');
+        });
 
-        $openCount = $GetTickets->where('status', 'open')->count();
+        $resolvedTickets = Ticket::where(function ($query) {
+            $query->where('reported_by', Auth::user()->id)
+                ->where('status', '=', 'closed');
+        });
 
-        $closedCount = $GetTickets->where('status', 'closed')->count();
+        $openCount = $GetTickets->count();
 
-        $tickets = Ticket::where('reported_by', Auth::user()->id)->get();
+        $closedCount = $resolvedTickets->count();
+
+        $unresolvedTickets = Ticket::where(function ($query) {
+            $query->where('reported_by', Auth::user()->id)
+                ->where('status', '!=', 'closed');
+        })->get();
 
 
         return view(
             'guest.all_tickets',
-            compact('tickets', 'openCount', 'closedCount')
+            compact('unresolvedTickets', 'openCount', 'closedCount')
         );
     }
 }

@@ -97,8 +97,9 @@
                                 </div>
                                 <div class="level-item has-widget-icon">
                                     <div class="is-widget-icon">
-                                        <span class="icon has-text-danger is-large"><i
-                                                class="mdi mdi-moon-full mdi-48px"></i></span>
+                                        <span class="icon has-text-danger is-large">
+                                            <i class="mdi mdi-moon-full mdi-48px"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -128,14 +129,14 @@
                     </span>
                 </p>
 
-                <a class="card-header-icon">
+                <div class="card-header-icon">
                     <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
                         <span class="icon">
                             <i class="mdi mdi-plus"></i>
                         </span>
                         <span class="menu-item-label">Create</span>
                     </button>
-                </a>
+                </div>
             </header>
             <div class="card-content px-2 my-2">
                 <div class="b-table has-pagination">

@@ -204,8 +204,6 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
-
             const calendar = bulmaCalendar.attach("#duedate");
 
             // To access to bulmaCalendar instance of an element
@@ -215,7 +213,7 @@
             if (element) {
                 // bulmaCalendar instance is available as element.bulmaCalendar
                 element.bulmaCalendar.on('select', datepicker => {
-                    console.log(showDiff(today, new Date(datepicker.data.value())));
+                    showDiff(today, new Date(datepicker.data.value()));
                 });
             }
         });
@@ -242,7 +240,7 @@
                 $('#submit').attr('disabled', false);
             }
 
-            console.log(s)
+            // console.log(s)
         }
 
         function dateDiff(dt1, dt2) {

@@ -20,24 +20,6 @@ class Ticket extends Model
 
     //public $timestamps = false;
 
-    public function status()
-    {
-        return $this->hasMany(Status::class);
-    }
-
-    protected function number(): Attribute
-    {
-        //tk-1000-ACB
-        $randNumber = fake()->numberBetween(1000, 9999);
-        $randAlpha1 = fake()->randomLetter();
-
-        $fullTicketCode = "tk-{$randNumber}{$randAlpha1}";
-
-        return Attribute::make(
-            set: fn () => $fullTicketCode
-        );
-    }
-
     public function reporter()
     {
         return $this->hasOne(User::class, 'id', 'reported_by');

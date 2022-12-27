@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />/
+    <link rel="stylesheet" href="{{ asset('css/jstable.css') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -187,21 +188,6 @@
         </section> --}}
 
         @yield('content')
-
-        {{-- <footer class="footer" style="width:100%;position:sticky;bottom:0px;">
-            <div class="container-fluid">
-                <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">Help desk & ticketing system</div>
-                    </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <span>NRWB</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer> --}}
     </div>
 
     <div id="sample-modal" class="modal">
@@ -223,20 +209,20 @@
         <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
     </div>
 
-    <!-- Scripts below are for demo only -->
+    <script type="text/javascript" src="{{ asset('js/jstable.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/popper.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script> --}}
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chart.sample.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
-
-    <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-
+    <script>
+        new JSTable("table");
+    </script>
     <!-- Code injected by live-server -->
     @yield('scripts')
 </body>

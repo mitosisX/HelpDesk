@@ -1,6 +1,6 @@
 @extends('guest.layout.app')
 @section('title')
-    <title>Dashboard - Admin</title>
+    <title>Dashboard - NRWB system</title>
 @endsection
 
 @section('breadcrumb')
@@ -145,7 +145,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tickets as $ticket)
+                                    @foreach ($unresolvedTickets as $ticket)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $ticket->description }}</td>
@@ -165,7 +165,8 @@
                                             <td>
                                                 <div>
                                                     <div class="buttons has-addons">
-                                                        <a href="{{ route('user.tickets.reference.track', $ticket->id) }}">
+                                                        <a
+                                                            href="{{ route('user.tickets.reference.track', ['ticket' => $ticket->id]) }}">
                                                             <button class="button is-rounded is-small is-primary"
                                                                 type="button">
                                                                 <span class="icon">
@@ -188,4 +189,10 @@
             <div class="column is-1"></div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        new JSTable("#tickets_table");
+    </script>
 @endsection

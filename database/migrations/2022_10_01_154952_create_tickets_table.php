@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('priority'); //->nullable();
             $table->mediumText('status');
 
+            //This will be used to indicate whether the reported
+            // has marked as resolved.
+            $table->boolean('resolved')->default(false);
+
             // Comments can be added by the admin to the IT staff
             // being assigned to
             $table->mediumText('comment')->nullable();

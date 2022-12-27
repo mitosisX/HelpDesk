@@ -35,6 +35,16 @@
                             <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
                             <span>Create Ticket</span>
                         </p>
+
+                        <a class="card-header-icon" href={{ route('admin.tickets.view') }}>
+                            <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
+                                <span class="icon">
+                                    <i class="mdi mdi-home"></i>
+                                </span>
+                                <span class="menu-item-label">Home</span>
+                            </button>
+                        </a>
+
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
                         <div class="column is-full mx-5">
@@ -136,8 +146,6 @@
     <script>
         $(document).ready(function() {
 
-            $("#tickets_table").DataTable();
-
             const calendar = bulmaCalendar.attach("#duedate");
 
             // To access to bulmaCalendar instance of an element
@@ -148,7 +156,7 @@
             if (element) {
                 // bulmaCalendar instance is available as element.bulmaCalendar
                 element.bulmaCalendar.on('select', datepicker => {
-                    console.log(showDiff(today, new Date(datepicker.data.value())));
+                    showDiff(today, new Date(datepicker.data.value()));
                 });
             }
         });
