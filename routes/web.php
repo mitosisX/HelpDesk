@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\AccountController;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DepartmentsController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 
 Route::fallback(function () {         //redirect all 404 to the landing page
@@ -57,6 +58,30 @@ Route::middleware(['auth'])->group(
             Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
             Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
             Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
+        });
+
+        Route::get('test', function () {
+            $tickets = Ticket::where('status', '!=', 'new')
+                ->get()
+                ->filter(function ($value, $key) {
+                    // Set the target date in the future
+                    $target_date = $value->due_date;
+
+                    // Get the current date and time
+                    $current_date = new DateTime();
+
+                    // Calculate the difference between the two dates
+                    $difference = $current_date->diff(new DateTime($target_date));
+
+                    if ($difference->days <= 2) {
+
+                        return $value;
+                    }
+                    // Check if the difference is less than or equal to 2 days
+                })
+                ->all();
+
+            dd($tickets);
         });
 
         Route::resource('admin', AdminController::class)->names([

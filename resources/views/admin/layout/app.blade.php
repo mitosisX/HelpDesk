@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />/
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jstable.css') }}">
 
     <!-- Fonts -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DateTime;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Status;
@@ -218,10 +219,27 @@ class AdminController extends Controller
                 session(['status' => 'Closed']);
                 break;
             case ('overdue'):
-                $tickets = Ticket::whereBetween('created_at', [
-                    '2022-11-04 17:39:52',
-                    '2022-11-22 17:38:28'
-                ])->get();
+                $tickets = Ticket::where('status', '!=', 'new')
+                    ->get()
+                    ->filter(function ($value, $key) {
+                        // Set the target date in the future
+                        $target_date = $value->due_date;
+
+                        // Get the current date and time
+                        $current_date = new DateTime();
+
+                        // Calculate the difference between the two dates
+                        $difference = $current_date->diff(new DateTime($target_date));
+
+                        if ($difference->days <= 2) {
+                            
+                            return $value;
+                        }
+                        // Check if the difference is less than or equal to 2 days
+                    })
+                    ->all();
+
+                dd($tickets);
 
                 session(['status' => 'Overdue']);
                 break;
