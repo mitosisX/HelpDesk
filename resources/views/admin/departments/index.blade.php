@@ -162,7 +162,7 @@
                 var newDeptName = $('#department_name').val();
 
                 $.ajax({
-                    url: "{{ route('admin.departments.store') }}",
+                    url: "{{ route('admin.departments.store.json') }}",
                     type: "POST",
                     data: {
                         name: newDeptName,

@@ -54,7 +54,7 @@
                             ])>
                                 <div @class([
                                     'step-marker',
-                                    'pulse' => $ticket->status === 'closed' && $ticket->status === 0,
+                                    'pulse' => $ticket->status === 'closed' && $ticket->resolved === 0,
                                 ])>3</div>
                                 <div class="step-details">
                                     <p class="step-title">Resolved</p>
@@ -86,13 +86,34 @@
                                         <div class="field-body">
                                             <div class="field ">
                                                 <div class="control">
-                                                    <div class="notification is-info">
-                                                        <button class="delete"></button>
-                                                        Primar lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus
-                                                            mi</strong>, tempus quis placerat ut, porta nec nulla.
-                                                        Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus
-                                                        diam, et dictum <a>felis venenatis</a> efficitur.
+                                                    <div class="card box">
+                                                        <div class="card-content">
+                                                            @if ($ticket->status == 'new')
+                                                                <div class="content">
+                                                                    <h1 class="title">Your ticket was sent. Please await
+                                                                        response</h1>
+                                                                </div>
+                                                            @elseif ($ticket->status == 'open')
+                                                                <div class="content">
+                                                                    <h1 class="title">Your ticket has been assigned to an
+                                                                        IT staff.</h1>
+                                                                </div>
+                                                            @elseif ($ticket->status == 'closed')
+                                                                <div class="content">
+                                                                    <h1 class="title is-4">Your ticket was
+                                                                        resolved. You can
+                                                                        confirm by clicking the button below.</h1>
+
+                                                                    <button class="button is-primary">
+                                                                        <span class="icon">
+                                                                            <i
+                                                                                class="mdi mdi-briefcase-account-outline"></i>
+                                                                        </span>
+                                                                        <span>Confirm</span>
+                                                                    </button>
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

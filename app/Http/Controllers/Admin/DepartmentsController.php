@@ -51,6 +51,21 @@ class DepartmentsController extends Controller
         //     ->with('department_status', 'create succefully!');
     }
 
+    public function storeJSON(DepartmentRequest $request)
+    {
+        $id = Department::create($request->validated())->id;
+
+        // Department::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['id' => $id]);
+
+        // return redirect()
+        //     ->route('admin.departments.index')
+        //     ->with('department_status', 'create succefully!');
+    }
+
     /**
      * Display the specified resource.
      *

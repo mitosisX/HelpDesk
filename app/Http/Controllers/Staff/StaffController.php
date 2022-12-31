@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Staff;
 
+use DateTime;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +20,100 @@ class StaffController extends Controller
      */
     public function index()
     {
-        return $this->profile();
+        return view('staff.all_tickets');
+    }
+
+
+    function viewTicdkets($status = 'new')
+    {
+        $tickets = collect();
+
+        switch ($status) {
+            case ('new'):
+                $tickets = Ticket::where('status', 'new')
+                    ->get();
+                session(['status' => 'New']);
+                break;
+            case ('open'):
+                $tickets = Ticket::where('status', 'open')
+                    ->get();
+                session(['status' => 'Open']);
+                break;
+            case ('closed'):
+                $tickets = Ticket::where('status', 'closed')
+                    ->get();
+                session(['status' => 'Closed']);
+                break;
+            case ('overdue'):
+                $tickets = Ticket::where('status', '!=', 'new')
+                    ->get()
+                    ->filter(function ($value, $key) {
+                        // Set the target date in the future
+                        $target_date = $value->due_date;
+
+                        // Get the current date and time
+                        $current_date = new DateTime();
+
+                        // Calculate the difference between the two dates
+                        $difference = $current_date->diff(new DateTime($target_date));
+
+                        if ($difference->days <= 2) {
+
+                            return $value;
+                        }
+                        // Check if the difference is less than or equal to 2 days
+                    })
+                    ->all();
+
+                dd($tickets);
+
+                session(['status' => 'Overdue']);
+                break;
+        }
+        // $tickets = Ticket::all()
+        //     ->tracker()->get();
+
+        $newCount = Ticket::where('status', 'new')
+            ->get()
+            ->count();
+
+        $openCount = Ticket::where('status', 'open')
+            ->get()
+            ->count();
+
+        $closedCount = Ticket::where(['status' => 'closed'])
+            ->get()
+            ->count();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
+        return view(
+            'admin.tickets.all_tickets',
+            compact(
+                'tickets',
+                'newCount',
+                'openCount',
+                'closedCount',
+                'categories',
+                'staffs',
+                'users'
+            )
+        );
     }
 
     /**
@@ -92,7 +185,7 @@ class StaffController extends Controller
     public function dashboard()
     {
         return redirect()
-            ->route('staff.tickets.view');
+            ->route('staff.index');
     }
 
     public function profile()
@@ -133,7 +226,7 @@ class StaffController extends Controller
 
     function viewTickets($status = 'new')
     {
-        $tickets = [];
+        // $tickets = null;
 
         switch ($status) {
             case ('new'):
@@ -145,10 +238,14 @@ class StaffController extends Controller
                 session(['status' => 'New']);
                 break;
             case ('open'):
-                $tickets = Ticket::where([
-                    'status' => 'open',
-                    'assigned_to' => Auth::user()->id
-                ])
+                $tickets = Ticket::where(
+                    'status',
+                    'open'
+                )
+                    ->where(
+                        'assigned_to',
+                        Auth::user()->id
+                    )
                     ->get();
                 session(['status' => 'Open']);
                 break;
@@ -161,16 +258,29 @@ class StaffController extends Controller
                 session(['status' => 'Closed']);
                 break;
             case ('overdue'):
-                $tickets = Ticket::whereBetween('created_at', [
-                    '2022-11-04 17:39:52',
-                    '2022-11-22 17:38:28'
-                ])->get();
+                $tickets = Ticket::where('status', '!=', 'new')
+                    ->where('assigned_to', Auth::user()->id)
+                    ->get()
+                    ->filter(function ($value, $key) {
+                        // Set the target date in the future
+                        $target_date = $value->due_date;
+
+                        // Get the current date and time
+                        $current_date = new DateTime();
+
+                        // Calculate the difference between the two dates
+                        $difference = $current_date->diff(new DateTime($target_date));
+
+                        if ($difference->days <= 2) {
+
+                            return $value;
+                        }
+                        // Check if the difference is less than or equal to 2 days
+                    });
 
                 session(['status' => 'Overdue']);
                 break;
         }
-        // $tickets = Ticket::all()
-        //     ->tracker()->get();
 
         $new = Ticket::where([
             'status' => 'new',
@@ -178,12 +288,14 @@ class StaffController extends Controller
         ])
             ->get()
             ->count();
+
         $open = Ticket::where([
             'status' => 'open',
             'assigned_to' => Auth::user()->id
         ])
             ->get()
             ->count();
+
         $closed = Ticket::where([
             'status' => 'closed',
             'assigned_to' => Auth::user()->id
@@ -194,11 +306,33 @@ class StaffController extends Controller
         return view(
             'staff.all_tickets',
             [
-                'tickets' => $tickets,
+                'tickets' => $tickets->all(),
                 'newCount' => $new,
                 'openCount' => $open,
-                'closedCount' => $closed
+                'closedCount' => $closed,
+                'dueCount' => $tickets->count()
             ]
         );
+    }
+
+    public function manageTickets(Ticket $ticket)
+    {
+        $category = Category::find($ticket->categories_id)->first();
+        $department = User::find($ticket->reported_by)->first();
+
+        return view(
+            'staff.view_ticket',
+            compact('ticket', 'category', 'department')
+        );
+    }
+
+    public function markTicketDone(Request $ticket)
+    {
+        Ticket::find($ticket->id)
+            // ->first()
+            ->update(['status' => 'closed']);
+
+        return response()
+            ->json(['success' => true]);
     }
 }

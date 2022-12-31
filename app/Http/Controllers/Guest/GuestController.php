@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Models\User;
-use App\Models\Status;
 use App\Models\Ticket;
 use App\Models\Tracker;
 use App\Models\Category;
-use App\Models\Reporter;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Guest\GuestTicketRequest;
-use App\Http\Requests\Guest\TrackTicketRequest;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class GuestController extends Controller
 {

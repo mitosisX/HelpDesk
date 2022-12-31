@@ -60,30 +60,6 @@ Route::middleware(['auth'])->group(
             Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
         });
 
-        Route::get('test', function () {
-            $tickets = Ticket::where('status', '!=', 'new')
-                ->get()
-                ->filter(function ($value, $key) {
-                    // Set the target date in the future
-                    $target_date = $value->due_date;
-
-                    // Get the current date and time
-                    $current_date = new DateTime();
-
-                    // Calculate the difference between the two dates
-                    $difference = $current_date->diff(new DateTime($target_date));
-
-                    if ($difference->days <= 2) {
-
-                        return $value;
-                    }
-                    // Check if the difference is less than or equal to 2 days
-                })
-                ->all();
-
-            dd($tickets);
-        });
-
         Route::resource('admin', AdminController::class)->names([
             'index' => 'admin.home',
             'create' => 'admin.create',
@@ -111,6 +87,7 @@ Route::middleware(['auth'])->group(
         Route::controller(DepartmentsController::class)->group(function () {
             Route::get('admin/manage/department/create', 'create')->name('admin.departments.create');
             Route::post('admin/manage/department/store', 'store')->name('admin.departments.store');
+            Route::post('admin/manage/department/store/json', 'store')->name('admin.departments.store.json');
             Route::get('admin/manage/department/edit/{department}', 'edit')->name('admin.departments.edit');
             Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
             Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
@@ -144,7 +121,7 @@ Route::controller(ProfileController::class)->group(function () {
 //
 
 Route::resource('staff', StaffController::class)->names([
-    'index' => 'staff.home',
+    'index' => 'staff.index',
     'create' => 'staff.create',
     'store' => 'staff.store',
     'update' => 'staff.update',
@@ -156,6 +133,8 @@ Route::controller(StaffController::class)->group(function () {
     Route::get('staff/profile', 'profile')->name('staff.profile');
     Route::get('staff/tickets', 'tickets')->name('staff.tickets');
     Route::get('staff/tickets/view/{status?}', 'viewTickets')->name('staff.tickets.view');
+    Route::get('staff/tickets/manage/{ticket}', 'manageTickets')->name('staff.ticket.manage');
+    Route::post('staff/tickets/manage/markdone/json', 'markTicketDone')->name('staff.ticket.manage.markdone');
     Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
 });
 
