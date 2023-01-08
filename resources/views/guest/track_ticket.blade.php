@@ -80,9 +80,7 @@
                             </div>
                             <div class="steps-content">
                                 <div class="step-content has-text-centered is-active">
-
                                     <div class="field is-horizontal">
-
                                         <div class="field-body">
                                             <div class="field ">
                                                 <div class="control">
@@ -111,6 +109,11 @@
                                                                         </span>
                                                                         <span>Confirm</span>
                                                                     </button>
+                                                                </div>
+                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved === 1)
+                                                                <div class="content">
+                                                                    <h1 class="title is-4">Your ticket was successfully
+                                                                        marked as closed</h1>
                                                                 </div>
                                                             @endif
                                                         </div>

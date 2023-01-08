@@ -34,7 +34,7 @@
                     <header class="card-header">
                         <p class="card-header-title">
                             <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                            <span>Create Ticket</span>
+                            <span>View Ticket</span>
                         </p>
 
                         <a class="card-header-icon" href={{ route('staff.tickets.view') }}>
@@ -42,7 +42,7 @@
                                 <span class="icon">
                                     <i class="mdi mdi-home"></i>
                                 </span>
-                                <span class="menu-item-label">Home</span>
+                                <span class="menu-item-label">Back</span>
                             </button>
                         </a>
 
@@ -74,6 +74,19 @@
                                 </div>
 
                                 <div class="column is-half pt-0">
+                                    <label>Assigned By</label>
+                                    <div>
+                                        <div class="select">
+                                            <select name="reported_by" readonly>
+                                                <option value="{{ $ticket->reporter->id }}">
+                                                    {{ $ticket->assigner->name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-half pt-0">
                                     <label>Reported By</label>
                                     <div>
                                         <div class="select">
@@ -83,6 +96,14 @@
                                                 </option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-half pt-0">
+                                    <label>Department</label>
+                                    <div>
+                                        <span
+                                            class="tag is-info is-medium is-rounded">{{ $ticket->reporter->department['name'] }}</span>
                                     </div>
                                 </div>
                                 <div class="column is-half pt-0">
@@ -100,6 +121,17 @@
                                     <div>
                                         <input class="input bulmaCalendar" id="duedate" name="due_date" type="date"
                                             data-color="info" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="column is-half pt-0"></div>
+
+                                <div class="column is-half pt-0">
+                                    <label>Comment</label>
+                                    <div>
+                                        <div>
+                                            <textarea name="comment" class="textarea">{{ $ticket->comment }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
 
