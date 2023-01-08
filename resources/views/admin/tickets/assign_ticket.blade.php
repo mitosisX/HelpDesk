@@ -109,7 +109,8 @@
                                             <input class="input bulmaCalendar" id="duedate" name="due_date" type="date"
                                                 data-color="info">
                                         </div>
-                                        <p class="help is-link" id="datediff">-- days</p>
+                                        <p class="help is-link"><span class="tag is-rounded is-info" id="datediff">--
+                                                days</span></p>
                                     </div>
                                     <div class="column is-half pt-0">
                                         <label>Assign To</label>
@@ -125,10 +126,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="column is-half pt-0">
+                                        <label>Comment</label>
+                                        <div>
+                                            <div>
+                                                <textarea name="comment" class="textarea">{{ $ticket->comment }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="column is-half pt-0"></div>
 
                                     <div class="column is-half is-grouped">
                                         <div class="control">
-                                            <input type="submit" class="button is-info" id="submit" disabled>
+                                            <input type="submit" class="button is-info" id="submit">
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +162,9 @@
             // To access to bulmaCalendar instance of an element
             const element = document.querySelector('#duedate');
             const today = new Date();
-            calendar[0].value(today)
+            const duedate = '{{ $ticket->due_date }}';
+            calendar[0].value(duedate);
+            showDiff(today, new Date(duedate));
 
             if (element) {
                 // bulmaCalendar instance is available as element.bulmaCalendar

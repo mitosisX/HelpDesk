@@ -15,7 +15,12 @@ class Ticket extends Model
     protected $fillable = [
         'description', 'categories_id',
         'due_date', 'priority', 'assigned_by',
-        'assigned_to', 'status', 'reported_by'
+        'assigned_to', 'status', 'reported_by',
+        'comment', 'resolved'
+    ];
+
+    protected $casts = [
+        'resolved' => 'boolean'
     ];
 
     //public $timestamps = false;

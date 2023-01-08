@@ -30,6 +30,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +54,7 @@ class AdminController extends Controller
     /**
      * Store a newly create resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store()
@@ -65,6 +66,7 @@ class AdminController extends Controller
         $forTicket = $request->validated();
 
         $forTicket['status'] = 'open';
+        $forTicket['comment'] = $request->all()['comment'];
         $forTicket['assigned_by'] = Auth::user()->id;
 
         // ->only([
@@ -104,7 +106,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -115,7 +117,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -126,8 +128,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -138,7 +140,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -194,7 +196,6 @@ class AdminController extends Controller
         // return view('admin.tickets.all', compact('tickets'));
 
         // Alert::alert('Title', 'Message', 'Type');
-
         return view('admin.tickets.dashboard');
     }
 
@@ -232,14 +233,14 @@ class AdminController extends Controller
                         $difference = $current_date->diff(new DateTime($target_date));
 
                         if ($difference->days <= 2) {
-                            
+
                             return $value;
                         }
                         // Check if the difference is less than or equal to 2 days
                     })
                     ->all();
 
-                dd($tickets);
+                // dd($tickets);
 
                 session(['status' => 'Overdue']);
                 break;

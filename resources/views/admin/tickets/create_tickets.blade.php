@@ -1,6 +1,7 @@
 @extends('admin.layout.app')
+
 @section('title')
-    <title>Tickets - Admin</title>
+    <title>Create Ticket - Admin</title>
 @endsection
 
 @section('breadcrumb')
@@ -80,7 +81,8 @@
                                             <input type="date" id="duedate" value="{{ old('due_date') }}"
                                                 name="due_date" data-close-on-select="false">
                                         </div>
-                                        <p class="help is-link" id="datediff">-- days</p>
+                                        <p class="help is-link"><span class="tag is-rounded is-info" id="datediff">--
+                                                days</span></p>
                                     </div>
                                     <div class="column is-half pt-0">
                                         <label>Assign To</label>
@@ -96,6 +98,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="column is-half pt-0">
+                                        <label>Comment</label>
+                                        <div>
+                                            <div>
+                                                <textarea name="comment" class="textarea"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-half pt-0"></div>
 
                                     <div class="column is-half is-grouped">
                                         <div class="control">
@@ -116,19 +127,19 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-
-            $("#tickets_table").DataTable();
-
-            const calendar = bulmaCalendar.attach("#duedate");
+            const calendar = bulmaCalendar.attach("#duedate", {
+                color: 'info'
+            });
 
             // To access to bulmaCalendar instance of an element
             const element = document.querySelector('#duedate');
             const today = new Date();
 
             if (element) {
+                // element.bulmaCalendar.value(today)
                 // bulmaCalendar instance is available as element.bulmaCalendar
                 element.bulmaCalendar.on('select', datepicker => {
-                    console.log(showDiff(today, new Date(datepicker.data.value())));
+                    showDiff(today, new Date(datepicker.data.value()));
                 });
             }
         });

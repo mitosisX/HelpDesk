@@ -131,10 +131,10 @@ class GuestController extends Controller
         $ref = fake()->numberBetween(1000, 90000);
         // $ref = "tr-{$randRef}";
 
-        Tracker::create([
-            'reference_code' => $ref,
-            'tickets_id' => $createTicketID,
-        ]);
+        // Tracker::create([
+        //     'reference_code' => $ref,
+        //     'tickets_id' => $createTicketID,
+        // ]);
 
         return redirect()
             ->route(
