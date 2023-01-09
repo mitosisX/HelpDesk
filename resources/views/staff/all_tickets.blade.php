@@ -1,5 +1,10 @@
 @extends('staff.layout.app')
 
+@php
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::ticketCounter();
+@endphp
+
 @section('title')
     <title>Dashboard - Staff</title>
 @endsection
@@ -13,7 +18,7 @@
     <section class="section is-main-section">
         <div class="tile is-ancestor">
             <!-- First Card - For New -->
-            <div class="tile is-parent">
+            {{-- <div class="tile is-parent" style="visibility: hidden">
                 <div class="card tile is-child">
                     <a href="{{ route('staff.tickets.view', ['status' => 'new']) }}">
                         <div class="card-content">
@@ -34,7 +39,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Second Card - For Open -->
             <div class="tile is-parent">
@@ -93,7 +98,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">DUE</h3>
-                                        <h1 class="title">{{ $dueCount }}</h1>
+                                        <h1 class="title">{{ $counter['dueCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">

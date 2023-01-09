@@ -206,21 +206,25 @@ class AdminController extends Controller
         switch ($status) {
             case ('new'):
                 $tickets = Ticket::where('status', 'new')
+                    ->orderBy('id', 'desc')
                     ->get();
                 session(['status' => 'New']);
                 break;
             case ('open'):
                 $tickets = Ticket::where('status', 'open')
+                    ->orderBy('id', 'desc')
                     ->get();
                 session(['status' => 'Open']);
                 break;
             case ('closed'):
                 $tickets = Ticket::where('status', 'closed')
+                    ->orderBy('id', 'desc')
                     ->get();
                 session(['status' => 'Closed']);
                 break;
             case ('overdue'):
                 $tickets = Ticket::where('status', '!=', 'new')
+                    ->orderBy('id', 'desc')
                     ->get()
                     ->filter(function ($value, $key) {
                         // Set the target date in the future

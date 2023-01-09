@@ -24,7 +24,7 @@ class StaffController extends Controller
     }
 
 
-    function viewTicdkets($status = 'new')
+    function viewTicdkets($status = 'open')
     {
         $tickets = collect();
 
@@ -222,7 +222,6 @@ class StaffController extends Controller
             'closedCount' => $closed
         ]);
     }
-
 
     function viewTickets($status = 'new')
     {

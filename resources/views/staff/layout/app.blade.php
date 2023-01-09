@@ -76,7 +76,7 @@
                 <p class="menu-label">General</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="{{ route('user.create') }}" class="router-link-active has-icon">
+                        <a href="#" class="router-link-active has-icon">
                             <span class="icon"><i class="mdi mdi-home"></i></span>
                             <span class="menu-item-label">Dashboard</span>
                         </a>
@@ -84,14 +84,14 @@
                 </ul>
                 <p class="menu-label">Tickets</p>
                 <ul class="menu-list">
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('user.tickets.create') }}" class="has-icon">
                             <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
                             <span class="menu-item-label">Create Ticket</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
-                        <a href="{{ route('user.tickets.view') }}" class="has-icon">
+                        <a href="{{ route('staff.tickets.view', ['status' => 'open']) }}" class="has-icon">
                             <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
                             <span class="menu-item-label">All Tickets</span>
                         </a>

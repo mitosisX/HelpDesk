@@ -130,7 +130,7 @@
                                     <label>Comment</label>
                                     <div>
                                         <div>
-                                            <textarea name="comment" class="textarea">{{ $ticket->comment }}</textarea>
+                                            <textarea name="comment" class="textarea" readonly>{{ $ticket->comment }}</textarea>
                                         </div>
                                     </div>
                                 </div>

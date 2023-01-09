@@ -138,20 +138,13 @@ class GuestController extends Controller
 
         return redirect()
             ->route(
-                'user.tickets.view'
+                'user.tickets.view',
+                ['status' => 'new']
             );
     }
 
     public function allTickets($status = 'new')
     {
-        switch ($status) {
-            case ('new'):
-                break;
-
-            case ('resolved'):
-                break;
-        }
-
         $GetTickets = Ticket::where(function ($query) {
             $query->where('reported_by', Auth::user()->id)
                 ->where('status', '!=', 'closed');
@@ -160,7 +153,8 @@ class GuestController extends Controller
         $resolvedTickets = Ticket::where(function ($query) {
             $query->where('reported_by', Auth::user()->id)
                 ->where('status', '=', 'closed');
-        });
+        })
+            ->orderBy('id', 'desc');
 
         $openCount = $GetTickets->count();
 
@@ -168,9 +162,9 @@ class GuestController extends Controller
 
         $unresolvedTickets = $status === 'new' ? Ticket::where('reported_by', Auth::user()->id)
             ->where('status', '!=', 'closed')
+            ->orderBy('id', 'desc')
             ->get() : Ticket::where('reported_by', Auth::user()->id)
-            ->get()
-            ->where('status', '=', 'closed');
+            ->get();
 
 
         return view(

@@ -91,7 +91,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user.tickets.view') }}" class="has-icon">
+                        <a href="{{ route('user.tickets.view', ['status' => 'new']) }}" class="has-icon">
                             <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
                             <span class="menu-item-label">All Tickets</span>
                         </a>

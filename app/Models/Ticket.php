@@ -32,12 +32,12 @@ class Ticket extends Model
 
     public function assigner()
     {
-        return $this->belongsTo(User::class, 'assigned_by');
+        return $this->belongsTo(User::class, 'assigned_by', 'id');
     }
 
     public function assignee()
     {
-        return $this->belongsTo(User::class, 'assigned_to');
+        return $this->belongsTo(User::class, 'assigned_to', 'id');
     }
 
     public function tags()
