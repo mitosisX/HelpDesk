@@ -1,4 +1,5 @@
 @extends('guest.layout.app')
+
 @section('title')
     <title>Dashboard - NRWB system</title>
 @endsection
@@ -14,7 +15,7 @@
             <!-- First Card - For New -->
             <div class="tile is-parent" style="visibility: hidden">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">
+                    <a href="{{ route('user.tickets.view', ['status' => 'new']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -38,7 +39,7 @@
             <!-- Second Card - For Open -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="#">
+                    <a href="{{ route('user.tickets.view', ['status' => 'new']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -62,7 +63,7 @@
             <!-- Third Card - For Closed -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="#">
+                    <a href="{{ route('user.tickets.view', ['status' => 'resolved']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -159,7 +160,20 @@
                                                     $m = new \Moment\Moment($ticket->due_date);
                                                 @endphp
 
-                                                <span>{{ $ticket->status == 'open' ? 'Attended' : 'Pending' }}</span>
+                                                @switch(Str::lower($ticket->status))
+                                                    @case('open')
+                                                        <span>{{ 'Pending' }}</span>
+                                                    @break
+
+                                                    @case('new')
+                                                        <span>{{ 'Attended' }}</span>
+                                                    @break
+
+                                                    @case('closed')
+                                                        <span>{{ 'Closed' }}</span>
+                                                    @break
+                                                @endswitch
+
                                             </td>
                                             {{-- <td>{{ $m->format('d F,Y') }}</td> --}}
                                             <td>

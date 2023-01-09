@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                                 <div class="step-details">
-                                    <p class="step-title">Agreed Resolvment</p>
+                                    <p class="step-title">Agree Resolvment</p>
                                 </div>
                             </div>
                             <div class="steps-content">
@@ -96,13 +96,13 @@
                                                                     <h1 class="title">Your ticket has been assigned to an
                                                                         IT staff.</h1>
                                                                 </div>
-                                                            @elseif ($ticket->status == 'closed')
+                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved == false)
                                                                 <div class="content">
                                                                     <h1 class="title is-4">Your ticket was
                                                                         resolved. You can
                                                                         confirm by clicking the button below.</h1>
 
-                                                                    <button class="button is-primary">
+                                                                    <button class="button is-primary" id='markDone'>
                                                                         <span class="icon">
                                                                             <i
                                                                                 class="mdi mdi-briefcase-account-outline"></i>
@@ -110,7 +110,7 @@
                                                                         <span>Confirm</span>
                                                                     </button>
                                                                 </div>
-                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved === 1)
+                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved)
                                                                 <div class="content">
                                                                     <h1 class="title is-4">Your ticket was successfully
                                                                         marked as closed</h1>
@@ -135,4 +135,50 @@
 
 @section('scripts')
     <script src="{{ asset('js/bulma-calendar.min.js') }}"></script>
+
+    <script>
+        var id = "{{ $ticket->id }}";
+
+        var button;
+        var tag = '#markDone';
+
+        $(tag).click(() => {
+            button = this;
+            $('#markDone').toggleClass('is-loading');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('user.ticket.manage.markdone') }}",
+                type: "POST",
+                data: {
+                    id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    // alert(JSON.stringify(data));
+                    $(tag).toggleClass('is-loading');
+                    $(tag).toggleClass('is-success');
+
+                    $(tag).html(`<button class="button is-success">
+                                    <span class="icon">
+                                        <i class="mdi mdi-check"></i>
+                                    </span>
+                                    <span>Closed</span>
+                                </button>`);
+                    $(tag).unbind();
+
+                    new swal("Done!",
+                        "Agreement was successful. Ticket closed.",
+                        "success").then(function() {
+                        window.location.reload();
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

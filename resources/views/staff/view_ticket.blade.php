@@ -195,6 +195,11 @@
                     // alert(JSON.stringify(data));
                     $(tag).toggleClass('is-loading');
                     $(tag).toggleClass('is-success');
+
+                    new swal("Done!",
+                        "The ticket has been closed. Now awaiting confirmation from the user.",
+                        "success");
+
                     $(tag).html(`<button class="button is-success">
                                                 <span class="icon">
                                                     <i class="mdi mdi-check"></i>

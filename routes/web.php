@@ -148,9 +148,10 @@ Route::controller(StaffController::class)->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::controller(GuestController::class)->group(function () {
         Route::get('user/tickets/create', 'createTicket')->name('user.tickets.create');
-        Route::get('user/tickets/view', 'allTickets')->name('user.tickets.view');
+        Route::get('user/tickets/view/{status?}', 'allTickets')->name('user.tickets.view');
         Route::get('user/tickets/track/{ticket}', 'referenceTicket')->name('user.tickets.reference.track');
         Route::post('user/ticket/store', 'storeTicket')->name('user.tickets.store');
+        Route::post('user/tickets/manage/markdone/json', 'markTicketDone')->name('user.ticket.manage.markdone');
     });
 
     Route::resource('user', GuestController::class)->names([

@@ -142,8 +142,16 @@ class GuestController extends Controller
             );
     }
 
-    public function allTickets()
+    public function allTickets($status = 'new')
     {
+        switch ($status) {
+            case ('new'):
+                break;
+
+            case ('resolved'):
+                break;
+        }
+
         $GetTickets = Ticket::where(function ($query) {
             $query->where('reported_by', Auth::user()->id)
                 ->where('status', '!=', 'closed');
@@ -158,15 +166,26 @@ class GuestController extends Controller
 
         $closedCount = $resolvedTickets->count();
 
-        $unresolvedTickets = Ticket::where(function ($query) {
-            $query->where('reported_by', Auth::user()->id)
-                ->where('status', '!=', 'closed');
-        })->get();
+        $unresolvedTickets = $status === 'new' ? Ticket::where('reported_by', Auth::user()->id)
+            ->where('status', '!=', 'closed')
+            ->get() : Ticket::where('reported_by', Auth::user()->id)
+            ->get()
+            ->where('status', '=', 'closed');
 
 
         return view(
             'guest.all_tickets',
             compact('unresolvedTickets', 'openCount', 'closedCount')
         );
+    }
+
+    public function markTicketDone(Request $ticket)
+    {
+        Ticket::find($ticket->id)
+            // ->first()
+            ->update(['resolved' => true]);
+
+        return response()
+            ->json(['success' => true]);
     }
 }
