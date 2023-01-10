@@ -36,7 +36,7 @@
                                     id='departments_table'>
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            {{-- <th>#</th> --}}
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
@@ -44,7 +44,7 @@
                                     <tbody>
                                         @foreach ($departments as $department)
                                             <tr>
-                                                <td>{{ $loop->index + 1 }}</td>
+                                                {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                                 <td id='td_dept_name'>{{ $department->name }}</td>
                                                 <td>
                                                     <div class="field has-addons">
@@ -299,7 +299,6 @@
         function appendToTable(id, text) {
             $('#departments_table tr:last')
                 .after(`<tr>
-                            <td>2</td>
                             <td id='td_dept_name'>${text}</td>
                             <td>
                                 <div class="field has-addons">
@@ -325,8 +324,6 @@
                                 </div>
                             </td>
                         </tr>`);
-
-            reNumber();
         }
     </script>
 @endsection

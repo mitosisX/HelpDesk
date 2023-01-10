@@ -28,6 +28,12 @@
                             <li @class(['is-active' => session('account-type') === 'users'])><a
                                     href="{{ route('admin.accounts.view', ['type' => 'user']) }}">User</a></li>
                         </ul>
+                        <button class="button is-small is-rounded is-info" id="create_account_modal">
+                            <span class="icon">
+                                <i class="mdi mdi-plus"></i>
+                            </span>
+                            <span class="menu-item-label">Create</span>
+                        </button>
                     </div>
 
                     <table class="table is-fullheight is-striped is-hoverable is-fullwidth" id='accounts_table'>
@@ -111,40 +117,39 @@
                         <button class="delete" aria-label="close"></button>
                     </header>
                     <section class="modal-card-body">
-                        <form action="{{ route('admin.departments.store') }}" method="POST">
-                            @csrf
-                            <div class="column">
-                                <form action="{{ route('admin.tickets.store') }}" method='POST'>
-                                    @csrf
-                                    <div class="columns is-mobile is-multiline">
-                                        <div class="column is-half pt-0">
-                                            <label>Ticket Description</label>
-                                            <div class="control">
-                                                <input name="fname" class="input" placeholder="Enter description"
-                                                    required>
-                                            </div>
-                                            @ -258,87 +258,87 @@
+                        <div class="column">
+                            <form action="{{ route('account.user.store') }}" method='POST'>
+                                @csrf
+                                <div class="columns is-mobile is-multiline">
+                                    <div class="column is-half pt-0">
+                                        <label>Name</label>
+                                        <div class="control">
+                                            <input name="name" class="input" placeholder="Provide name" required>
+                                            <input name="role" class="input" value="staff" style="display: none;">
                                         </div>
-                                        <p class="help is-link" id="datediff">-- days</p>
                                     </div>
                                     <div class="column is-half pt-0">
-                                        <label>Assign To</label>
+                                        <label>Email</label>
                                         <div>
-                                            <div class="select">
-                                                <select name="assigned_to">
-                                                    <option value="s">sdsd</option>
-                                                </select>
-                                            </div>
+                                            <input type="email" name="email" class="input" placeholder="Provide Email"
+                                                required>
                                         </div>
                                     </div>
-                            </div>
-                        </form>
+
+                                    <div class="column is-half pt-0">
+                                        <label>Password</label>
+                                        <div>
+                                            <input class="input" value="12345" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <input type="submit" class="button is-info" value="Create" />
+                    </footer>
+                    </form>
                 </div>
-                </section>
-                <footer class="modal-card-foot">
-                    <input type="submit" class="button is-info" value="Create" />
-                </footer>
-                </form>
             </div>
         </div>
     @elseif(session('account-type') === 'users')
@@ -160,13 +165,14 @@
                 </header>
                 <section class="modal-card-body">
                     <div class="column">
-                        <form action="{{ route('account.user.create') }}" method='POST'>
+                        <form action="{{ route('account.user.store') }}" method='POST'>
                             @csrf
                             <div class="columns is-mobile is-multiline">
                                 <div class="column is-half pt-0">
                                     <label>Name</label>
                                     <div class="control">
                                         <input name="name" class="input" placeholder="Provide name" required>
+                                        <input name="role" class="input" value="user" style="display: none;">
                                     </div>
                                 </div>
                                 <div class="column is-half pt-0">
@@ -192,8 +198,14 @@
                                 <div class="column is-half pt-0">
                                     <label>Email</label>
                                     <div>
-                                        <input type="email" name="email" class="input" placeholder="Provide name"
+                                        <input type="email" name="email" class="input" placeholder="Provide Email"
                                             required>
+                                    </div>
+                                </div>
+                                <div class="column is-half pt-0">
+                                    <label>Password</label>
+                                    <div>
+                                        <input type="text" class="input" value="12345" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -206,4 +218,16 @@
             </div>
         </div>
     @endif
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#create_account_modal').on('click', function() {
+                Bulma('#create_modal').modal().open();
+            });
+
+            $("#accounts_table").DataTable();
+        });
+    </script>
 @endsection

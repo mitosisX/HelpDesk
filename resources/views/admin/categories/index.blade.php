@@ -21,7 +21,7 @@
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
-                                    Departments
+                                    Categories
                                 </p>
                                 <a class="card-header-icon" id='create_ticket_modal'>
                                     <button class="button is-small is-info is-rounded">

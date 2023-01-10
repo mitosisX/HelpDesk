@@ -118,7 +118,7 @@
                             <li>
                                 <a href="">
                                     <span>Overdue</span>
-                                    <span class="icon">12</span>
+                                    <span class="icon">{{ $counter['dueCount'] }}</span>
                                 </a>
                             </li>
                         </ul>

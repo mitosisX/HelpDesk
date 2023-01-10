@@ -27,7 +27,8 @@ class UserCreationRequest extends FormRequest
             'name' => 'required',
             'location' => 'required',
             'email' => 'required',
-            'departments_id' => 'required'
+            'departments_id' => 'required',
+            'role' => 'required'
         ];
     }
 

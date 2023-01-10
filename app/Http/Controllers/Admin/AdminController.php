@@ -26,11 +26,6 @@ use App\Http\Requests\Authentication\RegisterRequest;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -223,7 +218,8 @@ class AdminController extends Controller
                 session(['status' => 'Closed']);
                 break;
             case ('overdue'):
-                $tickets = Ticket::where('status', '!=', 'new')
+                $tickets = Ticket::where('status', '!=', 'closed')
+                    ->where('status', '!=', 'new')
                     ->orderBy('id', 'desc')
                     ->get()
                     ->filter(function ($value, $key) {
@@ -241,8 +237,12 @@ class AdminController extends Controller
                             return $value;
                         }
                         // Check if the difference is less than or equal to 2 days
-                    })
-                    ->all();
+                    });
+
+                $tickts = $tickets->reject(function ($ticket) {
+                    return $ticket->cancelled;
+                });
+                // ->all();
 
                 // dd($tickets);
 

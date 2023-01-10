@@ -97,11 +97,11 @@ class AccountController extends Controller
     {
     }
 
-    public function userCreate(UserCreationRequest $request)
+    public function userCreate(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
-        $role = Role::where('name', 'user')
+        $role = Role::where('name', $data['role'])
             ->first()
             ->id;
 

@@ -149,6 +149,7 @@
                                     <th>Department</th>
                                     <th>Assigned to</th>
                                     <th>Priority</th>
+                                    <th>Status</th>
                                     <th>Due</th>
                                     <th>Action</th>
                                 </tr>
@@ -176,34 +177,52 @@
                                                 'is-danger' => $tagColor == 'High',
                                             ])>{{ $ticket->priority }}</span>
                                         </td>
+                                        <td>
+                                            <span @class([
+                                                'tag',
+                                                'is-rounded',
+                                                'is-info' => $ticket->status == 'new',
+                                                'is-success' => $ticket->status == 'open',
+                                                'is-warning' => $ticket->status == 'closed' && $ticket->resolved,
+                                                'is-warning is-light' => $ticket->status == 'closed' && !$ticket->resolved,
+                                            ])>{{ $ticket->status }}
+
+                                                @if ($ticket->resolved === true)
+                                                    <span class="mdi mdi-check">
+                                                    </span>
+                                                @endif
+                                            </span>
+                                        </td>
                                         <td>{{ $m->format('d F,Y') }}</td>
                                         <td>
                                             <div>
-                                                <div class="buttons has-addons">
+                                                <div class="field has-addons">
 
-                                                    <button class="button is-rounded is-small is-primary" type="button">
+                                                    {{-- <button class="button is-rounded is-small is-primary" type="button">
                                                         <span class="icon">
                                                             <i class="mdi mdi-eye"></i>
                                                         </span>
                                                         <span>View</span>
-                                                    </button>
-                                                    <a href={{ route('admin.tickets.assign', ['ticket' => $ticket->id]) }}>
-                                                        <button class="button is-small is-info" data-target="sample-modal"
-                                                            type="button">
+                                                    </button> --}}
+                                                    <a class="control"
+                                                        href={{ route('admin.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        <button class="button is-small is-info is-rounded"
+                                                            data-target="sample-modal" type="button">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-pencil"></i>
                                                             </span>
                                                             <span>Edit</span>
                                                         </button>
                                                     </a>
-
-                                                    <button class="button is-rounded is-small is-danger jb-modal"
-                                                        data-target="sample-modal" type="button">
-                                                        <span class="icon">
-                                                            <i class="mdi mdi-trash-can-outline"></i>
-                                                        </span>
-                                                        <span>Delete</span>
-                                                    </button>
+                                                    <a class="control">
+                                                        <button class="button is-rounded is-small is-danger jb-modal"
+                                                            data-target="sample-modal" type="button">
+                                                            <span class="icon">
+                                                                <i class="mdi mdi-trash-can-outline"></i>
+                                                            </span>
+                                                            <span>Delete</span>
+                                                        </button>
+                                                    </a>
                                                 </div>
 
                                                 {{-- <button class="button is-rounded is-small is-primary" type="button">

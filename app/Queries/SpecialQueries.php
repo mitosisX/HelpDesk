@@ -19,8 +19,8 @@ class SpecialQueries
         $closed = Ticket::where(['status' => 'closed'])
             ->get()
             ->count();
-        $due = Ticket::where('status', '!=', 'new')
-            ->where('assigned_to', Auth::user()->id)
+        $due = Ticket::where('status', '!=', 'open')
+            ->orderBy('id', 'desc')
             ->get()
             ->filter(function ($value, $key) {
                 // Set the target date in the future
@@ -37,7 +37,8 @@ class SpecialQueries
                     return $value;
                 }
                 // Check if the difference is less than or equal to 2 days
-            })->count();
+            })
+            ->count();
 
         return [
             'newCount' => $new,

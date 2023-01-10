@@ -81,7 +81,7 @@ Route::middleware(['auth'])->group(
                 ->name('account.admin.create');
 
             Route::post('admin/account/user/create', 'userCreate')
-                ->name('account.user.create');
+                ->name('account.user.store');
         });
 
         Route::controller(DepartmentsController::class)->group(function () {
