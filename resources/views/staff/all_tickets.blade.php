@@ -2,7 +2,7 @@
 
 @php
     use App\Queries\SpecialQueries;
-    $counter = SpecialQueries::ticketCounter();
+    $counter = SpecialQueries::generalCounter();
 @endphp
 
 @section('title')
@@ -50,7 +50,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">OPEN</h3>
-                                        <h1 class="title">{{ $openCount }}</h1>
+                                        <h1 class="title">{{ $counter['generalOpenCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -74,7 +74,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">CLOSED</h3>
-                                        <h1 class="title">{{ $closedCount }}</h1>
+                                        <h1 class="title">{{ $counter['generalClosedCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -98,7 +98,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">DUE</h3>
-                                        <h1 class="title">{{ $counter['dueCount'] }}</h1>
+                                        <h1 class="title">{{ $counter['generalDueCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -136,12 +136,12 @@
                 </p>
 
                 <div class="card-header-icon">
-                    <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
+                    {{-- <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
                         <span class="icon">
                             <i class="mdi mdi-plus"></i>
                         </span>
                         <span class="menu-item-label">Create</span>
-                    </button>
+                    </button> --}}
                 </div>
             </header>
             <div class="card-content px-2 my-2">
@@ -154,6 +154,7 @@
                                     <th>Ticket name</th>
                                     <th>Department</th>
                                     <th>Priority</th>
+                                    <th>Status</th>
                                     <th>Due</th>
                                     <th>Action</th>
                                 </tr>
@@ -180,6 +181,24 @@
                                                 'is-danger' => $tagColor == 'High',
                                             ])>{{ $ticket->priority }}</span>
                                         </td>
+
+                                        <td>
+                                            <span @class([
+                                                'tag',
+                                                'is-rounded',
+                                                'is-info' => $ticket->status == 'new',
+                                                'is-success' => $ticket->status == 'open',
+                                                'is-warning' => $ticket->status == 'closed' && $ticket->resolved,
+                                                'is-warning is-light' => $ticket->status == 'closed' && !$ticket->resolved,
+                                            ])>{{ $ticket->status }}
+
+                                                @if ($ticket->resolved === true)
+                                                    <span class="mdi mdi-check">
+                                                    </span>
+                                                @endif
+                                            </span>
+                                        </td>
+
                                         <td>{{ $m->format('d F,Y') }}</td>
                                         <td>
                                             <div>

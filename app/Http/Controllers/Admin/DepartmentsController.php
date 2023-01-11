@@ -60,10 +60,6 @@ class DepartmentsController extends Controller
 
         return response()
             ->json(['id' => $id]);
-
-        // return redirect()
-        //     ->route('admin.departments.index')
-        //     ->with('department_status', 'create succefully!');
     }
 
     /**

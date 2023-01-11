@@ -26,24 +26,21 @@ class StaffController extends Controller
 
     function viewTicdkets($status = 'open')
     {
-        $tickets = collect();
+        // $tickets = collect();
 
         switch ($status) {
-            case ('new'):
-                $tickets = Ticket::where('status', 'new')
-                    ->get();
-                session(['status' => 'New']);
-                break;
             case ('open'):
                 $tickets = Ticket::where('status', 'open')
                     ->get();
                 session(['status' => 'Open']);
                 break;
+
             case ('closed'):
                 $tickets = Ticket::where('status', 'closed')
                     ->get();
                 session(['status' => 'Closed']);
                 break;
+
             case ('overdue'):
                 $tickets = Ticket::where('status', '!=', 'new')
                     ->get()
@@ -70,48 +67,11 @@ class StaffController extends Controller
                 session(['status' => 'Overdue']);
                 break;
         }
-        // $tickets = Ticket::all()
-        //     ->tracker()->get();
-
-        $newCount = Ticket::where('status', 'new')
-            ->get()
-            ->count();
-
-        $openCount = Ticket::where('status', 'open')
-            ->get()
-            ->count();
-
-        $closedCount = Ticket::where(['status' => 'closed'])
-            ->get()
-            ->count();
-
-        $staffRole = Role::where('name', 'staff')
-            ->first()
-            ->id;
-
-        $userRole = Role::where('name', 'user')
-            ->first()
-            ->id;
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $users = User::where('role_id', $userRole)
-            ->get();
 
         return view(
-            'admin.tickets.all_tickets',
+            'staff.tickets.all_tickets',
             compact(
-                'tickets',
-                'newCount',
-                'openCount',
-                'closedCount',
-                'categories',
-                'staffs',
-                'users'
+                'ticketss'
             )
         );
     }
@@ -225,39 +185,24 @@ class StaffController extends Controller
 
     function viewTickets($status = 'new')
     {
-        // $tickets = null;
-
         switch ($status) {
-            case ('new'):
-                $tickets = Ticket::where([
-                    'status' => 'new',
-                    'assigned_to' => Auth::user()->id
-                ])
-                    ->get();
-                session(['status' => 'New']);
-                break;
             case ('open'):
-                $tickets = Ticket::where(
-                    'status',
-                    'open'
-                )
-                    ->where(
-                        'assigned_to',
-                        Auth::user()->id
-                    )
+                $tickets = Ticket::where('status', 'open')
+                    ->where('assigned_to', Auth::user()->id)
                     ->get();
                 session(['status' => 'Open']);
                 break;
+
             case ('closed'):
-                $tickets = Ticket::where([
-                    'status' => 'closed',
-                    'assigned_to' => Auth::user()->id
-                ])
+                $tickets = Ticket::where('status', 'closed')
+                    ->where('assigned_to', Auth::user()->id)
                     ->get();
                 session(['status' => 'Closed']);
                 break;
+
             case ('overdue'):
                 $tickets = Ticket::where('status', '!=', 'new')
+                    ->where('status', '!=', 'closed')
                     ->where('assigned_to', Auth::user()->id)
                     ->get()
                     ->filter(function ($value, $key) {
@@ -281,35 +226,10 @@ class StaffController extends Controller
                 break;
         }
 
-        $new = Ticket::where([
-            'status' => 'new',
-            'assigned_to' => Auth::user()->id
-        ])
-            ->get()
-            ->count();
-
-        $open = Ticket::where([
-            'status' => 'open',
-            'assigned_to' => Auth::user()->id
-        ])
-            ->get()
-            ->count();
-
-        $closed = Ticket::where([
-            'status' => 'closed',
-            'assigned_to' => Auth::user()->id
-        ])
-            ->get()
-            ->count();
-
         return view(
             'staff.all_tickets',
             [
-                'tickets' => $tickets->all(),
-                'newCount' => $new,
-                'openCount' => $open,
-                'closedCount' => $closed,
-                'dueCount' => $tickets->count()
+                'tickets' => $tickets->all()
             ]
         );
     }

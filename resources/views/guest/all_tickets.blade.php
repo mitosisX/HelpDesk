@@ -146,34 +146,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($unresolvedTickets as $ticket)
+                                    @foreach ($tickets as $ticket)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $ticket->description }}</td>
                                             {{-- <td>{{ $ticket->reporter->department->name }}</td> --}}
                                             {{-- <td>{{ isset($ticket->assignee->name) ? $ticket->assignee->name : '----' }}</td> --}}
                                             {{-- {{ dd($ticket) }} --}}
+
                                             <td>
-                                                @php
-                                                    $tagColor = $ticket->priority;
-                                                    
-                                                    $m = new \Moment\Moment($ticket->due_date);
-                                                @endphp
+                                                <span @class([
+                                                    'tag',
+                                                    'is-rounded',
+                                                    'is-info' => $ticket->status == 'new',
+                                                    'is-success' => $ticket->status == 'open',
+                                                    'is-warning' => $ticket->status == 'closed' && $ticket->resolved,
+                                                    'is-warning is-light' => $ticket->status == 'closed' && !$ticket->resolved,
+                                                ])>{{ $ticket->status }}
 
-                                                @switch(Str::lower($ticket->status))
-                                                    @case('open')
-                                                        <span>{{ 'Pending' }}</span>
-                                                    @break
-
-                                                    @case('new')
-                                                        <span>{{ 'Attended' }}</span>
-                                                    @break
-
-                                                    @case('closed')
-                                                        <span>{{ 'Closed' }}</span>
-                                                    @break
-                                                @endswitch
-
+                                                    @if ($ticket->resolved === true)
+                                                        <span class="mdi mdi-check">
+                                                        </span>
+                                                    @endif
+                                                </span>
                                             </td>
                                             {{-- <td>{{ $m->format('d F,Y') }}</td> --}}
                                             <td>

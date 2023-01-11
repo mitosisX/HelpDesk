@@ -87,12 +87,12 @@ Route::middleware(['auth'])->group(
         Route::controller(DepartmentsController::class)->group(function () {
             Route::get('admin/manage/department/create', 'create')->name('admin.departments.create');
             Route::post('admin/manage/department/store', 'store')->name('admin.departments.store');
-            Route::post('admin/manage/department/store/json', 'store')->name('admin.departments.store.json');
             Route::get('admin/manage/department/edit/{department}', 'edit')->name('admin.departments.edit');
             Route::get('admin/manage/department/all', 'index')->name('admin.departments.index');
             Route::get('admin/manage/department/show/{category}', 'show')->name('admin.departments.show');
             Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.departments.update');
 
+            Route::post('admin/manage/department/store/json', 'store')->name('admin.departments.store.json');
             Route::post('admin/manage/department/remove/{department}', 'delete')->name('admin.departments.destroy');
             Route::post('admin/manage/departments/update/json/{id?}', 'updateDepartmentJson')->name('admin.department.update.json');
             Route::delete('admin/manage/departments/destroy/json/{department?}', 'deleteDepartmentJson')->name('admin.department.destroy.json');
@@ -104,7 +104,10 @@ Route::middleware(['auth'])->group(
             Route::get('admin/manage/categories/edit/{category}', 'edit')->name('admin.categories.edit');
             Route::get('admin/manage/categories/all', 'index')->name('admin.categories.index');
             Route::get('admin/manage/categories/show/{category}', 'show')->name('admin.categories.show');
-            Route::patch('admin/manage/categories/update/{category}', 'update')->name('admin.categories.update');
+
+            Route::post('admin/manage/category/store/json', 'store')->name('admin.category.store.json');
+            Route::post('admin/manage/category/update/json/{id?}', 'updateCategoryJson')->name('admin.category.update.json');
+            Route::delete('admin/manage/category/destroy/json/{category?}', 'deleteCategoryJson')->name('admin.category.destroy.json');
         });
     }
 );

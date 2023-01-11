@@ -156,7 +156,6 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-
             const calendar = bulmaCalendar.attach("#duedate");
 
             // To access to bulmaCalendar instance of an element

@@ -145,31 +145,50 @@ class GuestController extends Controller
 
     public function allTickets($status = 'new')
     {
-        $GetTickets = Ticket::where(function ($query) {
-            $query->where('reported_by', Auth::user()->id)
-                ->where('status', '!=', 'closed');
-        });
 
-        $resolvedTickets = Ticket::where(function ($query) {
-            $query->where('reported_by', Auth::user()->id)
-                ->where('status', '=', 'closed');
-        })
-            ->orderBy('id', 'desc');
+        switch ($status) {
+            case ('new'):
+                $tickets = Ticket::where('reported_by', Auth::user()->id)
+                    ->where('status', '!=', 'closed')
+                    ->get();
+                break;
 
-        $openCount = $GetTickets->count();
+            case ('resolved'):
+                $tickets = Ticket::where('reported_by', Auth::user()->id)
+                    ->where('status', '=', 'closed')
+                    ->get();
+                break;
+        }
 
-        $closedCount = $resolvedTickets->count();
+        // $GetTickets = Ticket::where(function ($query) {
+        //     $query->where('reported_by', Auth::user()->id)
+        //         ->where('status', '!=', 'closed');
+        // });
 
-        $unresolvedTickets = $status === 'new' ? Ticket::where('reported_by', Auth::user()->id)
-            ->where('status', '!=', 'closed')
-            ->orderBy('id', 'desc')
-            ->get() : Ticket::where('reported_by', Auth::user()->id)
-            ->get();
+        // $resolvedTickets = Ticket::where(function ($query) {
+        //     $query->where('reported_by', Auth::user()->id)
+        //         ->where('status', '=', 'closed');
+        // })
+        //     ->orderBy('id', 'desc');
+
+        $openCount = $tickets->count();
+
+        $closedCount = $tickets->count();
+
+        // $unresolvedTickets = $status === 'new' ? Ticket::where('reported_by', Auth::user()->id)
+        //     ->where('status', '!=', 'closed')
+        //     ->orderBy('id', 'desc')
+        //     ->get() : Ticket::where('reported_by', Auth::user()->id)
+        //     ->get();
 
 
         return view(
             'guest.all_tickets',
-            compact('unresolvedTickets', 'openCount', 'closedCount')
+            compact(
+                'tickets',
+                'openCount',
+                'closedCount'
+            )
         );
     }
 

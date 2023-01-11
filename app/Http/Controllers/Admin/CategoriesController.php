@@ -38,15 +38,23 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
 
-        if (!$request->input('stay_on_page')) {
-            return redirect()
-                ->route('admin.categories.index');
-        }
+        $id = Category::create($request->all())->id;
 
-        return redirect()
-            ->route('admin.categories.create');
+        // Department::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['id' => $id]);
+        // Category::create($request->all());
+
+        // if (!$request->input('stay_on_page')) {
+        //     return redirect()
+        //         ->route('admin.categories.index');
+        // }
+
+        // return redirect()
+        //     ->route('admin.categories.create');
     }
 
     /**
@@ -95,5 +103,22 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateCategoryJson(Request $request, $id)
+    {
+        Category::find($id)
+            ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['success' => true]);
+    }
+
+    public function deleteCategoryJson(Category $category)
+    {
+        $category->delete();
+
+        return response()
+            ->json(['success' => true]);
     }
 }

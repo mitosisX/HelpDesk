@@ -49,7 +49,7 @@
                                                 <td>
                                                     <div class="field has-addons">
                                                         <p class="control">
-                                                            {{-- <a href="{{ route('admin.departments.edit', $category->id) }}"> --}}
+                                                            {{-- <a href="{{ route('admin.category.edit', $category->id) }}"> --}}
                                                             <button class="button is-rounded is-small is-info"
                                                                 id='edit' data-id="{{ $category->id }}"
                                                                 data-full_name="{{ $category->name }}">
@@ -62,8 +62,7 @@
                                                         </p>
                                                         <p class="control">
                                                             <button class="button is-rounded is-small is-danger"
-                                                                id="remove" data-id="{{ $category->id }}"
-                                                                data-action="{{ route('admin.departments.destroy', $category->id) }}">
+                                                                id="remove" data-id="{{ $category->id }}">
                                                                 <span class="icon is-small">
                                                                     <i class="mdi mdi-trash-can-outline"></i>
                                                                 </span>
@@ -162,7 +161,7 @@
                 var newDeptName = $('#category_name').val();
 
                 $.ajax({
-                    url: "{{ route('admin.departments.store.json') }}",
+                    url: "{{ route('admin.category.store.json') }}",
                     type: "POST",
                     data: {
                         name: newDeptName,

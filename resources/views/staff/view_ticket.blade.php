@@ -169,6 +169,15 @@
 
 @section('scripts')
     <script>
+        $(document).ready(function() {
+            const calendar = bulmaCalendar.attach("#duedate");
+
+            // To access to bulmaCalendar instance of an element
+            const element = document.querySelector('#duedate');
+            const duedate = '{{ $ticket->due_date }}';
+            calendar[0].value(duedate);
+        });
+
         var id = "{{ $ticket->id }}";
 
         var button;
@@ -209,22 +218,6 @@
                     $(tag).unbind();
                 }
             });
-        });
-
-        $(document).ready(function() {
-            const calendar = bulmaCalendar.attach("#duedate");
-
-            // To access to bulmaCalendar instance of an element
-            const element = document.querySelector('#duedate');
-            const today = new Date();
-            calendar[0].value(today)
-
-            if (element) {
-                // bulmaCalendar instance is available as element.bulmaCalendar
-                element.bulmaCalendar.on('select', datepicker => {
-                    showDiff(today, new Date(datepicker.data.value()));
-                });
-            }
         });
     </script>
 @endsection
