@@ -187,7 +187,7 @@
 
         $('#update_department_button').click(() => {
             //The <td> to edit
-            var valueToEdit = tdElement.closest('tr').children('td:nth-child(2)'); //.text();
+            var valueToEdit = tdElement.closest('tr').children('td:nth-child(1)'); //.text();
 
             //The new edit value
             var editValue = $('#dept_edit_name').val();
@@ -228,7 +228,7 @@
 
             var dept = tdElement.data('full_name');
 
-            $('#dept_edit_name').val(tdElement.closest('tr').children('td:nth-child(2)').text());
+            $('#dept_edit_name').val(tdElement.closest('tr').children('td:nth-child(1)').text());
 
             Bulma('#edit_modal').modal().open();
         });
@@ -249,7 +249,7 @@
             // });
             Swal.fire({
                 title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
+                text: "You will not be able to recover this particular item!",
                 type: "error",
                 showCancelButton: true,
                 dangerMode: true,
@@ -279,7 +279,6 @@
                         dataType: 'json',
                         success: function(data) {
                             tdElement.parent().parent().parent().parent().remove();
-                            reNumber();
                         }
                     });
                 }

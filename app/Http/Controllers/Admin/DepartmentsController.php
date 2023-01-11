@@ -123,13 +123,13 @@ class DepartmentsController extends Controller
             ->route('admin.departments.index');
     }
 
-    public function updateDepartmentJson($id)
+    public function updateDepartmentJson(Request $request, $id)
     {
-        // Department::find($id)
-        //     ->update(['name' => $request->name]);
+        Department::find($id)
+            ->update(['name' => $request->name]);
 
         return response()
-            ->json(['id' => $id]);
+            ->json(['success' => true]);
     }
 
     public function deleteDepartmentJson(Department $department)
