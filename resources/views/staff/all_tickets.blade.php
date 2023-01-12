@@ -40,6 +40,28 @@
                     </a>
                 </div>
             </div> --}}
+            <div class="tile is-parent">
+                <div class="card tile is-child">
+                    <a href="{{ route('staff.tickets.view', ['status' => 'new']) }}">
+                        <div class="card-content">
+                            <div class="level is-mobile">
+                                <div class="level-item">
+                                    <div class="is-widget-label">
+                                        <h3 class="subtitle is-spaced">NEW</h3>
+                                        <h1 class="title">{{ $counter['newCount'] }}</h1>
+                                    </div>
+                                </div>
+                                <div class="level-item has-widget-icon">
+                                    <div class="is-widget-icon">
+                                        <span class="icon has-text-info is-large">
+                                            <i class="mdi mdi-moon-full mdi-48px"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
             <!-- Second Card - For Open -->
             <div class="tile is-parent">
@@ -164,7 +186,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $ticket->description }}</td>
-                                        <td>{{ $ticket->reporter->department->name }}</td>
+                                        <td>{{ $ticket->reporter->department->name ?? '' }}</td>
                                         {{-- {{ dd($ticket) }} --}}
                                         <td>
                                             @php

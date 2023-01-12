@@ -146,38 +146,6 @@ class ManagerController extends Controller
         return view('authentication.register');
     }
 
-    public function createTicket()
-    {
-        $departments = Department::all();
-        $categories = Category::all();
-
-        $staffRole = Role::where('name', 'staff')
-            ->first()
-            ->id;
-
-        $userRole = Role::where('name', 'user')
-            ->first()
-            ->id;
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $users = User::where('role_id', $userRole)
-            ->get();
-
-        $ticketNumber = Ticket::getTicketNumber();
-        return view(
-            'manager.tickets.create_tickets',
-            compact(
-                'ticketNumber',
-                'categories',
-                'departments',
-                'staffs',
-                'users'
-            )
-        );
-    }
-
     public function dashboard()
     {
         // $tickets = Ticket::all();

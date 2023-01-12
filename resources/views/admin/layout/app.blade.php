@@ -71,6 +71,19 @@
                     <span><b>ADMIN</b> account</span>
                 </div>
             </div>
+
+            <div class="menu is-menu-main">
+                <p class="menu-label">Ticket</p>
+                <ul class="menu-list">
+                    <li>
+                        <a href="{{ route('admin.tickets.create') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+                            <span class="menu-item-label">Create Ticket</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
             <div class="menu is-menu-main">
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
@@ -106,7 +119,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <ul>
-                            <li>admin</li>
+                            <li>Admin</li>
                             @yield('breadcrumb')
                         </ul>
                     </div>

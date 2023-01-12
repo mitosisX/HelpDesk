@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Locations;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class LocationController extends Controller
+class LocationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $Locationss = Locations::all();
+        return view('admin.Locationss.index', compact('Locationss'));
     }
 
     /**
@@ -24,7 +26,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.Locationss.create');
     }
 
     /**
@@ -35,7 +37,28 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = Locations::create($request->validated())->id;
+
+        // Locations::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['id' => $id]);
+
+        // return redirect()
+        //     ->route('manager.Locationss.index')
+        //     ->with('Locations_status', 'create succefully!');
+    }
+
+    public function storeJSON(Request $request)
+    {
+        $id = Locations::create($request->validated())->id;
+
+        // Locations::find($id)
+        //     ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['id' => $id]);
     }
 
     /**
@@ -46,7 +69,7 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**
@@ -55,9 +78,9 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Locations $Locations)
     {
-        //
+        return view('manager.Locationss.edit', compact('Locations'));
     }
 
     /**
@@ -67,9 +90,14 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $Locations)
     {
-        //
+        Locations::find($Locations->id)
+            ->update($request->validated());
+
+        return redirect()
+            ->route('manager.Locationss.index')
+            ->with('Locations_status', 'Updated succefully!');
     }
 
     /**
@@ -78,8 +106,32 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($Locations)
     {
-        //
+        return "sdsds";
+    }
+
+    public function delete(Locations $Locations)
+    {
+        $Locations->delete();
+        return redirect()
+            ->route('manager.Locationss.index');
+    }
+
+    public function updateLocationsJson(Request $request, $id)
+    {
+        Locations::find($id)
+            ->update(['name' => $request->name]);
+
+        return response()
+            ->json(['success' => true]);
+    }
+
+    public function deleteLocationsJson(Locations $Locations)
+    {
+        $Locations->delete();
+
+        return response()
+            ->json(['success' => true]);
     }
 }

@@ -17,13 +17,16 @@ class LoginResponse implements LoginResponseContract
 
         if (Auth::user()->role_id === 1) {
             return redirect()
-                ->route('manager.dashboard');
+                ->route('admin.departments.index');
         } elseif (Auth::user()->role_id === 2) {
             return redirect()
                 ->route('staff.tickets.view');
         } elseif (Auth::user()->role_id === 3) {
             return redirect()
                 ->route('user.tickets.create');
+        } elseif (Auth::user()->role_id === 4) {
+            return redirect()
+                ->route('manager.tickets.view');
         }
         // return redirect()->intended($home);
     }

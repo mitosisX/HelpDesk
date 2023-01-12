@@ -51,7 +51,6 @@ class SpecialQueries
     public static function generalCounter(): array
     {
         $new = Ticket::where('status', 'new')
-            ->where('assigned_to', Auth::user()->id)
             ->get()
             ->count();
 

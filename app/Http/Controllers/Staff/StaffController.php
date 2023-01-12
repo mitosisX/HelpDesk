@@ -183,11 +183,17 @@ class StaffController extends Controller
         ]);
     }
 
-    function viewTickets($status = 'open')
+    function viewTickets($status = 'new')
     {
         $tickets = collect();
 
         switch ($status) {
+            case ('new'):
+                $tickets = Ticket::where('status', '=', 'new')
+                    ->get();
+                session(['status' => 'New']);
+                break;
+
             case ('open'):
                 $tickets = Ticket::where('status', '=', 'open')
                     ->where('assigned_to', Auth::user()->id)

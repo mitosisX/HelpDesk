@@ -129,12 +129,6 @@
                             <span class="menu-item-label">All Tickets</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('manager.tickets.create') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                            <span class="menu-item-label">Create Ticket</span>
-                        </a>
-                    </li>
                 </ul>
                 {{-- <p class="menu-label">Manage</p>
                 <ul class="menu-list">

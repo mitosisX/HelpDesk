@@ -178,7 +178,14 @@
                                 <div class="column is-half pt-0">
                                     <label>Location</label>
                                     <div>
-                                        <input name="location" class="input" placeholder="Provide location" required>
+                                        <div class="select">
+                                            <select name="location">
+                                                <option>Mzimba</option>
+                                                <option>Rumphi</option>
+                                                <option>Chitipa</option>
+                                                <option>Mzuzu</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="column is-half pt-0">

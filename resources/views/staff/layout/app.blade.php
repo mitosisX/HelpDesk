@@ -69,7 +69,7 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label">
-                    <span><b>User</b> account</span>
+                    <span><b>STAFF</b> account</span>
                 </div>
             </div>
             <div class="menu is-menu-main">
@@ -100,7 +100,7 @@
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="{{ route('manager.accounts.view') }}" class="has-icon">
+                        <a href="" class="has-icon">
                             <span class="icon"><i class="mdi mdi-account"></i></span>
                             <span class="menu-item-label">Profile</span>
                         </a>

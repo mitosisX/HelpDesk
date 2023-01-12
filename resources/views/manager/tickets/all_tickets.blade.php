@@ -1,7 +1,7 @@
 @extends('manager.layout.app')
 
 @section('title')
-    <title>Dashboard - Admin</title>
+    <title>Dashboard - Manager</title>
 @endsection
 
 @section('breadcrumb')
@@ -160,7 +160,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $ticket->description }}</td>
-                                        <td>{{ $ticket->reporter->department->name }}</td>
+                                        <td>{{ $ticket->reporter->department->name ?? '' }}</td>
                                         <td>{{ isset($ticket->assignee->name) ? $ticket->assignee->name : '----' }}</td>
                                         {{-- {{ dd($ticket) }} --}}
                                         <td>

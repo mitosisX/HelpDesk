@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Tracker;
+use App\Models\Category;
 use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Authentication\RegisterRequest;
 
 class AdminController extends Controller
@@ -173,5 +177,49 @@ class AdminController extends Controller
     {
         $roles = Role::all();
         return view('admin.accounts.create', compact('roles'));
+    }
+
+    public function createTicket()
+    {
+        $departments = Department::all();
+        $categories = Category::all();
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
+        return view(
+            'admin.tickets.create_tickets',
+            compact(
+                'categories',
+                'departments',
+                'users'
+            )
+        );
+    }
+
+    public function storeTicket(Request $request)
+    {
+        $forTicket = $request->all();
+        $forTicket['status'] = 'new';
+        $forTicket['reported_by'] = Auth::user()->id;
+
+        $created_ticket = Ticket::create($forTicket);
+
+        // $createTicketID = $created_ticket->id;
+
+        $ref = fake()->numberBetween(1000, 90000);
+        // $ref = "tr-{$randRef}";
+
+        // Tracker::create([
+        //     'reference_code' => $ref,
+        //     'tickets_id' => $createTicketID,
+        // ]);
+
+        return redirect()
+            ->back()->with('ticket-created', true);
     }
 }

@@ -1,4 +1,5 @@
 @extends('manager.layout.app')
+
 @section('title')
     <title>Tickets - Admin</title>
 @endsection
