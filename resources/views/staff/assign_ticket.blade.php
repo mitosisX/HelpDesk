@@ -1,4 +1,4 @@
-@extends('manager.layout.app')
+@extends('staff.layout.app')
 
 @section('title')
     <title>Tickets - Admin</title>
@@ -37,7 +37,7 @@
                             <span>Create Ticket</span>
                         </p>
 
-                        <a class="card-header-icon" href={{ route('manager.tickets.view') }}>
+                        <a class="card-header-icon" href={{ route('staff.tickets.view') }}>
                             <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
                                 <span class="icon">
                                     <i class="mdi mdi-home"></i>
@@ -49,7 +49,7 @@
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
                         <div class="column is-full mx-5">
-                            <form action="{{ route('manager.tickets.update', $ticket->id) }}" method='POST'>
+                            <form action="{{ route('staff.tickets.update', $ticket->id) }}" method='POST'>
                                 @csrf
                                 <div class="columns is-mobile is-multiline">
                                     <div class="column is-half pt-0">

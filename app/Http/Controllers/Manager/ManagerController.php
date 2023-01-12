@@ -288,39 +288,4 @@ class ManagerController extends Controller
 
         return view('update');
     }
-
-    public function assignTicket(Ticket $ticket)
-    {
-        $categories = Category::all();
-
-        $staffRole = Role::where('name', 'staff')
-            ->first()
-            ->id;
-
-        $userRole = Role::where('name', 'user')
-            ->first()
-            ->id;
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $users = User::where('role_id', $userRole)
-            ->get();
-
-        return view(
-            'manager.tickets.assign_ticket',
-            compact('staffs', 'users', 'ticket', 'categories')
-        );
-    }
-
-    public function updateTicket(Ticket $ticket, AdminTicketRequest $request)
-    {
-        $data = $request->validated();
-        $data['assigned_by'] = Auth::user()->id;
-        $data['status'] = 'open';
-
-        $ticket->update($data);
-
-        return redirect()->route('manager.tickets.view');
-    }
 }

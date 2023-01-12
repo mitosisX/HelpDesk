@@ -205,7 +205,7 @@ class AdminController extends Controller
     {
         $forTicket = $request->all();
         $forTicket['status'] = 'new';
-        $forTicket['reported_by'] = Auth::user()->id;
+        $forTicket['reported_by'] = $request->reported_by;
 
         $created_ticket = Ticket::create($forTicket);
 

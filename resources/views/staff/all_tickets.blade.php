@@ -225,14 +225,27 @@
                                         <td>
                                             <div>
                                                 <div class="buttons has-addons">
-                                                    <a class="button is-rounded is-small is-primary"
-                                                        href="{{ route('staff.ticket.manage', ['ticket' => $ticket->id]) }}">
+                                                    @if ($ticket->status !== 'new')
+                                                        <a class="button is-rounded is-small is-primary"
+                                                            href="{{ route('staff.ticket.manage', ['ticket' => $ticket->id]) }}">
+                                                            {{-- <button class="button is-rounded is-small is-primary" --}}
+                                                            {{-- type="button"> --}}
+                                                            <span class="icon">
+                                                                <i class="mdi mdi-eye"></i>
+                                                            </span>
+                                                            <span>View</span>
+                                                            {{-- </button> --}}
+                                                        </a>
+                                                    @endif
+
+                                                    <a class="button is-rounded is-small is-info"
+                                                        href={{ route('staff.tickets.assign', ['ticket' => $ticket->id]) }}>
                                                         {{-- <button class="button is-rounded is-small is-primary" --}}
                                                         {{-- type="button"> --}}
                                                         <span class="icon">
-                                                            <i class="mdi mdi-eye"></i>
+                                                            <i class="mdi mdi-pencil"></i>
                                                         </span>
-                                                        <span>View</span>
+                                                        <span>Edit</span>
                                                         {{-- </button> --}}
                                                     </a>
 

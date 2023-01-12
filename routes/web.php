@@ -43,8 +43,6 @@ Route::middleware(['auth'])->group(
             Route::get('manager/tickets/show/{ticket}', 'editTicket')->name('manager.tickets.edit');
             Route::post('manager/tickets/show/{ticket?}', 'updateTicket')->name('manager.tickets.update');
             Route::get('manager/tickets/view/{status?}', 'viewTickets')->name('manager.tickets.view');
-            Route::get('manager/tickets/assign/{ticket?}', 'assignTicket')->name('manager.tickets.assign');
-            Route::post('manager/tickets/update/{ticket?}', 'updateTicket')->name('manager.tickets.update');
             Route::get('manager/dashboard', 'dashboard')->name('manager.dashboard');
 
             //Authentication
@@ -68,8 +66,7 @@ Route::middleware(['auth'])->group(
         // );
 
         Route::controller(AdminController::class)->group(function () {
-            //Accounts
-            Route::post('manager/tickets/store', 'storeTicket')->name('admin.tickets.store');
+            Route::post('admin/tickets/store', 'storeTicket')->name('admin.tickets.store');
             Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
             Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
             Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
@@ -136,6 +133,9 @@ Route::resource('staff', StaffController::class)->names([
 ]);
 
 Route::controller(StaffController::class)->group(function () {
+    Route::get('staff/tickets/assign/{ticket?}', 'assignTicket')->name('staff.tickets.assign');
+    Route::post('staff/tickets/update/{ticket?}', 'updateTicket')->name('staff.tickets.update');
+
     Route::get('staff/dashboard', 'dashboard')->name('staff.dashboard');
     Route::get('staff/profile', 'profile')->name('staff.profile');
     Route::get('staff/tickets', 'tickets')->name('staff.tickets');

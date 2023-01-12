@@ -261,4 +261,39 @@ class StaffController extends Controller
         return response()
             ->json(['success' => true]);
     }
+
+    public function assignTicket(Ticket $ticket)
+    {
+        $categories = Category::all();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
+        return view(
+            'staff.assign_ticket',
+            compact('staffs', 'users', 'ticket', 'categories')
+        );
+    }
+
+    public function updateTicket(Ticket $ticket, Request $request)
+    {
+        $data = $request->all();
+        $data['assigned_by'] = Auth::user()->id;
+        $data['status'] = 'open';
+
+        $ticket->update($data);
+
+        return redirect()->route('staff.tickets.view');
+    }
 }
