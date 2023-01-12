@@ -90,10 +90,27 @@ class SpecialQueries
             ->count();
 
         return [
-            'generalNewCount' => $new,
-            'generalOpenCount' => $open,
-            'generalClosedCount' => $closed,
-            'generalDueCount' => $due
+            'newCount' => $new,
+            'openCount' => $open,
+            'closedCount' => $closed,
+            'dueCount' => $due
+        ];
+    }
+
+    public static function userCounter(): array
+    {
+        $new = Ticket::where('reported_by', Auth::user()->id)
+            ->where('status', '!=', 'closed')
+            ->count();
+
+        $closed = Ticket::where('reported_by', Auth::user()->id)
+            ->where('status', '=', 'closed')
+            ->get()
+            ->count();
+
+        return [
+            'newCount' => $new,
+            'closedCount' => $closed
         ];
     }
 }

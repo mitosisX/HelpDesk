@@ -1,5 +1,10 @@
 @extends('guest.layout.app')
 
+@php
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::userCounter();
+@endphp
+
 @section('title')
     <title>Dashboard - NRWB system</title>
 @endsection
@@ -45,7 +50,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">NEW</h3>
-                                        <h1 class="title">{{ $openCount }}</h1>
+                                        <h1 class="title">{{ $counter['newCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -69,12 +74,12 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">RESOLVED</h3>
-                                        <h1 class="title">{{ $closedCount }}</h1>
+                                        <h1 class="title">{{ $counter['closedCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
                                     <div class="is-widget-icon">
-                                        <span class="icon has-text-primary is-large"><i
+                                        <span class="icon has-text-warning is-large"><i
                                                 class="mdi mdi-moon-full mdi-48px"></i></span>
                                     </div>
                                 </div>

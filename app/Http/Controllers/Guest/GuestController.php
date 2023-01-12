@@ -160,34 +160,10 @@ class GuestController extends Controller
                 break;
         }
 
-        // $GetTickets = Ticket::where(function ($query) {
-        //     $query->where('reported_by', Auth::user()->id)
-        //         ->where('status', '!=', 'closed');
-        // });
-
-        // $resolvedTickets = Ticket::where(function ($query) {
-        //     $query->where('reported_by', Auth::user()->id)
-        //         ->where('status', '=', 'closed');
-        // })
-        //     ->orderBy('id', 'desc');
-
-        $openCount = $tickets->count();
-
-        $closedCount = $tickets->count();
-
-        // $unresolvedTickets = $status === 'new' ? Ticket::where('reported_by', Auth::user()->id)
-        //     ->where('status', '!=', 'closed')
-        //     ->orderBy('id', 'desc')
-        //     ->get() : Ticket::where('reported_by', Auth::user()->id)
-        //     ->get();
-
-
         return view(
             'guest.all_tickets',
             compact(
-                'tickets',
-                'openCount',
-                'closedCount'
+                'tickets'
             )
         );
     }

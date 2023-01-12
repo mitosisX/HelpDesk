@@ -50,7 +50,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">OPEN</h3>
-                                        <h1 class="title">{{ $counter['generalOpenCount'] }}</h1>
+                                        <h1 class="title">{{ $counter['openCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -74,7 +74,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">CLOSED</h3>
-                                        <h1 class="title">{{ $counter['generalClosedCount'] }}</h1>
+                                        <h1 class="title">{{ $counter['closedCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -98,7 +98,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">DUE</h3>
-                                        <h1 class="title">{{ $counter['generalDueCount'] }}</h1>
+                                        <h1 class="title">{{ $counter['dueCount'] }}</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">

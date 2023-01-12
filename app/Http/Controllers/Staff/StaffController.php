@@ -183,18 +183,20 @@ class StaffController extends Controller
         ]);
     }
 
-    function viewTickets($status = 'new')
+    function viewTickets($status = 'open')
     {
+        $tickets = collect();
+
         switch ($status) {
             case ('open'):
-                $tickets = Ticket::where('status', 'open')
+                $tickets = Ticket::where('status', '=', 'open')
                     ->where('assigned_to', Auth::user()->id)
                     ->get();
                 session(['status' => 'Open']);
                 break;
 
             case ('closed'):
-                $tickets = Ticket::where('status', 'closed')
+                $tickets = Ticket::where('status', '=', 'closed')
                     ->where('assigned_to', Auth::user()->id)
                     ->get();
                 session(['status' => 'Closed']);
@@ -220,7 +222,8 @@ class StaffController extends Controller
                             return $value;
                         }
                         // Check if the difference is less than or equal to 2 days
-                    });
+                    })
+                    ->get();
 
                 session(['status' => 'Overdue']);
                 break;
@@ -228,9 +231,7 @@ class StaffController extends Controller
 
         return view(
             'staff.all_tickets',
-            [
-                'tickets' => $tickets->all()
-            ]
+            compact('tickets')
         );
     }
 
