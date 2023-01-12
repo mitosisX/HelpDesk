@@ -27,7 +27,7 @@ class DepartmentsController extends Controller
      */
     public function create()
     {
-        return view('admin.departments.create');
+        return view('manager.departments.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class DepartmentsController extends Controller
             ->json(['id' => $id]);
 
         // return redirect()
-        //     ->route('admin.departments.index')
+        //     ->route('manager.departments.index')
         //     ->with('department_status', 'create succefully!');
     }
 
@@ -81,7 +81,7 @@ class DepartmentsController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('admin.departments.edit', compact('department'));
+        return view('manager.departments.edit', compact('department'));
     }
 
     /**
@@ -97,7 +97,7 @@ class DepartmentsController extends Controller
             ->update($request->validated());
 
         return redirect()
-            ->route('admin.departments.index')
+            ->route('manager.departments.index')
             ->with('department_status', 'Updated succefully!');
     }
 
@@ -116,7 +116,7 @@ class DepartmentsController extends Controller
     {
         $department->delete();
         return redirect()
-            ->route('admin.departments.index');
+            ->route('manager.departments.index');
     }
 
     public function updateDepartmentJson(Request $request, $id)

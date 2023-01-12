@@ -100,7 +100,7 @@
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="{{ route('admin.accounts.view') }}" class="has-icon">
+                        <a href="{{ route('manager.accounts.view') }}" class="has-icon">
                             <span class="icon"><i class="mdi mdi-account"></i></span>
                             <span class="menu-item-label">Profile</span>
                         </a>

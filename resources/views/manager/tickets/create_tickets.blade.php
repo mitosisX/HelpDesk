@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('manager.layout.app')
 
 @section('title')
     <title>Create Ticket - Admin</title>
@@ -23,7 +23,7 @@
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
                         <div class="column is-full mx-5">
-                            <form action="{{ route('admin.tickets.store') }}" method='POST'>
+                            <form action="{{ route('manager.tickets.store') }}" method='POST'>
                                 @csrf
                                 <div class="columns is-mobile is-multiline">
                                     <div class="column is-half pt-0">

@@ -19,11 +19,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" />
-
-    @php
-        use App\Queries\SpecialQueries;
-        $counter = SpecialQueries::ticketCounter();
-    @endphp
 </head>
 
 <body>
@@ -77,65 +72,6 @@
                 </div>
             </div>
             <div class="menu is-menu-main">
-                <p class="menu-label">General</p>
-                <ul class="menu-list">
-                    <li>
-                        <a href="{{ route('admin.dashboard') }}" class="router-link-active has-icon">
-                            <span class="icon"><i class="mdi mdi-home"></i></span>
-                            <span class="menu-item-label">Dashboard</span>
-                        </a>
-                    </li>
-                </ul>
-                <p class="menu-label">Tickets</p>
-                <ul class="menu-list">
-                    <li class="">
-                        <a class="has-icon has-dropdown-icon">
-                            <span class="icon"><i class="mdi mdi-chart-bar"></i></span>
-                            <span class="menu-item-label">Statistics</span>
-                            <div class="dropdown-icon">
-                                <span class="icon"><i class="mdi mdi-plus"></i></span>
-                            </div>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="">
-                                    <span>New</span>
-                                    <span class="icon">{{ $counter['newCount'] }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span>Open</span>
-                                    <span class="icon">{{ $counter['openCount'] }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span>Closed</span>
-                                    <span class="icon">{{ $counter['closedCount'] }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span>Overdue</span>
-                                    <span class="icon">{{ $counter['dueCount'] }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.tickets.view', ['status' => 'new']) }}" class="has-icon">
-                            <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
-                            <span class="menu-item-label">All Tickets</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.tickets.create') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                            <span class="menu-item-label">Create Ticket</span>
-                        </a>
-                    </li>
-                </ul>
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li>
@@ -148,6 +84,12 @@
                         <a href="{{ route('admin.categories.index') }}" class="has-icon">
                             <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
                             <span class="menu-item-label">Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.categories.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                            <span class="menu-item-label">Locations</span>
                         </a>
                     </li>
                     <li>
@@ -164,7 +106,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <ul>
-                            <li>Admin</li>
+                            <li>admin</li>
                             @yield('breadcrumb')
                         </ul>
                     </div>

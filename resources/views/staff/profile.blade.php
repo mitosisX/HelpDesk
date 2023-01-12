@@ -26,7 +26,7 @@
                 <div class="column is-2"></div>
 
                 <div class="column box is-8">
-                    <form action="{{ route('admin.categories.store') }}" method="POST">
+                    <form action="{{ route('manager.categories.store') }}" method="POST">
                         @csrf
                         <div class="field">
                             <label class="label">Name</label>

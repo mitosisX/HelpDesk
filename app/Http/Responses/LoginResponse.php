@@ -17,7 +17,7 @@ class LoginResponse implements LoginResponseContract
 
         if (Auth::user()->role_id === 1) {
             return redirect()
-                ->route('admin.dashboard');
+                ->route('manager.dashboard');
         } elseif (Auth::user()->role_id === 2) {
             return redirect()
                 ->route('staff.tickets.view');

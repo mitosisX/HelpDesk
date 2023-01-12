@@ -90,20 +90,6 @@
                     </p>
                     <button class="delete" aria-label="close"></button>
                 </header>
-                <section class="modal-card-body">
-                    <form action="{{ route('admin.departments.store') }}" method="POST">
-                        @csrf
-                        <div class="column">
-                            <form action="{{ route('admin.tickets.store') }}" method='POST'>
-                                @csrf
-                                <div class="columns is-mobile is-multiline">
-                                    <div class="column is-half pt-0">
-                                        <label>Ticket Description</label>
-                                        <div class="control">
-                                            <input name="fname" class="input" placeholder="Enter description" required>
-                                        </div>
-                            </form>
-                        </div>
             </div>
         @elseif (session('account-type') === 'staff')
             <div id="create_modal" class="modal">

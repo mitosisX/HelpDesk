@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="grid">
-        <form action="{{ route('admin.auth.register_account') }}" method="POST" class="form login">
+        <form action="{{ route('manager.auth.register_account') }}" method="POST" class="form login">
             @csrf
             <header class="login__header">
                 <h3 class="login__title">Register</h3>
@@ -29,7 +29,7 @@
             <footer class="login__footer">
                 <input type="submit" value="Register">
 
-                <p><a href="{{ route('admin.auth.login') }}">Login instead</a>
+                <p><a href="{{ route('manager.auth.login') }}">Login instead</a>
             </footer>
         </form>
     </div>

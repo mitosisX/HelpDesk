@@ -4,19 +4,17 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name='csrf-token' content="{{ csrf_token() }}" />
 
     @yield('title')
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/extensions/bulma-steps.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/popper.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/pulse.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jstable.css') }}" />
-    {{-- <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" /> --}}
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jstable.css') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -56,6 +54,12 @@
                                 </span>
                                 <span>My Profile</span>
                             </a>
+                            <a class="navbar-item">
+                                <span class="icon">
+                                    <i class="mdi mdi-cog-outline"></i>
+                                </span>
+                                <span>Settings</span>
+                            </a>
                         </div>
                     </div>
 
@@ -69,14 +73,14 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label">
-                    <span><b>User</b> account</span>
+                    <span><b>MANAGER</b> account</span>
                 </div>
             </div>
             <div class="menu is-menu-main">
                 <p class="menu-label">General</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="{{ route('user.create') }}" class="router-link-active has-icon">
+                        <a href="{{ route('manager.dashboard') }}" class="router-link-active has-icon">
                             <span class="icon"><i class="mdi mdi-home"></i></span>
                             <span class="menu-item-label">Dashboard</span>
                         </a>
@@ -84,28 +88,75 @@
                 </ul>
                 <p class="menu-label">Tickets</p>
                 <ul class="menu-list">
-                    <li>
-                        <a href="{{ route('user.tickets.create') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                            <span class="menu-item-label">Create Ticket</span>
+                    <li class="">
+                        <a class="has-icon has-dropdown-icon">
+                            <span class="icon"><i class="mdi mdi-chart-bar"></i></span>
+                            <span class="menu-item-label">Statistics</span>
+                            <div class="dropdown-icon">
+                                <span class="icon"><i class="mdi mdi-plus"></i></span>
+                            </div>
                         </a>
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <span>New</span>
+                                    <span class="icon">{{ $counter['newCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Open</span>
+                                    <span class="icon">{{ $counter['openCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Closed</span>
+                                    <span class="icon">{{ $counter['closedCount'] }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span>Overdue</span>
+                                    <span class="icon">{{ $counter['dueCount'] }}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="{{ route('user.tickets.view', ['status' => 'new']) }}" class="has-icon">
+                        <a href="{{ route('manager.tickets.view', ['status' => 'new']) }}" class="has-icon">
                             <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
                             <span class="menu-item-label">All Tickets</span>
                         </a>
                     </li>
-                </ul>
-                <p class="menu-label">Manage</p>
-                <ul class="menu-list">
                     <li>
-                        <a href="{{ route('manager.accounts.view') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-account"></i></span>
-                            <span class="menu-item-label">Profile</span>
+                        <a href="{{ route('manager.tickets.create') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+                            <span class="menu-item-label">Create Ticket</span>
                         </a>
                     </li>
                 </ul>
+                {{-- <p class="menu-label">Manage</p>
+                <ul class="menu-list">
+                    <li>
+                        <a href="{{ route('manager.departments.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-warehouse"></i></span>
+                            <span class="menu-item-label">Departments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('manager.categories.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                            <span class="menu-item-label">Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('manager.accounts.view') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-account"></i></span>
+                            <span class="menu-item-label">Accounts</span>
+                        </a>
+                    </li>
+                </ul> --}}
             </div>
         </aside>
         <section class="section is-title-bar">
@@ -113,7 +164,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <ul>
-                            <li>User</li>
+                            <li>Manager</li>
                             @yield('breadcrumb')
                         </ul>
                     </div>
@@ -137,21 +188,6 @@
         </section> --}}
 
         @yield('content')
-
-        {{-- <footer class="footer" style="width:100%;position:sticky;bottom:0px;">
-            <div class="container-fluid">
-                <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">Help desk & ticketing system</div>
-                    </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <span>NRWB</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer> --}}
     </div>
 
     <div id="sample-modal" class="modal">
@@ -173,22 +209,20 @@
         <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
     </div>
 
-    <!-- Scripts below are for demo only -->
-    <!-- Scripts below are for demo only -->
+    <script type="text/javascript" src="{{ asset('js/jstable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/popper.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script> --}}
-    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chart.sample.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/bulma-steps.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/jstable.js') }}"></script>
-
-    <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
-
+    <script>
+        new JSTable("table");
+    </script>
     <!-- Code injected by live-server -->
     @yield('scripts')
 </body>

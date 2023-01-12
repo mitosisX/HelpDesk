@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DepartmentsController;
@@ -37,35 +38,30 @@ Route::get('logout', function () {
 //
 Route::middleware(['auth'])->group(
     function () {
-        Route::controller(AdminController::class)->group(function () {
-            Route::get('admin/tickets/create', 'createTicket')->name('admin.tickets.create');
-            Route::get('admin/ticket/settings', 'ticketSettings')->name('admin.ticket.settings');
-            Route::post('admin/tickets/store', 'storeTicket')->name('admin.tickets.store');
-            Route::get('admin/tickets/show/{ticket}', 'editTicket')->name('admin.tickets.edit');
-            Route::post('admin/tickets/show/{ticket?}', 'updateTicket')->name('admin.tickets.update');
-            Route::get('admin/tickets/view/{status?}', 'viewTickets')->name('admin.tickets.view');
-            Route::get('admin/tickets/assign/{ticket?}', 'assignTicket')->name('admin.tickets.assign');
-            Route::post('admin/tickets/update/{ticket?}', 'updateTicket')->name('admin.tickets.update');
-            Route::get('admin/dashboard', 'dashboard')->name('admin.dashboard');
+        Route::controller(ManagerController::class)->group(function () {
+            Route::get('manager/tickets/create', 'createTicket')->name('manager.tickets.create');
+            Route::get('manager/ticket/settings', 'ticketSettings')->name('manager.ticket.settings');
+            Route::post('manager/tickets/store', 'storeTicket')->name('manager.tickets.store');
+            Route::get('manager/tickets/show/{ticket}', 'editTicket')->name('manager.tickets.edit');
+            Route::post('manager/tickets/show/{ticket?}', 'updateTicket')->name('manager.tickets.update');
+            Route::get('manager/tickets/view/{status?}', 'viewTickets')->name('manager.tickets.view');
+            Route::get('manager/tickets/assign/{ticket?}', 'assignTicket')->name('manager.tickets.assign');
+            Route::post('manager/tickets/update/{ticket?}', 'updateTicket')->name('manager.tickets.update');
+            Route::get('manager/dashboard', 'dashboard')->name('manager.dashboard');
 
             //Authentication
-            Route::get('admin/auth/login', 'login')->name('admin.auth.login');
-            Route::get('admin/auth/register', 'register')->name('admin.auth.register');
-            Route::post('admin/auth/login_account', 'loginAccount')->name('admin.auth.login_account');
-            Route::post('admin/auth/register_account', 'registerAccount')->name('admin.auth.register_account');
-
-            //Accounts
-            Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
-            Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
-            Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
+            Route::get('manager/auth/login', 'login')->name('manager.auth.login');
+            Route::get('manager/auth/register', 'register')->name('manager.auth.register');
+            Route::post('manager/auth/login_account', 'loginAccount')->name('manager.auth.login_account');
+            Route::post('manager/auth/register_account', 'registerAccount')->name('manager.auth.register_account');
         });
 
-        Route::resource('admin', AdminController::class)->names([
-            'index' => 'admin.home',
-            'create' => 'admin.create',
-            'store' => 'admin.store',
-            'update' => 'admin.update',
-            'destroy' => 'admin.delete',
+        Route::resource('admin', ManagerController::class)->names([
+            'index' => 'manager.home',
+            'create' => 'manager.create',
+            'store' => 'manager.store',
+            'update' => 'manager.update',
+            'destroy' => 'manager.delete',
         ])->parameters(['admin' => 'ticket']);
         //
         // Admin controller - END
@@ -73,14 +69,21 @@ Route::middleware(['auth'])->group(
         //     }
         // );
 
+        Route::controller(AdminController::class)->group(function () {
+            //Accounts
+            Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
+            Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
+            Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
+        });
+
         Route::controller(AccountController::class)->group(function () {
-            Route::post('admin/account/staff/create', 'satffCreate')
+            Route::post('manager/account/staff/create', 'satffCreate')
                 ->name('account.staff.create');
 
-            Route::post('admin/account/admin/create', 'adminCreate')
-                ->name('account.admin.create');
+            Route::post('manager/account/manager/create', 'adminCreate')
+                ->name('account.manager.create');
 
-            Route::post('admin/account/user/create', 'userCreate')
+            Route::post('manager/account/user/create', 'userCreate')
                 ->name('account.user.store');
         });
 
@@ -114,9 +117,9 @@ Route::middleware(['auth'])->group(
 
 
 Route::controller(ProfileController::class)->group(function () {
-    Route::get('admin/manage/profile/show', 'index')->name('admin.profile.show');
-    // Route::post('admin/manage/department/store', 'store')->name('admin.profile.store');
-    // Route::patch('admin/manage/department/update/{department}', 'update')->name('admin.profile.update');
+    Route::get('manager/manage/profile/show', 'index')->name('manager.profile.show');
+    // Route::post('manager/manage/department/store', 'store')->name('manager.profile.store');
+    // Route::patch('manager/manage/department/update/{department}', 'update')->name('manager.profile.update');
 });
 
 //

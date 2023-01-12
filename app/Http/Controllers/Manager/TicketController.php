@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Manager;
 
-use App\Models\Department;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\DepartmentRequest;
 
-class DepartmentController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
-        return view('manager.departments.index', compact('departments'));
+        //
     }
 
     /**
@@ -27,7 +25,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('manager.departments.create');
+        //
     }
 
     /**
@@ -36,13 +34,9 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartmentRequest $request)
+    public function store(Request $request)
     {
-        Department::create($request->validated());
-
-        return redirect()
-            ->route('manager.departments.index')
-            ->with('department_status', 'create succefully!');
+        //
     }
 
     /**
@@ -53,6 +47,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -61,9 +56,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit($id)
     {
-        return view('manager.departments.edit', compact('department'));
+        //
     }
 
     /**
@@ -73,13 +68,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(Request $request, $id)
     {
-        Department::find($department->id)->update($request->validated());
-
-        return redirect()
-            ->route('manager.departments.index')
-            ->with('department_status', 'Updated succefully!');
+        //
     }
 
     /**

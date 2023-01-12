@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('manager.layout.app')
 
 @section('title')
     <title>Departments - Admin</title>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="navbar-end">
                     <div class="tags has-addons">
-                        <a href="{{ route('admin.departments.index') }}"><button
+                        <a href="{{ route('manager.departments.index') }}"><button
                                 class="button is-rounded is-info is-hovered">Back</button></a>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="column is-2"></div>
 
                 <div class="column box is-8">
-                    <form action="{{ route('admin.departments.store') }}" method="POST">
+                    <form action="{{ route('manager.departments.store') }}" method="POST">
                         @csrf
                         <div class="field">
                             <label class="label">Provide name</label>

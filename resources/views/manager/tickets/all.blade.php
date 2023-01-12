@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('manager.layout.app')
 
 @section('title')
     <title>Dashboard - Admin</title>
@@ -12,7 +12,7 @@
             <div class="column" style="margin-left: 200px;">
                 <div class="columns  is-desktop has-text-centered">
                     <div class="column is-2">
-                        <a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">
+                        <a href="{{ route('manager.tickets.view', ['status' => 'new']) }}">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="content">
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="column is-2">
-                        <a href="{{ route('admin.tickets.view', ['status' => 'open']) }}">
+                        <a href="{{ route('manager.tickets.view', ['status' => 'open']) }}">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="content">
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="column is-2">
-                        <a href="{{ route('admin.tickets.view', ['status' => 'closed']) }}">
+                        <a href="{{ route('manager.tickets.view', ['status' => 'closed']) }}">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="content">
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="column is-2">
-                        <a href="{{ route('admin.tickets.view', ['status' => 'overdue']) }}">
+                        <a href="{{ route('manager.tickets.view', ['status' => 'overdue']) }}">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="content">
@@ -137,7 +137,7 @@
                                             <i class="mdi mdi-eye"></i>
                                         </span>
                                     </button>
-                                    <a href={{ route('admin.tickets.edit', ['ticket' => $ticket->id]) }}>
+                                    <a href={{ route('manager.tickets.edit', ['ticket' => $ticket->id]) }}>
                                         <button class="button is-rounded is-small is-info jb-modal"
                                             data-target="sample-modal" type="button">
                                             <span class="icon">

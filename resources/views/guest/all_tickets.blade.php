@@ -92,7 +92,7 @@
             <!-- Fourth Card - For Due -->
             <div class="tile is-parent" style="visibility: hidden">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'overdue']) }}">
+                    <a href="{{ route('manager.tickets.view', ['status' => 'overdue']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">

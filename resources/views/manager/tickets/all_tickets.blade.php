@@ -1,4 +1,5 @@
-@extends('admin.layout.app')
+@extends('manager.layout.app')
+
 @section('title')
     <title>Dashboard - Admin</title>
 @endsection
@@ -14,7 +15,7 @@
             <!-- First Card - For New -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'new']) }}">
+                    <a href="{{ route('manager.tickets.view', ['status' => 'new']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -38,7 +39,7 @@
             <!-- Second Card - For Open -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'open']) }}">
+                    <a href="{{ route('manager.tickets.view', ['status' => 'open']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -62,7 +63,7 @@
             <!-- Third Card - For Closed -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'closed']) }}">
+                    <a href="{{ route('manager.tickets.view', ['status' => 'closed']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -86,7 +87,7 @@
             <!-- Fourth Card - For Due -->
             <div class="tile is-parent">
                 <div class="card tile is-child">
-                    <a href="{{ route('admin.tickets.view', ['status' => 'overdue']) }}">
+                    <a href="{{ route('manager.tickets.view', ['status' => 'overdue']) }}">
                         <div class="card-content">
                             <div class="level is-mobile">
                                 <div class="level-item">
@@ -205,7 +206,7 @@
                                                         <span>View</span>
                                                     </button> --}}
                                                     <a class="control"
-                                                        href={{ route('admin.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        href={{ route('manager.tickets.assign', ['ticket' => $ticket->id]) }}>
                                                         <button class="button is-small is-info is-rounded"
                                                             data-target="sample-modal" type="button">
                                                             <span class="icon">
@@ -230,7 +231,7 @@
                                                         <i class="mdi mdi-eye"></i>
                                                     </span>
                                                 </button>
-                                                <a href={{ route('admin.tickets.edit', ['ticket' => $ticket->id]) }}>
+                                                <a href={{ route('manager.tickets.edit', ['ticket' => $ticket->id]) }}>
                                                     <button class="button is-rounded is-small is-info jb-modal"
                                                         data-target="sample-modal" type="button">
                                                         <span class="icon">
@@ -269,7 +270,7 @@
             </header>
             <section class="modal-card-body" style="overflow-y: auto;">
                 <div class="column">
-                    <form action="{{ route('admin.tickets.store') }}" method='POST'>
+                    <form action="{{ route('manager.tickets.store') }}" method='POST'>
                         @csrf
                         <div class="columns is-mobile is-multiline">
                             <div class="column is-half pt-0">

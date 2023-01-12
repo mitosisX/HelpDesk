@@ -1,4 +1,4 @@
-@extends('admin.layout.app_old')
+@extends('manager.layout.app')
 
 @section('title')
     <title>Create Ticket - Admin</title>
@@ -10,13 +10,7 @@
         <div class="column box">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-start">
-                    <h1 class="title is-size-3 has-text-info">Create ticket</h1>
-                </div>
-                <div class="navbar-end">
-                    <div class="tags has-addons">
-                        <span class="tag is-size-6 is-rounded">Ticket number</span>
-                        <span class="tag is-info is-size-6 is-rounded">{{ $ticketNumber }}</span>
-                    </div>
+                    <h1 class="title is-size-3 has-text-info">Update ticket</h1>
                 </div>
             </nav>
         </div>
@@ -25,18 +19,14 @@
             <div class="columns is-multiline is-12">
                 <div class="column is-2"></div>
                 <div class="column box is-8">
-                    <form action="{{ route('admin.tickets.store') }}" method='POST'>
+                    <form action="{{ route('manager.tickets.update') }}" method='POST'>
                         @csrf
-
                         <div class="field">
                             <label class="label">Ticket name</label>
                             <div class="control">
                                 <div class="column is-6 no-padding">
                                     <input class="input is-rounded" type="text" name="name"
-                                        value="{{ old('name') }}" placeholder="Give the ticket a title">
-
-                                    {{-- To be used fro getting the assignee ID --}}
-                                    <input type="text" name="assigned_by" value="1" hidden>
+                                        value="{{ $ticket->name }}" placeholder="Give the ticket a title">
                                 </div>
                             </div>
                             @error('name')
@@ -50,7 +40,8 @@
                                 <div class="select is-rounded">
                                     <select name="categories_id">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" @selected($ticket->categories_id === $category->id)>
+                                                {{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -66,7 +57,8 @@
                                 <div class="select is-rounded">
                                     <select name="departments_id">
                                         @foreach ($departments as $department)
-                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            <option value="{{ $department->id }}" @selected($ticket->departments_id === $category->id)>
+                                                {{ $department->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -81,7 +73,7 @@
                             <div class="control">
                                 <div class="column is-4 is-gapless no-padding">
                                     <input class="input is-rounded" type="text" name="reported_by"
-                                        value="{{ old('reported_by') }}" placeholder="Provide name">
+                                        value="{{ $ticket->reporter['name'] }}" placeholder="Provide name">
                                 </div>
                             </div>
                             @error('reported_by')
@@ -94,7 +86,7 @@
                             <div class="control">
                                 <div class="column is-4 is-gapless no-padding">
                                     <input class="input is-rounded" type="text" name="location"
-                                        value="{{ old('location') }}" placeholder="Provide location">
+                                        value="{{ $ticket->reporter['location'] }}" placeholder="Provide location">
                                 </div>
                             </div>
                             @error('location')
@@ -107,9 +99,12 @@
                             <div class="control">
                                 <div class="column is-4 no-padding">
                                     <input class="input is-rounded" type="text" name="reporter_email"
-                                        value="{{ old('reporter_email') }}" placeholder="Provide their email address">
+                                        value="{{ $ticket->reporter['email'] }}" placeholder="Provide their email address">
                                 </div>
                             </div>
+                            {{-- @error('reporter_email')
+                        <p class="help is-success">{{ $message }}</p>
+                      @enderror --}}
                         </div>
 
                         <div class="field">
@@ -137,6 +132,18 @@
                                 <p class="help is-success">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        {{-- <div class="field">
+                      <label class="label" for="user_skills">Tags</label>
+                      <div class="simple-tags"
+                          id="container"
+                          name="tags"
+                          data-simple-tags="CodeHim, HTML">
+                      </div>
+                      <p class="help has-text-info">
+                        Comma-separated
+                      </p>
+                    </div> --}}
 
                         <div class="field">
                             <label class="label">Due date</label>
@@ -169,7 +176,7 @@
                             <label class="label">Description</label>
                             <div class="control">
                                 <div class="column is-6 no-padding">
-                                    <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket">{{ old('description') }}</textarea>
+                                    <textarea class="textarea" name="description" placeholder="Provide some brief description of the ticket">{{ $ticket->description }}</textarea>
                                 </div>
                             </div>
                             @error('description')
@@ -197,8 +204,6 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
-
             const calendar = bulmaCalendar.attach("#duedate");
 
             // To access to bulmaCalendar instance of an element
@@ -208,7 +213,7 @@
             if (element) {
                 // bulmaCalendar instance is available as element.bulmaCalendar
                 element.bulmaCalendar.on('select', datepicker => {
-                    console.log(showDiff(today, new Date(datepicker.data.value())));
+                    showDiff(today, new Date(datepicker.data.value()));
                 });
             }
         });
@@ -235,7 +240,7 @@
                 $('#submit').attr('disabled', false);
             }
 
-            console.log(s)
+            // console.log(s)
         }
 
         function dateDiff(dt1, dt2) {

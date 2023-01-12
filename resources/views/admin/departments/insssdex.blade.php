@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('manager.layout.app')
 
 @section('title')
     <title>Categories - Admin</title>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="navbar-end">
                     <div class="tags has-addons">
-                        <a href="{{ route('admin.departments.create') }}"><button
+                        <a href="{{ route('manager.departments.create') }}"><button
                                 class="button is-rounded is-info is-hovered">Create</button></a>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $department->name }}</td>
                                 <td>
-                                    <a href="{{ route('admin.departments.edit', ['department' => $department->id]) }}">
+                                    <a href="{{ route('manager.departments.edit', ['department' => $department->id]) }}">
                                         <button class="button is-rounded is-small is-primary" type="button">
                                             <span class="icon"><i class="mdi mdi-pencil-outline"></i></span>
                                         </button>

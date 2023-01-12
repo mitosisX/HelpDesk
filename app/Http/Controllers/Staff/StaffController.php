@@ -128,7 +128,7 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return view('admin.tickets.update_ticket');
+        return view('manager.tickets.update_ticket');
     }
 
     /**
