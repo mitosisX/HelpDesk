@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(
             Route::get('manager/auth/register', 'register')->name('manager.auth.register');
             Route::post('manager/auth/login_account', 'loginAccount')->name('manager.auth.login_account');
             Route::post('manager/auth/register_account', 'registerAccount')->name('manager.auth.register_account');
+
+            Route::get('manager/tickets/manage/{ticket}', 'manageTickets')->name('manager.ticket.manage');
         });
 
         Route::resource('manager', ManagerController::class)->names([
@@ -69,7 +71,6 @@ Route::middleware(['auth'])->group(
             Route::post('admin/tickets/store', 'storeTicket')->name('admin.tickets.store');
             Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
             Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
-            Route::post('admin/manage/accounts/create', 'createAccount')->name('admin.accounts.create');
 
             Route::get('admin/tickets/create', 'createTicket')->name('admin.tickets.create');
         });
@@ -83,6 +84,8 @@ Route::middleware(['auth'])->group(
 
             Route::post('manager/account/user/create', 'userCreate')
                 ->name('account.user.store');
+
+            Route::post('admin/manage/accounts/create', 'userCreate')->name('admin.accounts.create');
         });
 
         Route::controller(DepartmentsController::class)->group(function () {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
@@ -87,14 +87,6 @@ class AccountController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function adminCreate(AdminCreationRequest $request)
-    {
-    }
-
-    public function satffCreate(StaffCreationRequest $request)
-    {
     }
 
     public function userCreate(Request $request)

@@ -206,13 +206,13 @@
                                                         <span>View</span>
                                                     </button> --}}
                                                     <a class="control"
-                                                        href={{ route('manager.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        href={{ route('manager.ticket.manage', ['ticket' => $ticket->id]) }}>
                                                         <button class="button is-small is-info is-rounded"
                                                             data-target="sample-modal" type="button">
                                                             <span class="icon">
-                                                                <i class="mdi mdi-pencil"></i>
+                                                                <i class="mdi mdi-eye"></i>
                                                             </span>
-                                                            <span>Edit</span>
+                                                            <span>View</span>
                                                         </button>
                                                     </a>
                                                     <a class="control">

@@ -288,4 +288,15 @@ class ManagerController extends Controller
 
         return view('update');
     }
+
+    public function manageTickets(Ticket $ticket)
+    {
+        $category = Category::find($ticket->categories_id)->first();
+        $department = User::find($ticket->reported_by)->first();
+
+        return view(
+            'manager.tickets.view_ticket',
+            compact('ticket', 'category', 'department')
+        );
+    }
 }
