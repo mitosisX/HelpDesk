@@ -299,4 +299,27 @@ class ManagerController extends Controller
             compact('ticket', 'category', 'department')
         );
     }
+    public function assignTicket(Ticket $ticket)
+    {
+        $categories = Category::all();
+
+        $staffRole = Role::where('name', 'staff')
+            ->first()
+            ->id;
+
+        $userRole = Role::where('name', 'user')
+            ->first()
+            ->id;
+
+        $staffs = User::where('role_id', $staffRole)
+            ->get();
+
+        $users = User::where('role_id', $userRole)
+            ->get();
+
+        return view(
+            'manager.tickets.assign_ticket',
+            compact('staffs', 'users', 'ticket', 'categories')
+        );
+    }
 }

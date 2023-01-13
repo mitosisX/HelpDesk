@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(
             Route::post('manager/auth/register_account', 'registerAccount')->name('manager.auth.register_account');
 
             Route::get('manager/tickets/manage/{ticket}', 'manageTickets')->name('manager.ticket.manage');
+            Route::get('manager/tickets/assign/{ticket?}', 'assignTicket')->name('manager.tickets.assign');
         });
 
         Route::resource('manager', ManagerController::class)->names([

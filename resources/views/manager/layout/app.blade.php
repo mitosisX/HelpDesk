@@ -206,7 +206,7 @@
     <script type="text/javascript" src="{{ asset('js/jstable.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/popper.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> --}}
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ asset('js/dataTables.bulma.min.js') }}"></script> --}}
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
@@ -215,7 +215,7 @@
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
     <script>
-        new JSTable("table");
+        // new JSTable("table");
     </script>
     <!-- Code injected by live-server -->
     @yield('scripts')

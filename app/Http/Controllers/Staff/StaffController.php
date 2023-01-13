@@ -190,12 +190,14 @@ class StaffController extends Controller
         switch ($status) {
             case ('new'):
                 $tickets = Ticket::where('status', '=', 'new')
+                    ->orderBy('id', 'desc')
                     ->get();
                 session(['status' => 'New']);
                 break;
 
             case ('open'):
                 $tickets = Ticket::where('status', '=', 'open')
+                    ->orderBy('id', 'desc')
                     ->where('assigned_to', Auth::user()->id)
                     ->get();
                 session(['status' => 'Open']);
@@ -204,6 +206,7 @@ class StaffController extends Controller
             case ('closed'):
                 $tickets = Ticket::where('status', '=', 'closed')
                     ->where('assigned_to', Auth::user()->id)
+                    ->orderBy('id', 'desc')
                     ->get();
                 session(['status' => 'Closed']);
                 break;

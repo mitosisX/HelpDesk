@@ -130,14 +130,14 @@
                     </span>
                 </p>
 
-                <div class="card-header-icon">
+                {{-- <div class="card-header-icon">
                     <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
                         <span class="icon">
                             <i class="mdi mdi-plus"></i>
                         </span>
                         <span class="menu-item-label">Create</span>
                     </button>
-                </div>
+                </div> --}}
             </header>
             <div class="card-content px-2 my-2">
                 <div class="b-table has-pagination">
@@ -173,7 +173,7 @@
                                             <span @class([
                                                 'tag',
                                                 'is-rounded',
-                                                'is-success' => $tagColor == 'Low',
+                                                'is-primary' => $tagColor == 'Low',
                                                 'is-warning' => $tagColor == 'Medium',
                                                 'is-danger' => $tagColor == 'High',
                                             ])>{{ $ticket->priority }}</span>
@@ -207,7 +207,7 @@
                                                     </button> --}}
                                                     <a class="control"
                                                         href={{ route('manager.ticket.manage', ['ticket' => $ticket->id]) }}>
-                                                        <button class="button is-small is-info is-rounded"
+                                                        <button class="button is-small is-primary is-rounded"
                                                             data-target="sample-modal" type="button">
                                                             <span class="icon">
                                                                 <i class="mdi mdi-eye"></i>
@@ -215,6 +215,29 @@
                                                             <span>View</span>
                                                         </button>
                                                     </a>
+
+                                                    <a class="control"
+                                                        href={{ route('manager.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        <button class="button is-small is-info is-rounded"
+                                                            data-target="sample-modal" type="button">
+                                                            <span class="icon">
+                                                                <i class="mdi mdi-eye"></i>
+                                                            </span>
+                                                            <span>Edit</span>
+                                                        </button>
+                                                    </a>
+
+                                                    {{-- <a class="button is-rounded is-small is-info"
+                                                        href={{ route('manager.tickets.assign', ['ticket' => $ticket->id]) }}>
+                                                        <button class="button is-rounded is-small is-primary"
+                                                            type="button">
+                                                            <span class="icon">
+                                                                <i class="mdi mdi-pencil"></i>
+                                                            </span>
+                                                            <span>Edit</span>
+                                                        </button>
+                                                    </a> --}}
+
                                                     <a class="control">
                                                         <button class="button is-rounded is-small is-danger jb-modal"
                                                             data-target="sample-modal" type="button">
