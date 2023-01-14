@@ -232,7 +232,7 @@ class StaffController extends Controller
                         }
                         // Check if the difference is less than or equal to 2 days
                     })
-                    ->get();
+                    ->all();
 
                 session(['status' => 'Overdue']);
                 break;

@@ -38,23 +38,10 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-
         $id = Category::create($request->all())->id;
-
-        // Department::find($id)
-        //     ->update(['name' => $request->name]);
 
         return response()
             ->json(['id' => $id]);
-        // Category::create($request->all());
-
-        // if (!$request->input('stay_on_page')) {
-        //     return redirect()
-        //         ->route('admin.categories.index');
-        // }
-
-        // return redirect()
-        //     ->route('admin.categories.create');
     }
 
     /**

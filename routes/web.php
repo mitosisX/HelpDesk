@@ -53,6 +53,9 @@ Route::middleware(['auth'])->group(
 
             Route::get('manager/tickets/manage/{ticket}', 'manageTickets')->name('manager.ticket.manage');
             Route::get('manager/tickets/assign/{ticket?}', 'assignTicket')->name('manager.tickets.assign');
+            Route::post('manager/tickets/update/{ticket?}', 'updateTicket')->name('manager.tickets.update');
+            Route::get('manager/tickets/stats/json', 'jsonTicketStats')->name('manager.tickets.stats.json');
+            Route::get('manager/tickets/priority/json', 'jsonPriorityStats')->name('manager.tickets.priority.json');
         });
 
         Route::resource('manager', ManagerController::class)->names([
@@ -148,10 +151,6 @@ Route::controller(StaffController::class)->group(function () {
     Route::post('staff/tickets/manage/markdone/json', 'markTicketDone')->name('staff.ticket.manage.markdone');
     Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
 });
-
-//
-// Staff controller - END
-//
 
 //
 // user controller

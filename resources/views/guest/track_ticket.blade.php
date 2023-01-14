@@ -86,17 +86,17 @@
                                                 <div class="control">
                                                     <div class="card box">
                                                         <div class="card-content">
-                                                            @if ($ticket->status == 'new')
+                                                            @if ($ticket->status === 'new')
                                                                 <div class="content">
                                                                     <h1 class="title">Your ticket was sent. Please await
                                                                         response</h1>
                                                                 </div>
-                                                            @elseif ($ticket->status == 'open')
+                                                            @elseif ($ticket->status === 'open')
                                                                 <div class="content">
                                                                     <h1 class="title">Your ticket has been assigned to an
                                                                         IT staff.</h1>
                                                                 </div>
-                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved == false)
+                                                            @elseif ($ticket->status === 'closed' && $ticket->resolved == false)
                                                                 <div class="content">
                                                                     <h1 class="title is-4">Your ticket was
                                                                         resolved. You can

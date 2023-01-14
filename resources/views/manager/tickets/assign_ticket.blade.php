@@ -49,7 +49,7 @@
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
                         <div class="column is-full mx-5">
-                            <form action="{{ route('staff.tickets.update', $ticket->id) }}" method='POST'>
+                            <form action="{{ route('manager.tickets.update', $ticket->id) }}" method='POST'>
                                 @csrf
                                 <div class="columns is-mobile is-multiline">
                                     <div class="column is-half pt-0">
@@ -96,9 +96,9 @@
                                         <div>
                                             <div class="select">
                                                 <select name="priority">
-                                                    <option>Low</option>
-                                                    <option>Medium</option>
-                                                    <option>High</option>
+                                                    @foreach (['Low', 'Medium', 'High'] as $priority)
+                                                        <option @selected($ticket->priority === $priority)>{{ $priority }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
 
                                     <div class="column is-half is-grouped">
                                         <div class="control">
-                                            <input type="submit" class="button is-info" id="submit">
+                                            <input type="submit" class="button is-info" id="submit" value="Assign">
                                         </div>
                                     </div>
                                 </div>

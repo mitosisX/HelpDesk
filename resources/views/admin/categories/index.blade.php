@@ -104,7 +104,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button id='create_department_button' class="button is-info">Create</button>
+                <button id='create_category_button' class="button is-info">Create</button>
             </footer>
         </div>
     </div>
@@ -130,7 +130,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button id='update_department_button' class="button is-info">Update</button>
+                <button id='update_category_button' class="button is-info">Update</button>
             </footer>
         </div>
     </div>
@@ -149,8 +149,8 @@
                 Bulma('#create_modal').modal().open();
             });
 
-            $('#create_department_button').click(function() {
-                $('#create_department_button').toggleClass('is-loading');
+            $('#create_category_button').click(function() {
+                $('#create_category_button').toggleClass('is-loading');
 
                 $.ajaxSetup({
                     headers: {
@@ -168,8 +168,8 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        $('#create_department_button').toggleClass('is-loading');
-                        $('#create_department_button').attr('disabled', false);
+                        $('#create_category_button').toggleClass('is-loading');
+                        $('#create_category_button').attr('disabled', false);
 
 
                         // window.location.reload(true);
@@ -184,15 +184,15 @@
 
 
 
-        $('#update_department_button').click(() => {
+        $('#update_category_button').click(() => {
             //The <td> to edit
             var valueToEdit = tdElement.closest('tr').children('td:nth-child(1)'); //.text();
 
             //The new edit value
             var editValue = $('#dept_edit_name').val();
 
-            $('#update_department_button').toggleClass('is-loading');
-            $('#update_department_button').attr('disabled', true);
+            $('#update_category_button').toggleClass('is-loading');
+            $('#update_category_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {
@@ -201,15 +201,15 @@
             });
 
             $.ajax({
-                url: `{{ route('admin.department.update.json') }}` + `/${id}`,
+                url: `{{ route('admin.category.update.json') }}` + `/${id}`,
                 type: "POST",
                 data: {
                     name: editValue,
                 },
                 dataType: 'json',
                 success: function(data) {
-                    $('#update_department_button').toggleClass('is-loading');
-                    $('#update_department_button').attr('disabled', false);
+                    $('#update_category_button').toggleClass('is-loading');
+                    $('#update_category_button').attr('disabled', false);
 
                     valueToEdit.text(editValue)
                     Bulma('#edit_modal').modal().close();

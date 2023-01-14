@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\AdminTicketRequest;
 use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Requests\Authentication\RegisterRequest;
+use App\Queries\SpecialQueries;
 
 class ManagerController extends Controller
 {
@@ -134,16 +135,6 @@ class ManagerController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function login()
-    {
-        return view('authentication.login');
-    }
-
-    public function register()
-    {
-        return view('authentication.register');
     }
 
     public function dashboard()
@@ -321,5 +312,47 @@ class ManagerController extends Controller
             'manager.tickets.assign_ticket',
             compact('staffs', 'users', 'ticket', 'categories')
         );
+    }
+
+    public function updateTicket(Ticket $ticket, Request $request)
+    {
+        $data = $request->all();
+        $data['assigned_by'] = Auth::user()->id;
+        $data['status'] = 'open';
+
+        $ticket->update($data);
+
+        return redirect()->route('manager.tickets.view');
+    }
+
+    public function jsonTicketStats()
+    {
+        $counter = SpecialQueries::ticketCounter();
+
+        return response()
+            ->json([
+                'new' => $counter['newCount'],
+                'open' => $counter['openCount'],
+                'closed' => $counter['closedCount']
+            ]);
+    }
+
+    public function jsonPriorityStats()
+    {
+        $low = Ticket::where('priority', 'Low')
+            ->count();
+
+        $medium = Ticket::where('priority', 'Medium')
+            ->count();
+
+        $high = Ticket::where('priority', 'High')
+            ->count();
+
+        return response()
+            ->json([
+                'low' => $low,
+                'medium' => $medium,
+                'high' => $high
+            ]);
     }
 }

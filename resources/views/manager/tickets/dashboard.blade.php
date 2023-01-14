@@ -1,90 +1,85 @@
 @extends('manager.layout.app')
 
 @section('title')
-    <title>Dashboard - Admin</title>
+    <title>Dashboard - Manager</title>
 @endsection
 
+@section('breadcrumb')
+    <li>Manage</li>
+    <li>Dashboard</li>
+@endsection
+
+@php
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::ticketCounter();
+@endphp
+
 @section('content')
-    <section class="section is-main-section is-multiline">
+    <section class="section is-main-section">
         <div class="tile is-ancestor">
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Clients</h3>
-                                    <h1 class="title">512</h1>
+                                    <h3 class="subtitle is-spaced">
+                                        New
+                                    </h3>
+                                    <h1 class="title">
+                                        {{ $counter['newCount'] }}
+                                    </h1>
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-primary is-large"><i
-                                            class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-info is-large"><i
+                                            class="mdi mdi-circle mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Sales</h3>
-                                    <h1 class="title">$7,770</h1>
+                                    <h3 class="subtitle is-spaced">
+                                        Open
+                                    </h3>
+                                    <h1 class="title">
+                                        {{ $counter['openCount'] }}
+                                    </h1>
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-info is-medium"><i class="mdi mdi-cart-outline mdi-48px">
-                                        </i>
-                                    </span>
+                                <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i
+                                            class="mdi mdi-circle mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Performance</h3>
-                                    <h1 class="title">256%</h1>
+                                    <h3 class="subtitle is-spaced">
+                                        Closed
+                                    </h3>
+                                    <h1 class="title">
+                                        {{ $counter['closedCount'] }}
+                                    </h1>
                                 </div>
                             </div>
                             <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-success is-large"><i
-                                            class="mdi mdi-finance mdi-48px"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tile is-parent is-3">
-                <div class="card tile is-child">
-                    <div class="card-content">
-                        <div class="level is-mobile">
-                            <div class="level-item">
-                                <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Performance</h3>
-                                    <h1 class="title">256%</h1>
-                                </div>
-                            </div>
-                            <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-success is-large"><i
-                                            class="mdi mdi-finance mdi-48px"></i></span>
+                                <div class="is-widget-icon"><span class="icon has-text-warning is-large"><i
+                                            class="mdi mdi-circle mdi-48px"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -92,120 +87,144 @@
                 </div>
             </div>
         </div>
-
         <div class="tile is-ancestor">
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
+                    <div class="card-header">
+                        <span class="icon"><i class="mdi mdi-finance"></i></span>
+                        Status
+                    </div>
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Clients</h3>
-                                    <h1 class="title">512</h1>
-                                </div>
-                            </div>
-                            <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-primary is-large"><i
-                                            class="mdi mdi-account-multiple mdi-48px"></i></span>
+                                    <canvas id="statusChart" width="200" height="200"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
+                    <div class="card-header">
+                        <span class="icon"><i class="mdi mdi-finance"></i></span>
+                        Priorities
+                    </div>
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Sales</h3>
-                                    <h1 class="title">$7,770</h1>
-                                </div>
-                            </div>
-                            <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-info is-medium"><i class="mdi mdi-cart-outline mdi-48px">
-                                        </i>
-                                    </span>
+                                    <canvas id="priorityChart" width="200" height="200"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Performance</h3>
-                                    <h1 class="title">256%</h1>
-                                </div>
-                            </div>
-                            <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-success is-large"><i
-                                            class="mdi mdi-finance mdi-48px"></i></span>
+                                    <canvas id="" width="200" height="200"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="tile is-parent is-3">
+            <div class="tile is-parent">
                 <div class="card tile is-child">
                     <div class="card-content">
                         <div class="level is-mobile">
                             <div class="level-item">
                                 <div class="is-widget-label">
-                                    <h3 class="subtitle is-spaced">Performance</h3>
-                                    <h1 class="title">256%</h1>
-                                </div>
-                            </div>
-                            <div class="level-item has-widget-icon">
-                                <div class="is-widget-icon">
-                                    <span class="icon has-text-success is-large"><i
-                                            class="mdi mdi-finance mdi-48px"></i></span>
+                                    <canvas id="" width="200" height="200"></canvas>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                    <span class="icon"><i class="mdi mdi-finance"></i></span>
-                    Statistics
-                </p>
-                <a href="#" class="card-header-icon">
-                    <span class="icon"><i class="mdi mdi-reload"></i></span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="chart-area">
-                    <div style="height: 100%">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div></div>
-                            </div>
-                        </div>
-                        <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor"
-                            style="display: block; height: 400px; width: 1197px"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        var statusChart = document.getElementById("statusChart");
+        var priorityChart = document.getElementById("priorityChart");
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: `{{ route('manager.tickets.stats.json') }}`,
+                type: "GET",
+                dataType: 'json',
+                success: function(data) {
+                    new Chart(statusChart, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['New', 'Open', 'Closed'],
+                            datasets: [{
+                                label: 'Status',
+                                data: [data['new'], data['open'],
+                                    data['closed']
+                                ],
+                                backgroundColor: [
+                                    '#209CEE',
+                                    '#00D1B2',
+                                    '#FFE08A'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            // cutoutPercentage: 40,
+                            responsive: !false,
+
+                        }
+                    });
+                }
+            });
+
+            $.ajax({
+                url: `{{ route('manager.tickets.priority.json') }}`,
+                type: "GET",
+                dataType: 'json',
+                success: function(data) {
+                    new Chart(priorityChart, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Low', 'Medium', 'High'],
+                            datasets: [{
+                                label: 'Status',
+                                data: [data['low'], data['medium'],
+                                    data['high']
+                                ],
+                                backgroundColor: [
+                                    '#209CEE',
+                                    '#00D1B2',
+                                    '#FFE08A'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            // cutoutPercentage: 40,
+                            responsive: !false,
+
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
