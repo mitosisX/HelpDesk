@@ -20,6 +20,14 @@
                             <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
                             <span>Ticket Progress</span>
                         </p>
+                        <a class="card-header-icon" href="{{ route('user.ticket.message', ['ticket'=>$ticket->id]) }}">
+                            <button class="button is-small is-info is-rounded">
+                                <span class="icon"><i class="mdi mdi-gmail"></i></span>
+                                <span title="Badge top right" class="badge">new</span>
+                                <span>Message</span>
+                            </button>
+
+                        </a>
                     </header>
                     <div class="card-content px-2 my-2 mx-10">
 

@@ -37,12 +37,12 @@
                             <span>View Ticket</span>
                         </p>
 
-                        <a class="card-header-icon" href={{ route('staff.tickets.view') }}>
+                        <a class="card-header-icon" href={{ route('staff.ticket.messages', ['ticket' => $ticket->id]) }}>
                             <button class="button is-small is-rounded is-info" id='create_ticket_modal'>
                                 <span class="icon">
-                                    <i class="mdi mdi-home"></i>
+                                    <i class="mdi mdi-gmail"></i>
                                 </span>
-                                <span class="menu-item-label">Back</span>
+                                <span class="menu-item-label">Messages</span>
                             </button>
                         </a>
 

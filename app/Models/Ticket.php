@@ -61,4 +61,8 @@ class Ticket extends Model
         $nextTicketNumber = Ticket::max('id') + 1;
         return $nextTicketNumber;
     }
+
+    public function messages(){
+        return $this->hasMany(TicketMessage::class, 'tickets_id');
+    }
 }

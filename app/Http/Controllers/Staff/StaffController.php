@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\TicketMessage;
 use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
@@ -298,5 +299,26 @@ class StaffController extends Controller
         $ticket->update($data);
 
         return redirect()->route('staff.tickets.view');
+    }
+
+    public function getMessages(Ticket $ticket)
+    {
+        $messages = TicketMessage::where('tickets_id',
+                        $ticket->id)->get();
+// dd($messages);
+
+        return view('staff.messages',
+        [
+            'ticket' => $ticket,
+            'messages' => $messages
+        ]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        TicketMessage::create($request->all());
+
+        return response()
+            ->json(['response' => true]);
     }
 }

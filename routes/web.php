@@ -150,6 +150,8 @@ Route::controller(StaffController::class)->group(function () {
     Route::get('staff/tickets/manage/{ticket}', 'manageTickets')->name('staff.ticket.manage');
     Route::post('staff/tickets/manage/markdone/json', 'markTicketDone')->name('staff.ticket.manage.markdone');
     Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
+    Route::get('staff/ticket/manage/messages/{ticket}', 'getMessages')->name('staff.ticket.messages');
+    Route::post('staff/tickets/message/send/json', 'sendMessage')->name('staff.ticket.message.send');
 });
 
 //
@@ -161,7 +163,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('user/tickets/view/{status}', 'allTickets')->name('user.tickets.view');
         Route::get('user/tickets/track/{ticket}', 'referenceTicket')->name('user.tickets.reference.track');
         Route::post('user/ticket/store', 'storeTicket')->name('user.tickets.store');
+        Route::get('user/ticket/messages/{ticket}', 'getMessages')->name('user.ticket.message');
         Route::post('user/tickets/manage/markdone/json', 'markTicketDone')->name('user.ticket.manage.markdone');
+        Route::post('user/tickets/message/send/json', 'sendMessage')->name('user.ticket.message.send');
     });
 
     Route::resource('user', GuestController::class)->names([

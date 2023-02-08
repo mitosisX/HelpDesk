@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Guest\GuestTicketRequest;
+use App\Models\TicketMessage;
 
 class GuestController extends Controller
 {
@@ -176,5 +177,26 @@ class GuestController extends Controller
 
         return response()
             ->json(['success' => true]);
+    }
+
+    public function getMessages(Ticket $ticket)
+    {
+        $messages = TicketMessage::where('tickets_id',
+                        $ticket->id)->get();
+// dd($messages);
+
+        return view('guest.messages',
+        [
+            'ticket' => $ticket,
+            'messages' => $messages
+        ]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        TicketMessage::create($request->all());
+
+        return response()
+            ->json(['response' => true]);
     }
 }
