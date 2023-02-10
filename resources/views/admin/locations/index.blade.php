@@ -20,8 +20,8 @@
                         <div class="card tile is-child">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
-                                    Departments
+                                    <span class="icon"><i class="mdi mdi-map-marker default"></i></span>
+                                    Locations
                                 </p>
                                 <a class="card-header-icon" id='create_ticket_modal'>
                                     <button class="button is-small is-info is-rounded">
@@ -42,7 +42,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($departments as $department)
+                                        @foreach ($locations as $department)
                                             <tr>
                                                 {{-- <td>{{ $loop->index + 1 }}</td> --}}
                                                 <td id='td_dept_name'>{{ $department->name }}</td>
@@ -285,7 +285,7 @@
             })
         });
 
-        //This re-numbers the # section of the table upon each creation 
+        //This re-numbers the # section of the table upon each creation
         function reNumber() {
             var reCounter = 1;
             $('#departments_table > tbody  > tr').each(function(index, tr) {

@@ -123,7 +123,7 @@
                 <div class="card has-table has-mobile-sort-spaced">
                     <header class="card-header">
                         <p class="card-header-title">
-                            <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
+                            <span class="icon"><i class="mdi mdi-sticker-text-outline"></i></span>
                             Tickets
                         </p>
 

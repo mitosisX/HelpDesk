@@ -50,14 +50,14 @@
                             <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
-                        <div class="navbar-dropdown">
+                        {{-- <div class="navbar-dropdown">
                             <a href="profile.html" class="navbar-item">
                                 <span class="icon">
                                     <i class="mdi mdi-account-badge-outline"></i>
                                 </span>
                                 <span>My Profile</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <a href="{{ route('logout') }}" title="Log out" class="navbar-item is-desktop-icon-only">
@@ -83,6 +83,9 @@
                         </a>
                     </li>
                 </ul>
+
+                <div class="sidebar-divider"></div>
+
                 <p class="menu-label">Tickets</p>
                 <ul class="menu-list">
                     {{-- <li>
@@ -98,6 +101,9 @@
                         </a>
                     </li>
                 </ul>
+
+                <div class="sidebar-divider"></div>
+
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li>

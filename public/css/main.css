@@ -7262,12 +7262,12 @@ button.dropdown-item.is-active {
 }
 .menu-list a {
     border-radius: 0;
-    color: #b6bad7;
+    color: hsl(0deg, 0%, 29%);
     display: block;
     padding: 0.5rem 0;
 }
 .menu-list a:hover {
-    background-color: #262930;
+    background-color: hsl(207deg, 61%, 53%);
     color: hsl(0deg, 0%, 100%);
 }
 .menu-list a.is-active {
@@ -13914,13 +13914,14 @@ aside.aside {
     height: 100vh;
     padding: 0;
     box-shadow: none;
-    background: #2e323a;
+    background: #ffffff;
+    border-right: 1px solid rgba(24, 28, 33, 0.06);
 }
 aside.aside .aside-tools {
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: #17191e;
+    background-color:hsl(207deg, 61%, 53%);
     color: hsl(0deg, 0%, 100%);
     line-height: 3.25rem;
     height: 3.25rem;
@@ -13960,6 +13961,14 @@ aside.aside .menu-label {
     padding: 0 0.75rem;
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
+    color: rgba(0,0,0,.85);
+}
+
+.sidebar-divider {
+    padding: 0;
+    margin: 0.5rem 2.5rem;
+    height: 1px;
+    background-color: rgba(0,0,0,.05);
 }
 
 @media screen and (max-width: 1023px) {

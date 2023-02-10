@@ -27,7 +27,7 @@
                 <div class="card has-table has-mobile-sort-spaced">
                     <header class="card-header">
                         <p class="card-header-title">
-                            <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                            <span class="icon"><i class="mdi mdi-sticker-plus-outline"></i></span>
                             <span>Create Ticket</span>
                         </p>
                     </header>

@@ -20,7 +20,7 @@
                         <div class="card tile is-child">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
+                                    <span class="icon"><i class="mdi mdi-warehouse default"></i></span>
                                     Departments
                                 </p>
                                 <a class="card-header-icon" id='create_ticket_modal'>
@@ -285,7 +285,7 @@
             })
         });
 
-        //This re-numbers the # section of the table upon each creation 
+        //This re-numbers the # section of the table upon each creation
         function reNumber() {
             var reCounter = 1;
             $('#departments_table > tbody  > tr').each(function(index, tr) {

@@ -23,7 +23,7 @@
                         <a class="card-header-icon" href="{{ route('user.ticket.message', ['ticket'=>$ticket->id]) }}">
                             <button class="button is-small is-info is-rounded">
                                 <span class="icon"><i class="mdi mdi-gmail"></i></span>
-                                <span title="Badge top right" class="badge">new</span>
+                                {{-- <span title="Badge top right" class="badge">new</span> --}}
                                 <span>Message</span>
                             </button>
 
@@ -76,6 +76,7 @@
                                 <div @class([
                                     'step-marker',
                                     'is-hollow',
+                                    'pulse',
                                     'pulse' => $ticket->resolved === 1,
                                 ])>
                                     <div class="icon">

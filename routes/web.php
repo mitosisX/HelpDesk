@@ -12,7 +12,7 @@ use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DepartmentsController;
-use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
+use App\Http\Controllers\Admin\LocationController;
 
 Route::fallback(function () {         //redirect all 404 to the landing page
     return redirect()
@@ -116,6 +116,18 @@ Route::middleware(['auth'])->group(
             Route::post('admin/manage/category/store/json', 'store')->name('admin.category.store.json');
             Route::post('admin/manage/category/update/json/{id?}', 'updateCategoryJson')->name('admin.category.update.json');
             Route::delete('admin/manage/category/destroy/json/{category?}', 'deleteCategoryJson')->name('admin.category.destroy.json');
+        });
+
+        Route::controller(LocationController::class)->group(function () {
+            Route::get('admin/manage/location/create', 'create')->name('admin.locations.create');
+            Route::post('admin/manage/location/store', 'store')->name('admin.locations.store');
+            Route::get('admin/manage/location/edit/{category}', 'edit')->name('admin.locations.edit');
+            Route::get('admin/manage/location/all', 'index')->name('admin.locations.index');
+            Route::get('admin/manage/location/show/{category}', 'show')->name('admin.locations.show');
+
+            Route::post('admin/manage/location/store/json', 'store')->name('admin.locations.store.json');
+            Route::post('admin/manage/location/update/json/{id?}', 'updateCategoryJson')->name('admin.locations.update.json');
+            Route::delete('admin/manage/location/destroy/json/{category?}', 'deleteCategoryJson')->name('admin.locations.destroy.json');
         });
     }
 );

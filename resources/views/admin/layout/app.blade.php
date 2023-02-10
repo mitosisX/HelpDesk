@@ -42,7 +42,7 @@
                             <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
-                        <div class="navbar-dropdown">
+                        {{-- <div class="navbar-dropdown">
                             <a href="profile.html" class="navbar-item">
                                 <span class="icon">
                                     <i class="mdi mdi-account-badge-outline"></i>
@@ -55,7 +55,7 @@
                                 </span>
                                 <span>Settings</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <a href="{{ route('logout') }}" title="Log out" class="navbar-item is-desktop-icon-only">
@@ -77,12 +77,14 @@
                 <ul class="menu-list">
                     <li>
                         <a href="{{ route('admin.tickets.create') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+                            <span class="icon"><i class="mdi mdi-sticker-plus-outline"></i></span>
                             <span class="menu-item-label">Create Ticket</span>
                         </a>
                     </li>
                 </ul>
             </div>
+
+            <div class="sidebar-divider"></div>
 
             <div class="menu is-menu-main">
                 <p class="menu-label">Manage</p>
@@ -95,13 +97,13 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.categories.index') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                            <span class="icon"><i class="mdi mdi-form-dropdown"></i></span>
                             <span class="menu-item-label">Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.categories.index') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                        <a href="{{ route('admin.locations.index') }}" class="has-icon">
+                            <span class="icon"><i class="mdi mdi-map-marker"></i></span>
                             <span class="menu-item-label">Locations</span>
                         </a>
                     </li>
