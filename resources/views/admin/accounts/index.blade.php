@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>Manage</li>
-    <li>Tickets</li>
+    <li>Accounts</li>
 @endsection
 
 @section('content')

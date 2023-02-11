@@ -13913,7 +13913,7 @@ aside.aside {
     z-index: 40;
     height: 100vh;
     padding: 0;
-    box-shadow: none;
+    box-shadow: 1px 1px 100px -1px rgb(0 0 0 / 8%);
     background: #ffffff;
     border-right: 1px solid rgba(24, 28, 33, 0.06);
 }
@@ -14029,6 +14029,7 @@ aside.aside .menu-label {
 section.section.is-title-bar {
     padding: 1.5rem;
     border-bottom: 1px solid rgba(24, 28, 33, 0.06);
+    box-shadow: -1px 17px 62px -28px rgb(215 215 215);
 }
 section.section.is-title-bar ul li {
     display: inline-block;

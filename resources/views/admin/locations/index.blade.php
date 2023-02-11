@@ -7,7 +7,7 @@
 
 @section('breadcrumb')
     <li>Manage</li>
-    <li>Departments</li>
+    <li>Locations</li>
 @endsection
 
 @section('content')

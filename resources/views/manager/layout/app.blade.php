@@ -125,7 +125,7 @@
                     </li>
                     <li>
                         <a href="{{ route('manager.tickets.view', ['status' => 'new']) }}" class="has-icon">
-                            <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
+                            <span class="icon has-update-mark"><i class="mdi mdi-sticker-text-outline"></i></span>
                             <span class="menu-item-label">All Tickets</span>
                         </a>
                     </li>
