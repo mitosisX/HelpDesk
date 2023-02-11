@@ -13943,7 +13943,7 @@ aside.aside .menu-list li a.has-dropdown-icon .dropdown-icon {
 aside.aside .menu-list li ul {
     display: none;
     border-left: 0;
-    background-color: #282c33;
+    background-color: hsl(0deg 0% 98%);
     padding-left: 0;
     margin: 0 0 0.75rem;
 }
