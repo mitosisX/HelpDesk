@@ -76,6 +76,7 @@ Route::middleware(['auth'])->group(
             Route::get('admin/manage/accounts/view/{type?}', 'manageAccounts')->name('admin.accounts.view');
             Route::get('admin/manage/accounts/create', 'createAccountView')->name('admin.accounts.create');
 
+            Route::get('log', 'test');
             Route::get('admin/tickets/create', 'createTicket')->name('admin.tickets.create');
         });
 

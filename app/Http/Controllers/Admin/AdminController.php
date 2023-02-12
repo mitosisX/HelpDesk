@@ -222,4 +222,16 @@ class AdminController extends Controller
         return redirect()
             ->back()->with('ticket-created', true);
     }
+
+    public function test(){
+        $users = User::selectRaw('year(created_at) year, month(created_at) month, count(*) count')
+             ->groupBy('year', 'month')
+             ->get();
+
+        foreach ($users as $user) {
+            echo $user->year . '-' . $user->month . ': ' . $user->count . ' users<br>';
+        }
+
+        // dd($users);
+    }
 }

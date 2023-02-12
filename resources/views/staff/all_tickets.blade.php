@@ -169,7 +169,10 @@
             <div class="card-content px-2 my-2">
                 <div class="b-table has-pagination">
                     <div class="column is-full">
-                        <table class="table is-fullwidth is-striped is-hoverable is-fullwidth" id="tickets_table">
+                        <table data-toggle="table"
+                        data-pagination="true"
+                        data-search="true"
+                        class="table is-fullwidth is-striped is-hoverable is-fullwidth" id="tickets_table">
                             <thead>
                                 <tr>
                                     <th>Ticket #</th>
@@ -191,7 +194,7 @@
                                         <td>
                                             @php
                                                 $tagColor = $ticket->priority;
-                                                
+
                                                 $m = new \Moment\Moment($ticket->due_date);
                                             @endphp
 
@@ -389,7 +392,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $("#tickets_table").DataTable();
+            // $("#tickets_table").DataTable();
 
             $('#create_ticket_modal').on('click', function() {
                 Bulma('#create_modal').modal().open();

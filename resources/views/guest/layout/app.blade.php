@@ -9,6 +9,7 @@
     @yield('title')
 
     <!-- Bulma is included -->
+
     <link rel="stylesheet" href="{{ asset('css/bulma-badge.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/messages.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />

@@ -15,14 +15,46 @@ class UsersSeed extends Seeder
      */
     public function run()
     {
-        foreach (range(0, 5) as $loop) {
-            DB::table('users')
+        // foreach (range(0, 5) as $loop) {
+        //     DB::table('users')
+        //         ->insert([
+        //             'name' => fake()->name(),
+        //             'email' => fake()->email(),
+        //             'password' => bcrypt('password'),
+        //             'role_id' => fake()->numberBetween(1, 2)
+        //         ]);
+        // }
+
+        DB::table('users')
                 ->insert([
-                    'name' => fake()->name(),
-                    'email' => fake()->email(),
+                    'name' =>'Admin',
+                    'email' => 'admin@he.lp',
                     'password' => bcrypt('password'),
-                    'role_id' => fake()->numberBetween(1, 2)
+                    'role_id' => 1
                 ]);
-        }
+
+            DB::table('users')
+            ->insert([
+                'name' => 'IT Staff',
+                'email' => 'staff@he.lp',
+                'password' => bcrypt('password'),
+                'role_id' => 2
+            ]);
+
+            DB::table('users')
+            ->insert([
+                'name' => 'NRWB User',
+                'email' => 'user@he.lp',
+                'password' => bcrypt('password'),
+                'role_id' => 3
+            ]);
+
+            DB::table('users')
+            ->insert([
+                'name' => 'Manager',
+                'email' => 'manager@he.lp',
+                'password' => bcrypt('password'),
+                'role_id' => 4
+            ]);
     }
 }

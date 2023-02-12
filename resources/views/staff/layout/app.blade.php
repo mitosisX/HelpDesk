@@ -183,6 +183,7 @@
     <!-- Scripts below are for demo only -->
     <!-- Scripts below are for demo only -->
     {{-- <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> --}}
+
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
