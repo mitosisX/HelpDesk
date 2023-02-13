@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Tracker;
 use App\Models\Category;
+use App\Models\Locations;
 use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -166,10 +167,11 @@ class AdminController extends Controller
             ->get();
 
         $departments = Department::all();
+        $locations = Locations::all();
 
         return view(
             'admin.accounts.index',
-            compact('users', 'departments')
+            compact('users', 'departments','locations')
         );
     }
 

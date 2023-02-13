@@ -124,11 +124,11 @@ Route::middleware(['auth'])->group(
             Route::post('admin/manage/location/store', 'store')->name('admin.locations.store');
             Route::get('admin/manage/location/edit/{category}', 'edit')->name('admin.locations.edit');
             Route::get('admin/manage/location/all', 'index')->name('admin.locations.index');
-            Route::get('admin/manage/location/show/{category}', 'show')->name('admin.locations.show');
+            Route::get('admin/manage/location/show/{locations}', 'show')->name('admin.locations.show');
 
             Route::post('admin/manage/location/store/json', 'store')->name('admin.locations.store.json');
-            Route::post('admin/manage/location/update/json/{id?}', 'updateCategoryJson')->name('admin.locations.update.json');
-            Route::delete('admin/manage/location/destroy/json/{category?}', 'deleteCategoryJson')->name('admin.locations.destroy.json');
+            Route::post('admin/manage/location/update/json/{id?}', 'updateLocationsJson')->name('admin.locations.update.json');
+            Route::delete('admin/manage/location/destroy/json/{locations?}', 'deleteLocationJson')->name('admin.locations.destroy.json');
         });
     }
 );

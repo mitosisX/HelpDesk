@@ -2,7 +2,7 @@
 
 @section('title')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Departments - Admin</title>
+    <title>Locations - Admin</title>
 @endsection
 
 @section('breadcrumb')
@@ -33,37 +33,33 @@
                             </header>
                             <div class="card-content">
                                 <table class="table is-fullwidth is-striped is-hoverable is-fullwidth"
-                                    id='departments_table'>
+                                    id='locations_table'>
                                     <thead>
                                         <tr>
-                                            {{-- <th>#</th> --}}
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($locations as $department)
+                                        @foreach ($locations as $location)
                                             <tr>
-                                                {{-- <td>{{ $loop->index + 1 }}</td> --}}
-                                                <td id='td_dept_name'>{{ $department->name }}</td>
+                                                <td id='td_dept_name'>{{ $location->name }}</td>
                                                 <td>
                                                     <div class="field has-addons">
                                                         <p class="control">
-                                                            {{-- <a href="{{ route('admin.departments.edit', $department->id) }}"> --}}
                                                             <button class="button is-rounded is-small is-info"
-                                                                id='edit' data-id="{{ $department->id }}"
-                                                                data-full_name="{{ $department->name }}">
+                                                                id='edit' data-id="{{ $location->id }}"
+                                                                data-full_name="{{ $location->name }}">
                                                                 <span class="icon is-small">
                                                                     <i class="mdi mdi-pencil-outline"></i>
                                                                 </span>
                                                                 <span>Edit</span>
                                                             </button>
-                                                            {{-- </a> --}}
                                                         </p>
                                                         <p class="control">
                                                             <button class="button is-rounded is-small is-danger"
-                                                                id="remove" data-id="{{ $department->id }}"
-                                                                data-action="{{ route('admin.departments.destroy', $department->id) }}">
+                                                                id="remove" data-id="{{ $location->id }}"
+                                                                data-action="{{ route('admin.locations.destroy.json', $location->id) }}">
                                                                 <span class="icon is-small">
                                                                     <i class="mdi mdi-trash-can-outline"></i>
                                                                 </span>
@@ -89,15 +85,15 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Create Department</p>
+                <p class="modal-card-title">Create a location</p>
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
                 <div class="field">
                     <label class="label">Provide name</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" id='department_name' name="name" type="text"
-                            placeholder="Department's name" required>
+                        <input class="input" id='location_name' name="name" type="text"
+                            placeholder="Location's name" required>
                         <span class="icon is-left">
                             <i class="mdi mdi-rename-box"></i>
                         </span>
@@ -105,7 +101,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button id='create_department_button' class="button is-info">Create</button>
+                <button id='create_location_button' class="button is-info">Create</button>
             </footer>
         </div>
     </div>
@@ -115,15 +111,15 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Edit Department</p>
+                <p class="modal-card-title">Edit Location</p>
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
                 <div class="field">
                     <label class="label">Provide name</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" id='dept_edit_name' name="name" type="text"
-                            placeholder="Department's name" value="{{ old('name') }}" required>
+                        <input class="input" id='loc_edit_name' name="name" type="text"
+                            placeholder="Location's name" required>
                         <span class="icon is-left">
                             <i class="mdi mdi-rename-box"></i>
                         </span>
@@ -131,7 +127,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button id='update_department_button' class="button is-info">Update</button>
+                <button id='update_location_button' class="button is-info">Update</button>
             </footer>
         </div>
     </div>
@@ -139,7 +135,7 @@
 
 @section('scripts')
     <script>
-        //The ID to be used in editing the department
+        //The ID to be used in editing the location
         var id = 0;
 
         //Previously clicked <td> data, we'll use this to avoid reload
@@ -150,8 +146,8 @@
                 Bulma('#create_modal').modal().open();
             });
 
-            $('#create_department_button').click(function() {
-                $('#create_department_button').toggleClass('is-loading');
+            $('#create_location_button').click(function() {
+                $('#create_location_button').toggleClass('is-loading');
 
                 $.ajaxSetup({
                     headers: {
@@ -159,18 +155,18 @@
                     }
                 });
 
-                var newDeptName = $('#department_name').val();
+                var newDeptName = $('#location_name').val();
 
                 $.ajax({
-                    url: "{{ route('admin.departments.store.json') }}",
+                    url: "{{ route('admin.locations.store.json') }}",
                     type: "POST",
                     data: {
                         name: newDeptName,
                     },
                     dataType: 'json',
                     success: function(data) {
-                        $('#create_department_button').toggleClass('is-loading');
-                        $('#create_department_button').attr('disabled', false);
+                        $('#create_location_button').toggleClass('is-loading');
+                        $('#create_location_button').attr('disabled', false);
 
 
                         // window.location.reload(true);
@@ -182,18 +178,15 @@
             });
         });
 
-
-
-
-        $('#update_department_button').click(() => {
+        $('#update_location_button').click(() => {
             //The <td> to edit
             var valueToEdit = tdElement.closest('tr').children('td:nth-child(1)'); //.text();
 
             //The new edit value
-            var editValue = $('#dept_edit_name').val();
+            var editValue = $('#loc_edit_name').val();
 
-            $('#update_department_button').toggleClass('is-loading');
-            $('#update_department_button').attr('disabled', true);
+            $('#update_location_button').toggleClass('is-loading');
+            $('#update_location_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {
@@ -202,15 +195,15 @@
             });
 
             $.ajax({
-                url: `{{ route('admin.department.update.json') }}` + `/${id}`,
+                url: `{{ route('admin.locations.update.json') }}` + `/${id}`,
                 type: "POST",
                 data: {
                     name: editValue,
                 },
                 dataType: 'json',
                 success: function(data) {
-                    $('#update_department_button').toggleClass('is-loading');
-                    $('#update_department_button').attr('disabled', false);
+                    $('#update_location_button').toggleClass('is-loading');
+                    $('#update_location_button').attr('disabled', false);
 
                     valueToEdit.text(editValue)
                     Bulma('#edit_modal').modal().close();
@@ -228,7 +221,7 @@
 
             var dept = tdElement.data('full_name');
 
-            $('#dept_edit_name').val(tdElement.closest('tr').children('td:nth-child(1)').text());
+            $('#loc_edit_name').val(tdElement.closest('tr').children('td:nth-child(1)').text());
 
             Bulma('#edit_modal').modal().open();
         });
@@ -271,7 +264,7 @@
                     var del_id = tdElement.attr('data-id');
 
                     $.ajax({
-                        url: `{{ route('admin.department.destroy.json') }}` + `/${del_id}`,
+                        url: `{{ route('admin.locations.destroy.json') }}` + `/${del_id}`,
                         type: "DELETE",
                         // data: {
                         //     name: editValue,
@@ -288,7 +281,7 @@
         //This re-numbers the # section of the table upon each creation
         function reNumber() {
             var reCounter = 1;
-            $('#departments_table > tbody  > tr').each(function(index, tr) {
+            $('#locations_table > tbody  > tr').each(function(index, tr) {
                 $(tr).children('td:nth-child(1)').text(reCounter);
                 console.log(reCounter)
                 reCounter += 1;
@@ -296,7 +289,7 @@
         }
 
         function appendToTable(id, text) {
-            $('#departments_table tr:last')
+            $('#locations_table tr:last')
                 .after(`<tr>
                             <td id='td_dept_name'>${text}</td>
                             <td>
@@ -314,7 +307,7 @@
                                     <p class="control">
                                         <button class="button is-rounded is-small is-danger"
                                             id="remove" data-id="${id}"
-                                            data-action="{{ route('admin.department.destroy.json') }} + '/${id}'">
+                                            data-action="{{ route('admin.locations.destroy.json') }} + '/${id}'">
                                             <span class="icon is-small">
                                                 <i class="mdi mdi-trash-can-outline"></i>
                                             </span>

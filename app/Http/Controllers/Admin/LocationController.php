@@ -100,9 +100,9 @@ class LocationController extends Controller
             ->json(['success' => true]);
     }
 
-    public function deleteLocationsJson(Locations $Locations)
+    public function deleteLocationJson(Locations $locations)
     {
-        $Locations->delete();
+        $locations->delete();
 
         return response()
             ->json(['success' => true]);

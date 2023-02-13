@@ -270,7 +270,7 @@
                     var del_id = tdElement.attr('data-id');
 
                     $.ajax({
-                        url: `{{ route('admin.department.destroy.json') }}` + `/${del_id}`,
+                        url: `{{ route('admin.category.destroy.json') }}` + `/${del_id}`,
                         type: "DELETE",
                         // data: {
                         //     name: editValue,

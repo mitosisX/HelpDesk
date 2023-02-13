@@ -180,10 +180,9 @@
                                     <div>
                                         <div class="select">
                                             <select name="location">
-                                                <option>Mzimba</option>
-                                                <option>Rumphi</option>
-                                                <option>Chitipa</option>
-                                                <option>Mzuzu</option>
+                                                @foreach ($locations as $location)
+                                                    <option value="{{ $location->name }}">{{ $location->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
