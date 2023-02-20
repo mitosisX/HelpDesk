@@ -42,7 +42,7 @@
                             ])>
                                 <div @class(['step-marker', 'pulse' => $ticket->status === 'new'])>1</div>
                                 <div class="step-details">
-                                    <p class="step-title">Issue Sent</p>
+                                    <p class="step-title">Ticket Sent</p>
                                 </div>
                             </div>
                             <div @class([
@@ -76,7 +76,6 @@
                                 <div @class([
                                     'step-marker',
                                     'is-hollow',
-                                    'pulse',
                                     'pulse' => $ticket->resolved === 1,
                                 ])>
                                     <div class="icon">
@@ -84,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="step-details">
-                                    <p class="step-title">Agree Resolvment</p>
+                                    <p class="step-title">Closed</p>
                                 </div>
                             </div>
                             <div class="steps-content">

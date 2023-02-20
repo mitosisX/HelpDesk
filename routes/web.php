@@ -136,8 +136,6 @@ Route::middleware(['auth'])->group(
 
 Route::controller(ProfileController::class)->group(function () {
     Route::get('manager/manage/profile/show', 'index')->name('manager.profile.show');
-    // Route::post('manager/manage/department/store', 'store')->name('manager.profile.store');
-    // Route::patch('manager/manage/department/update/{department}', 'update')->name('manager.profile.update');
 });
 
 //

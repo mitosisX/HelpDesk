@@ -123,35 +123,25 @@ class AdminController extends Controller
         switch (Str::lower($type)) {
             case ('admin'):
                 session(['account-type' => 'admins']);
-                // session(['for-staff' => false]);
-                // session(['for-users' => false]);
 
                 $roleToGet = 'admin';
                 break;
 
             case ('staff'):
                 session(['account-type' => 'staff']);
-                // session(['for-staff' => true]);
-                // session(['for-admins' => false]);
-                // session(['for-users' => false]);
 
                 $roleToGet = 'staff';
                 break;
 
             case ('user'):
                 session(['account-type' => 'users']);
-                // session(['for-staff' => false]);
-                // session(['for-admins' => false]);
-                // session(['for-users' => true]);
 
                 $roleToGet = 'user';
                 break;
 
             default:
                 session(['account-type' => 'admins']);
-                // session(['for-admins' => true]);
-                // session(['for-staff' => false]);
-                // session(['for-users' => false]);
+
                 $roleToGet = 'admin';
 
                 return redirect()
@@ -210,16 +200,6 @@ class AdminController extends Controller
         $forTicket['reported_by'] = $request->reported_by;
 
         $created_ticket = Ticket::create($forTicket);
-
-        // $createTicketID = $created_ticket->id;
-
-        $ref = fake()->numberBetween(1000, 90000);
-        // $ref = "tr-{$randRef}";
-
-        // Tracker::create([
-        //     'reference_code' => $ref,
-        //     'tickets_id' => $createTicketID,
-        // ]);
 
         return redirect()
             ->back()->with('ticket-created', true);

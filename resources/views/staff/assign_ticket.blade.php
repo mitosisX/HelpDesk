@@ -140,7 +140,7 @@
 
                                     <div class="column is-half is-grouped">
                                         <div class="control">
-                                            <input type="submit" class="button is-info" id="submit">
+                                            <input type="submit" class="button is-info" id="submit" value="Assign">
                                         </div>
                                     </div>
                                 </div>

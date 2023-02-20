@@ -93,7 +93,7 @@
                                 <div class="level-item">
                                     <div class="is-widget-label">
                                         <h3 class="subtitle is-spaced">DUE</h3>
-                                        <h1 class="title">2</h1>
+                                        <h1 class="title">0</h1>
                                     </div>
                                 </div>
                                 <div class="level-item has-widget-icon">
@@ -166,7 +166,7 @@
                                         <td>
                                             @php
                                                 $tagColor = $ticket->priority;
-                                                
+
                                                 $m = new \Moment\Moment($ticket->due_date);
                                             @endphp
 
