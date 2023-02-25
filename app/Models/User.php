@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class, 'departments_id');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'reported_by');
+    }
 }

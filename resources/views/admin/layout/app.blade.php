@@ -97,7 +97,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.categories.index') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-form-dropdown"></i></span>
+                            <span class="icon"><i class="mdi mdi-card-text-outline"></i></span>
                             <span class="menu-item-label">Categories</span>
                         </a>
                     </li>

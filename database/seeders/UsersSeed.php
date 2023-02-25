@@ -26,14 +26,14 @@ class UsersSeed extends Seeder
         // }
 
         DB::table('users')
-                ->insert([
-                    'name' =>'Admin',
-                    'email' => 'admin@he.lp',
-                    'password' => bcrypt('password'),
-                    'role_id' => 1
-                ]);
+            ->insert([
+                'name' => 'Admin',
+                'email' => 'admin@he.lp',
+                'password' => bcrypt('password'),
+                'role_id' => 1
+            ]);
 
-            DB::table('users')
+        DB::table('users')
             ->insert([
                 'name' => 'IT Staff',
                 'email' => 'staff@he.lp',
@@ -41,15 +41,16 @@ class UsersSeed extends Seeder
                 'role_id' => 2
             ]);
 
-            DB::table('users')
+        DB::table('users')
             ->insert([
                 'name' => 'NRWB User',
                 'email' => 'user@he.lp',
                 'password' => bcrypt('password'),
-                'role_id' => 3
+                'role_id' => 3,
+                'departments_id' => 1
             ]);
 
-            DB::table('users')
+        DB::table('users')
             ->insert([
                 'name' => 'Manager',
                 'email' => 'manager@he.lp',

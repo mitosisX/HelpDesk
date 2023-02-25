@@ -27,7 +27,7 @@ class Ticket extends Model
 
     public function reporter()
     {
-        return $this->hasOne(User::class, 'id', 'reported_by');
+        return $this->belongsTo(User::class, 'reported_by', 'id');
     }
 
     public function assigner()
@@ -62,7 +62,8 @@ class Ticket extends Model
         return $nextTicketNumber;
     }
 
-    public function messages(){
+    public function messages()
+    {
         return $this->hasMany(TicketMessage::class, 'tickets_id');
     }
 }

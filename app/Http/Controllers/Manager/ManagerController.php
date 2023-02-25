@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Manager;
 
 use DateTime;
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Ticket;
@@ -11,12 +12,13 @@ use App\Models\Category;
 use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Queries\SpecialQueries;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\AdminTicketRequest;
 use App\Http\Requests\Authentication\LoginRequest;
 use App\Http\Requests\Authentication\RegisterRequest;
-use App\Queries\SpecialQueries;
 
 class ManagerController extends Controller
 {
@@ -353,6 +355,48 @@ class ManagerController extends Controller
                 'low' => $low,
                 'medium' => $medium,
                 'high' => $high
+            ]);
+    }
+
+    private function templateEloStats($month)
+    {
+        return Ticket::join('users', 'tickets.reported_by', '=', 'users.id')
+            ->whereMonth('tickets.created_at', '=', $month);
+    }
+
+    public function stats()
+    {
+        $tickets = Ticket::whereMonth('created_at', now()->month)
+            ->with('reporter.department')
+            ->get()
+            ->groupBy(function ($ticket) {
+                return $ticket->reporter->department->name;
+            })
+            ->map(function ($tickets) {
+                return $tickets->count();
+            })
+            ->toArray();
+
+        dd($tickets);
+    }
+
+    public function ticketLocationStats()
+    {
+        $month = date('m');
+
+        $ticketsByLocation = $this->templateEloStats($month)
+            ->select('users.location', DB::raw('COUNT(*) as count'))
+            ->groupBy('users.location')
+            ->get();
+
+        $locations = $ticketsByLocation->pluck('location');
+        $countByLocation = $ticketsByLocation->pluck('count');
+
+        return response()
+            ->json([
+                'locations' => $locations,
+                'count' => $countByLocation,
+                'total' => $countByLocation->sum()
             ]);
     }
 }

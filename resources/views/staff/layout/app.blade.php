@@ -24,8 +24,8 @@
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" />
 
     @php
-        use App\Queries\SpecialQueries;
-        $counter = SpecialQueries::ticketCounter();
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::ticketCounter();
     @endphp
 </head>
 
@@ -44,28 +44,29 @@
             </div>
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
-                    <div
-                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
-                        <a class="navbar-link is-arrowless">
-                            <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
-                            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-                        </a>
-                        {{-- <div class="navbar-dropdown">
-                            <a href="profile.html" class="navbar-item">
-                                <span class="icon">
-                                    <i class="mdi mdi-account-badge-outline"></i>
+                    <div class="navbar-item">
+                        <div class="dropdown">
+                            <button class="button is-small is-rounded">
+                                <span id='to_day'>Today</span>
+                                <span class="icon is-small has-text-info">
+                                    <i class="mdi mdi-calendar-text" aria-hidden="true"></i>
                                 </span>
-                                <span>My Profile</span>
-                            </a>
-                        </div> --}}
-                    </div>
+                            </button>
+                        </div>
 
-                    <a href="{{ route('logout') }}" title="Log out" class="navbar-item is-desktop-icon-only">
-                        <span class="icon"><i class="mdi mdi-logout"></i></span>
-                        <span>Log out</span>
-                    </a>
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                            <a class="navbar-link is-arrowless">
+                                <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
+                                <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+                            </a>
+                        </div>
+
+                        <a href="{{ route('logout') }}" title="Log out" class="navbar-item is-desktop-icon-only">
+                            <span class="icon"><i class="mdi mdi-logout"></i></span>
+                            <span>Log out</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
         </nav>
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
@@ -77,7 +78,7 @@
                 <p class="menu-label">General</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="#" class="router-link-active has-icon">
+                        <a class="router-link-active has-icon">
                             <span class="icon"><i class="mdi mdi-home"></i></span>
                             <span class="menu-item-label">Dashboard</span>
                         </a>
@@ -90,9 +91,9 @@
                 <ul class="menu-list">
                     {{-- <li>
                         <a href="{{ route('user.tickets.create') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
-                            <span class="menu-item-label">Create Ticket</span>
-                        </a>
+                    <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+                    <span class="menu-item-label">Create Ticket</span>
+                    </a>
                     </li> --}}
                     <li>
                         <a href="{{ route('staff.tickets.view', ['status' => 'open']) }}" class="has-icon">
@@ -107,7 +108,7 @@
                 <p class="menu-label">Manage</p>
                 <ul class="menu-list">
                     <li>
-                        <a href="" class="has-icon">
+                        <a class="has-icon" href="{{ route('staff.manage.profile', ['id' => Auth::user()->id]) }}">
                             <span class="icon"><i class="mdi mdi-account"></i></span>
                             <span class="menu-item-label">Profile</span>
                         </a>
@@ -194,6 +195,18 @@
     <script type="text/javascript" src="{{ asset('js/bulma-steps.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jstable.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.toLocaleString('default', {
+                month: 'long'
+            });
+            $('#to_day').text(`Today: ${day} ${month}`)
+        });
+
+    </script>
     <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 
     <!-- Code injected by live-server -->

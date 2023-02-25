@@ -24,6 +24,10 @@ Route::get('/redirect', function () {
     return $role;
 });
 
+Route::get('register', function () {
+    return redirect()->route('login');
+});
+
 Route::get('logout', function () {
     Session::flush();
 
@@ -56,6 +60,9 @@ Route::middleware(['auth'])->group(
             Route::post('manager/tickets/update/{ticket?}', 'updateTicket')->name('manager.tickets.update');
             Route::get('manager/tickets/stats/json', 'jsonTicketStats')->name('manager.tickets.stats.json');
             Route::get('manager/tickets/priority/json', 'jsonPriorityStats')->name('manager.tickets.priority.json');
+
+            Route::get('manager/ticket/stats/json', 'ticketLocationStats')->name('manager.ticket.stats.locations.json');
+            Route::get('stats', 'stats');
         });
 
         Route::resource('manager', ManagerController::class)->names([
@@ -155,12 +162,12 @@ Route::controller(StaffController::class)->group(function () {
     Route::post('staff/tickets/update/{ticket?}', 'updateTicket')->name('staff.tickets.update');
 
     Route::get('staff/dashboard', 'dashboard')->name('staff.dashboard');
-    Route::get('staff/profile', 'profile')->name('staff.profile');
     Route::get('staff/tickets', 'tickets')->name('staff.tickets');
     Route::get('staff/tickets/view/{status?}', 'viewTickets')->name('staff.tickets.view');
     Route::get('staff/tickets/manage/{ticket}', 'manageTickets')->name('staff.ticket.manage');
     Route::post('staff/tickets/manage/markdone/json', 'markTicketDone')->name('staff.ticket.manage.markdone');
-    Route::post('staff/profile/store', 'profileSave')->name('staff.profile.store');
+    Route::get('staff/manage/profile/{id}', 'viewProfile')->name('staff.manage.profile');
+    Route::post('staff/manage/profile/store', 'profileUpdate')->name('staff.profile.update');
     Route::get('staff/ticket/manage/messages/{ticket}', 'getMessages')->name('staff.ticket.messages');
     Route::post('staff/tickets/message/send/json', 'sendMessage')->name('staff.ticket.message.send');
 });

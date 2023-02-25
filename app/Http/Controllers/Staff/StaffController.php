@@ -149,12 +149,12 @@ class StaffController extends Controller
             ->route('staff.index');
     }
 
-    public function profile()
+    public function viewProfile()
     {
         return view('staff.profile');
     }
 
-    public function profileSave(Request $request)
+    public function profileUpdate(Request $request)
     {
         return "saving";
     }
@@ -303,15 +303,19 @@ class StaffController extends Controller
 
     public function getMessages(Ticket $ticket)
     {
-        $messages = TicketMessage::where('tickets_id',
-                        $ticket->id)->get();
-// dd($messages);
+        $messages = TicketMessage::where(
+            'tickets_id',
+            $ticket->id
+        )->get();
+        // dd($messages);
 
-        return view('staff.messages',
-        [
-            'ticket' => $ticket,
-            'messages' => $messages
-        ]);
+        return view(
+            'staff.messages',
+            [
+                'ticket' => $ticket,
+                'messages' => $messages
+            ]
+        );
     }
 
     public function sendMessage(Request $request)
