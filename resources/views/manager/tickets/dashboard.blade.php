@@ -141,8 +141,19 @@ $counter = SpecialQueries::ticketCounter();
         <div class="column is-5">
             <div class="card tile is-child">
                 <div class="card-header">
-                    <span class="icon"><i class="mdi mdi-finance"></i></span>
-                    Ticket Stats #2
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-finance"></i></span>
+                        Ticket Stats #2
+                    </p>
+                    <a class="card-header-icon">
+                        <div class="select is-small is-rounded">
+                            <select>
+                                <option>This month</option>
+                                <option>1 month ago</option>
+                                <option>2 months ago</option>
+                            </select>
+                        </div>
+                    </a>
                 </div>
                 <div class="card-content">
                     <div class="level">
