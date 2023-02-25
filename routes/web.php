@@ -61,7 +61,8 @@ Route::middleware(['auth'])->group(
             Route::get('manager/tickets/stats/json', 'jsonTicketStats')->name('manager.tickets.stats.json');
             Route::get('manager/tickets/priority/json', 'jsonPriorityStats')->name('manager.tickets.priority.json');
 
-            Route::get('manager/ticket/stats/json', 'ticketLocationStats')->name('manager.ticket.stats.locations.json');
+            Route::get('manager/ticket/stats/locations/json', 'ticketLocationStats')->name('manager.ticket.stats.locations.json');
+            Route::get('manager/ticket/stats/departments/json', 'ticketDepartmentsStats')->name('manager.ticket.stats.departments.json');
             Route::get('stats', 'stats');
         });
 

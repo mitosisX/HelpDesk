@@ -364,8 +364,15 @@ class ManagerController extends Controller
             ->whereMonth('tickets.created_at', '=', $month);
     }
 
-    public function stats()
+    public function stats(){
+
+    }
+
+    public function ticketDepartmentsStats()
     {
+        $currentMonth = date('Y-m');
+
+        // Count tickets by department
         $tickets = Ticket::whereMonth('created_at', now()->month)
             ->with('reporter.department')
             ->get()
@@ -374,10 +381,9 @@ class ManagerController extends Controller
             })
             ->map(function ($tickets) {
                 return $tickets->count();
-            })
-            ->toArray();
+            });
 
-        dd($tickets);
+        return response()->json($tickets);
     }
 
     public function ticketLocationStats()
