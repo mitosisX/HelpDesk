@@ -1,130 +1,111 @@
 @extends('guest.layout.app')
 
 @section('title')
-    <title>Track Tickets - NRWB system</title>
+<title>Track Tickets - NRWB system</title>
 @endsection
 
 @section('breadcrumb')
-    <li>Track</li>
-    <li>Tickets</li>
+<li>Track</li>
+<li>Tickets</li>
 @endsection
 
 @section('content')
-    <section class="section is-main-section">
-        <div class="columns">
-            <div class="column is-2"></div>
-            <div class="column is-8">
-                <div class="card has-table has-mobile-sort-spaced">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                            <span>Ticket Progress</span>
-                        </p>
-                        <a class="card-header-icon" href="{{ route('user.ticket.message', ['ticket'=>$ticket->id]) }}">
-                            <button class="button is-small is-info is-rounded">
-                                <span class="icon"><i class="mdi mdi-gmail"></i></span>
-                                {{-- <span title="Badge top right" class="badge">new</span> --}}
-                                <span>Message</span>
-                            </button>
+<section class="section is-main-section">
+    <div class="columns">
+        <div class="column is-2"></div>
+        <div class="column is-8">
+            <div class="card has-table has-mobile-sort-spaced">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                        <span>Ticket Progress</span>
+                    </p>
+                    <a class="card-header-icon" href="{{ route('user.ticket.message', ['ticket'=>$ticket->id]) }}">
+                        <button class="button is-small is-info is-rounded">
+                            <span class="icon"><i class="mdi mdi-gmail"></i></span>
+                            {{-- <span title="Badge top right" class="badge">new</span> --}}
+                            <span>Message</span>
+                        </button>
 
-                        </a>
-                    </header>
-                    <div class="card-content px-2 my-2 mx-10">
+                    </a>
+                </header>
+                <div class="card-content px-2 my-2 mx-10">
 
-                        <div class="steps my-5" id="stepsDemo">
-                            <div @class([
-                                'step-item',
-                                'is-info',
-                                'is-active' =>
-                                    $ticket->status === 'new' ||
-                                    $ticket->status === 'open' ||
-                                    $ticket->status === 'closed',
+                    <div class="steps my-5" id="stepsDemo">
+                        <div @class([ 'step-item' , 'is-info' , 'is-active'=>
+                            $ticket->status === 'new' ||
+                            $ticket->status === 'open' ||
+                            $ticket->status === 'closed',
                             ])>
-                                <div @class(['step-marker', 'pulse' => $ticket->status === 'new'])>1</div>
-                                <div class="step-details">
-                                    <p class="step-title">Ticket Sent</p>
-                                </div>
+                            <div @class(['step-marker', 'pulse'=> $ticket->status === 'new'])>1</div>
+                            <div class="step-details">
+                                <p class="step-title">Ticket Sent</p>
                             </div>
-                            <div @class([
-                                'step-item',
-                                'is-info',
-                                'is-active' => $ticket->status === 'open' || $ticket->status === 'closed',
+                        </div>
+                        <div @class([ 'step-item' , 'is-info' , 'is-active'=> $ticket->status === 'open' || $ticket->status === 'closed',
                             ])>
-                                <div @class(['step-marker', 'pulse' => $ticket->status === 'open'])>2</div>
-                                <div class="step-details">
-                                    <p class="step-title">Attended To</p>
-                                </div>
+                            <div @class(['step-marker', 'pulse'=> $ticket->status === 'open'])>2</div>
+                            <div class="step-details">
+                                <p class="step-title">Ticket Assigned</p>
                             </div>
-                            <div @class([
-                                'step-item',
-                                'is-info',
-                                'is-active' => $ticket->status === 'closed',
+                        </div>
+                        <div @class([ 'step-item' , 'is-info' , 'is-active'=> $ticket->status === 'closed',
                             ])>
-                                <div @class([
-                                    'step-marker',
-                                    'pulse' => $ticket->status === 'closed' && $ticket->resolved === 0,
+                            <div @class([ 'step-marker' , 'pulse'=> $ticket->status === 'closed' && $ticket->resolved === 0,
                                 ])>3</div>
-                                <div class="step-details">
-                                    <p class="step-title">Resolved</p>
-                                </div>
+                            <div class="step-details">
+                                <p class="step-title">Resolved</p>
                             </div>
-                            <div @class([
-                                'step-item',
-                                'is-info',
-                                'is-active' => $ticket->status === 'closed' && $ticket->resolved == 1,
+                        </div>
+                        <div @class([ 'step-item' , 'is-info' , 'is-active'=> $ticket->status === 'closed' && $ticket->resolved == 1,
                             ])>
-                                <div @class([
-                                    'step-marker',
-                                    'is-hollow',
-                                    'pulse' => $ticket->resolved === 1,
+                            <div @class([ 'step-marker' , 'is-hollow' , 'pulse'=> $ticket->resolved === 1,
                                 ])>
-                                    <div class="icon">
-                                        <span class="mdi mdi-check"></span>
-                                    </div>
-                                </div>
-                                <div class="step-details">
-                                    <p class="step-title">Closed</p>
+                                <div class="icon">
+                                    <span class="mdi mdi-check"></span>
                                 </div>
                             </div>
-                            <div class="steps-content">
-                                <div class="step-content has-text-centered is-active">
-                                    <div class="field is-horizontal">
-                                        <div class="field-body">
-                                            <div class="field ">
-                                                <div class="control">
-                                                    <div class="card box">
-                                                        <div class="card-content">
-                                                            @if ($ticket->status === 'new')
-                                                                <div class="content">
-                                                                    <h1 class="title">Your ticket was sent. Please await
-                                                                        response</h1>
-                                                                </div>
-                                                            @elseif ($ticket->status === 'open')
-                                                                <div class="content">
-                                                                    <h1 class="title">Your ticket has been assigned to an
-                                                                        IT staff.</h1>
-                                                                </div>
-                                                            @elseif ($ticket->status === 'closed' && $ticket->resolved == false)
-                                                                <div class="content">
-                                                                    <h1 class="title is-4">Your ticket was
-                                                                        resolved. You can
-                                                                        confirm by clicking the button below.</h1>
-
-                                                                    <button class="button is-primary" id='markDone'>
-                                                                        <span class="icon">
-                                                                            <i
-                                                                                class="mdi mdi-briefcase-account-outline"></i>
-                                                                        </span>
-                                                                        <span>Confirm</span>
-                                                                    </button>
-                                                                </div>
-                                                            @elseif ($ticket->status == 'closed' && $ticket->resolved)
-                                                                <div class="content">
-                                                                    <h1 class="title is-4">Your ticket was successfully
-                                                                        marked as closed</h1>
-                                                                </div>
-                                                            @endif
+                            <div class="step-details">
+                                <p class="step-title">Closed</p>
+                            </div>
+                        </div>
+                        <div class="steps-content">
+                            <div class="step-content has-text-centered is-active">
+                                <div class="field is-horizontal">
+                                    <div class="field-body">
+                                        <div class="field ">
+                                            <div class="control">
+                                                <div class="card box">
+                                                    <div class="card-content">
+                                                        @if ($ticket->status === 'new')
+                                                        <div class="content">
+                                                            <h1 class="title">Your ticket was sent. Please await
+                                                                response</h1>
                                                         </div>
+                                                        @elseif ($ticket->status === 'open')
+                                                        <div class="content">
+                                                            <span class="title is-size-5">Your ticket has been assigned to:</span>
+                                                            <p class="has-text-info">{{ $ticket->assignee->name }}</p>
+                                                        </div>
+                                                        @elseif ($ticket->status === 'closed' && $ticket->resolved == false)
+                                                        <div class="content">
+                                                            <h1 class="title is-4">Your ticket was
+                                                                resolved. You can
+                                                                confirm by clicking the button below.</h1>
+
+                                                            <button class="button is-primary" id='markDone'>
+                                                                <span class="icon">
+                                                                    <i class="mdi mdi-briefcase-account-outline"></i>
+                                                                </span>
+                                                                <span>Confirm</span>
+                                                            </button>
+                                                        </div>
+                                                        @elseif ($ticket->status == 'closed' && $ticket->resolved)
+                                                        <div class="content">
+                                                            <h1 class="title is-4">Your ticket was successfully
+                                                                marked as closed</h1>
+                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,57 +117,59 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-2"></div>
         </div>
-    </section>
+        <div class="column is-2"></div>
+    </div>
+</section>
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/bulma-calendar.min.js') }}"></script>
+<script src="{{ asset('js/bulma-calendar.min.js') }}"></script>
 
-    <script>
-        var id = "{{ $ticket->id }}";
+<script>
+    var id = "{{ $ticket->id }}";
 
-        var button;
-        var tag = '#markDone';
+    var button;
+    var tag = '#markDone';
 
-        $(tag).click(() => {
-            button = this;
-            $('#markDone').toggleClass('is-loading');
+    $(tag).click(() => {
+        button = this;
+        $('#markDone').toggleClass('is-loading');
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-            $.ajax({
-                url: "{{ route('user.ticket.manage.markdone') }}",
-                type: "POST",
-                data: {
-                    id,
-                },
-                dataType: 'json',
-                success: function(data) {
-                    // alert(JSON.stringify(data));
-                    $(tag).toggleClass('is-loading');
-                    $(tag).toggleClass('is-success');
+        $.ajax({
+            url: "{{ route('user.ticket.manage.markdone') }}"
+            , type: "POST"
+            , data: {
+                id
+            , }
+            , dataType: 'json'
+            , success: function(data) {
+                // alert(JSON.stringify(data));
+                $(tag).toggleClass('is-loading');
+                $(tag).toggleClass('is-success');
 
-                    $(tag).html(`<button class="button is-success">
+                $(tag).html(`<button class="button is-success">
                                     <span class="icon">
                                         <i class="mdi mdi-check"></i>
                                     </span>
                                     <span>Closed</span>
                                 </button>`);
-                    $(tag).unbind();
+                $(tag).unbind();
 
-                    new swal("Done!",
-                        "Agreement was successful. Ticket closed.",
-                        "success").then(function() {
-                        window.location.reload();
-                    });
-                }
-            });
+                new swal("Done!"
+                    , "Agreement was successful. Ticket closed."
+                    , "success").then(function() {
+                    window.location.reload();
+                });
+            }
         });
-    </script>
+    });
+
+</script>
 @endsection

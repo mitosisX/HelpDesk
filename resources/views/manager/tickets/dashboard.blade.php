@@ -167,6 +167,36 @@ $counter = SpecialQueries::ticketCounter();
             </div>
         </div>
 
+
+        <div class="column is-5">
+            <div class="card tile is-child">
+                <div class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-finance"></i></span>
+                        Ticket Stats #3
+                    </p>
+                    <a class="card-header-icon">
+                        <div class="select is-small is-rounded">
+                            <select>
+                                <option>This month</option>
+                                <option>1 month ago</option>
+                                <option>2 months ago</option>
+                            </select>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <div class="level">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <canvas id="monthTicketsCount" width="300" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- <div class="tile is-parent">
             <div class="card tile is-child">
                 <div class="card-content">
@@ -190,6 +220,7 @@ $counter = SpecialQueries::ticketCounter();
     var priorityChart = document.getElementById("priorityChart");
     var ticketsLocations = document.getElementById("ticketsLocations");
     var ticketsDepartments = document.getElementById("ticketsDepartments");
+    var monthTitkcetCount = document.getElementById("monthTicketsCount");
 
     $(document).ready(function() {
         $.ajaxSetup({
@@ -345,6 +376,62 @@ $counter = SpecialQueries::ticketCounter();
                                 }
                             }]
                         }
+                    }
+                });
+            }
+        });
+
+        $.ajax({
+            url: `{{ route('manager.ticket.stats.daily.json') }}`
+            , type: "GET"
+            , dataType: 'json'
+            , success: function(data) {
+                const dates = data.map(item => item.date);
+                const counts = data.map(item => item.count);
+
+                // // To avoid the top count getting dominance,
+                // // The sum is appende to be the dominant
+                counts.push(counts.reduce((a, b) => a + b, 0) + 1);
+
+                new Chart(monthTitkcetCount, {
+                    type: 'line'
+                    , data: {
+                        labels: dates
+                        , datasets: [{
+                            label: 'Tickets Created'
+                            , data: counts
+                            , backgroundColor: 'rgba(0, 119, 204, 0.3)'
+                            , borderColor: 'rgba(0, 119, 204, 1)'
+                            , borderWidth: 1
+                        }]
+                    }
+                    , options: {
+                        responsive: true
+                        , scales: {
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMin: 0
+                                    , stepSize: 1
+                                }
+                            }]
+                        }
+                        // , scales: {
+                        //     xAxes: [{
+                        //         type: 'time'
+                        //         , time: {
+                        //             unit: 'day'
+                        //         }
+                        //         , ticks: {
+                        //             autoSkip: true
+                        //             , maxTicksLimit: 20
+                        //         }
+                        //     }]
+                        //     , yAxes: [{
+                        //         ticks: {
+                        //             beginAtZero: true
+                        //         }
+                        //     }]
+                        // }
                     }
                 });
             }

@@ -364,8 +364,8 @@ class ManagerController extends Controller
             ->whereMonth('tickets.created_at', '=', $month);
     }
 
-    public function stats(){
-
+    public function stats()
+    {
     }
 
     public function ticketDepartmentsStats()
@@ -404,5 +404,17 @@ class ManagerController extends Controller
                 'count' => $countByLocation,
                 'total' => $countByLocation->sum()
             ]);
+    }
+
+    public function dailyStats()
+    {
+        $month = date('m');
+
+        $tickets = Ticket::select(DB::raw("DATE_FORMAT(created_at, '%M %d') as date"), DB::raw('COUNT(*) as count'))
+            ->whereMonth('created_at', $month)
+            ->groupBy('date')
+            ->get();
+
+        return response()->json($tickets);
     }
 }
