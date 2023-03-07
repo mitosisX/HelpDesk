@@ -59,164 +59,164 @@
                                 <p class="help is-success">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="column is-half pt-0">
+                            <div class="column is-half pt-0 input-resize">
                                 <label>Category</label>
-                                <div>
-                                    <div class="select">
-                                        <select name="categories_id" readonly>
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->name }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <input name="categories_id" class="input" value="{{ $category->id }}" style="display: none;">
+                                <input class="input" value="{{ $category->name }}" readonly>
                             </div>
 
                             <div class="column is-half pt-0">
                                 <label>Assigned By</label>
-                                <div>
-                                    <div class="select">
-                                        <select name="reported_by" readonly>
-                                            <option value="{{ $ticket->assigner->id }}">
-                                                {{ $ticket->assigner->name }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <input name="assigned_by" class="input" value="{{ $ticket->assigner->id }}" style="display: none;">
+                                <input class="input" value="{{ $ticket->assigner->name }}" readonly>
                             </div>
 
-                            <div class="column is-half pt-0">
-                                <div class="dropdown is-active is-size-6">
+                            <div class="column is-half pt-0 input-resize">
+                                <label>Reported By</label>
+                                <input name="reported_by" class="input" value="{{ $ticket->assigner->id }}" style="display: none;">
+                                <input class="input" value="{{ $ticket->reporter->name }}" readonly>
+
+                                {{-- <div class="dropdown is-active is-size-6">
                                     <div class="dropdown-trigger">
                                         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
                                             <span>{{ $ticket->reporter->name }}</span>
-                                            <span class="icon is-small">
-                                                <i class="mdi mdi-menu-down" aria-hidden="true"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                                        <div class="dropdown-content">
-                                            <a class="navbar-item is-size-7" data-route="">
-                                                <div>
-                                                    <div class="icon-text">
-                                                        <span class="icon">
-                                                            <i class="mdi mdi-warehouse"></i>
-                                                        </span>
-                                                        <span>
-                                                            <strong>Department</strong>
-                                                        </span>
-                                                    </div>
+                                <span class="icon is-small">
+                                    <i class="mdi mdi-menu-down" aria-hidden="true"></i>
+                                </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="navbar-item is-size-7" data-route="">
+                                        <div>
+                                            <div class="icon-text">
+                                                <span class="icon">
+                                                    <i class="mdi mdi-warehouse"></i>
+                                                </span>
+                                                <span>
+                                                    <strong>Department</strong>
+                                                </span>
+                                            </div>
 
-                                                    {{ $ticket->reporter->department['name'] }}
-                                                </div>
-                                            </a>
-
-                                            <a class="navbar-item is-size-7" data-route="">
-                                                <div>
-                                                    <div class="icon-text">
-                                                        <span class="icon">
-                                                            <i class="mdi mdi-map-marker"></i>
-                                                        </span>
-                                                        <span>
-                                                            <strong>Location</strong>
-                                                        </span>
-                                                    </div>
-                                                    {{ $ticket->reporter->location }}
-                                                </div>
-                                            </a>
-
-                                            <a class="navbar-item is-size-7" data-route="">
-                                                <div>
-                                                    <div class="icon-text">
-                                                        <span class="icon has-text-success">
-                                                            <i class="mdi mdi-sticker-text-outline"></i>
-                                                        </span>
-                                                        <span>
-                                                            <strong>Tickets</strong>
-                                                        </span>
-                                                    </div>
-                                                    {{ $ticket->reporter->tickets->count() }}
-                                                </div>
-                                            </a>
+                                            {{ $ticket->reporter->department['name'] }}
                                         </div>
-                                    </div>
+                                    </a>
+
+                                    <a class="navbar-item is-size-7" data-route="">
+                                        <div>
+                                            <div class="icon-text">
+                                                <span class="icon">
+                                                    <i class="mdi mdi-map-marker"></i>
+                                                </span>
+                                                <span>
+                                                    <strong>Location</strong>
+                                                </span>
+                                            </div>
+                                            {{ $ticket->reporter->location }}
+                                        </div>
+                                    </a>
+
+                                    <a class="navbar-item is-size-7" data-route="">
+                                        <div>
+                                            <div class="icon-text">
+                                                <span class="icon has-text-success">
+                                                    <i class="mdi mdi-sticker-text-outline"></i>
+                                                </span>
+                                                <span>
+                                                    <strong>Tickets</strong>
+                                                </span>
+                                            </div>
+                                            {{ $ticket->reporter->tickets->count() }}
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
+                        </div> --}}
+                    </div>
 
 
 
-                            {{-- <div class="column is-half pt-0">
+                    {{-- <div class="column is-half pt-0">
                                     <label>Reported By</label>
                                     <div>
                                         <div class="select">
                                             <select name="reported_by" readonly>
                                                 <option value="{{ $ticket->reporter->id }}">
-                            {{ $ticket->reporter->name }}
-                            </option>
-                            </select>
-                        </div>
-                    </div>
-                </div> --}}
+                    {{ $ticket->reporter->name }}
+                    </option>
+                    </select>
+                </div>
+            </div>
+        </div> --}}
 
-                <div class="column is-half pt-0">
+        <div class="column is-half pt-0">
+            <div class="columns">
+                <div class="column is-6">
                     <label>Department</label>
                     <div>
-                        <span class="tag is-info is-medium is-rounded">{{ $ticket->reporter->department['name'] }}</span>
+                        <span class="tag is-info is-medium is-size-7">{{ $ticket->reporter->department['name'] }}</span>
                     </div>
                 </div>
-                <div class="column is-half pt-0">
-                    <label>Priority</label>
+                <div class="column is-6">
+                    <label>Location</label>
                     <div>
-                        <div class="select">
-                            <select name="priority" readonly>
-                                <option>{{ $ticket->priority }}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-half pt-0">
-                    <label>Due Date</label>
-                    <div>
-                        <input class="input bulmaCalendar" id="duedate" name="due_date" type="date" data-color="info" readonly>
-                    </div>
-                </div>
-
-                <div class="column is-half pt-0"></div>
-
-                <div class="column is-half pt-0">
-                    <label>Comment</label>
-                    <div>
-                        <div>
-                            <textarea name="comment" class="textarea" readonly>{{ $ticket->comment }}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column is-half pt-0">
-                </div>
-
-                <div class="column is-half is-grouped">
-                    <div class="control">
-                        @if ($ticket->status === 'closed')
-                        <button class="button is-success">
-                            <span class="icon">
-                                <i class="mdi mdi-check"></i>
-                            </span>
-                            <span>Closed</span>
-                        </button>
-                        @else
-                        <button class="button is-info" id='markDone'>
-                            <span class="icon">
-                                <i class="mdi mdi-lead-pencil"></i>
-                            </span>
-                            <span>Mark as Done</span>
-                        </button>
-                        @endif
+                        <span class="tag is-info is-size-7">{{ $ticket->reporter->location }}</span>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="column is-half pt-0">
+            <label>Priority</label>
+            <div>
+                <div class="select">
+                    <select name="priority" readonly>
+                        <option>{{ $ticket->priority }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half pt-0">
+            <label>Due Date</label>
+            <div>
+                <input class="input bulmaCalendar" id="duedate" name="due_date" type="date" data-color="info" readonly>
+            </div>
+        </div>
+
+        <div class="column is-half pt-0"></div>
+
+        <div class="column is-half pt-0">
+            <label>Comment</label>
+            <div>
+                <div>
+                    <textarea name="comment" class="textarea" readonly>{{ $ticket->comment }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half pt-0">
+        </div>
+
+        <div class="column is-half is-grouped">
+            <div class="control">
+                @if ($ticket->status === 'closed')
+                <button class="button is-success">
+                    <span class="icon">
+                        <i class="mdi mdi-check"></i>
+                    </span>
+                    <span>Closed</span>
+                </button>
+                @else
+                <button class="button is-info" id='markDone'>
+                    <span class="icon">
+                        <i class="mdi mdi-lead-pencil"></i>
+                    </span>
+                    <span>Mark as Done</span>
+                </button>
+                @endif
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
     </div>
     </div>

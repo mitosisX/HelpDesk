@@ -15,14 +15,15 @@
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jstable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" />
 
     @php
-        use App\Queries\SpecialQueries;
-        $counter = SpecialQueries::ticketCounter();
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::ticketCounter();
     @endphp
 </head>
 
@@ -41,8 +42,7 @@
             </div>
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
-                    <div
-                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
                         <a class="navbar-link is-arrowless">
                             <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
@@ -73,7 +73,7 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label">
-                    <span><b>MANAGER</b> account</span>
+                    <span><b>MANAGMENT</b> account</span>
                 </div>
             </div>
             <div class="menu is-menu-main">
@@ -134,22 +134,22 @@
                 <ul class="menu-list">
                     <li>
                         <a href="{{ route('manager.departments.index') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-warehouse"></i></span>
-                            <span class="menu-item-label">Departments</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('manager.categories.index') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
-                            <span class="menu-item-label">Categories</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('manager.accounts.view') }}" class="has-icon">
-                            <span class="icon"><i class="mdi mdi-account"></i></span>
-                            <span class="menu-item-label">Accounts</span>
-                        </a>
-                    </li>
+                <span class="icon"><i class="mdi mdi-warehouse"></i></span>
+                <span class="menu-item-label">Departments</span>
+                </a>
+                </li>
+                <li>
+                    <a href="{{ route('manager.categories.index') }}" class="has-icon">
+                        <span class="icon"><i class="mdi mdi-gradient-vertical"></i></span>
+                        <span class="menu-item-label">Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('manager.accounts.view') }}" class="has-icon">
+                        <span class="icon"><i class="mdi mdi-account"></i></span>
+                        <span class="menu-item-label">Accounts</span>
+                    </a>
+                </li>
                 </ul> --}}
             </div>
         </aside>
@@ -214,8 +214,10 @@
     <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bulma-tabs.js') }}"></script>
     <script>
         // new JSTable("table");
+
     </script>
     <!-- Code injected by live-server -->
     @yield('scripts')

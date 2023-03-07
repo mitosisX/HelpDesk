@@ -9,6 +9,7 @@
     @yield('title')
 
     <!-- Bulma is included -->
+    <link rel="stylesheet" href="{{ asset('css/inbox.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/messages.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-steps.min.css') }}" />
@@ -18,6 +19,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/dataTables.bulma.min.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('css/mdi/font/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />

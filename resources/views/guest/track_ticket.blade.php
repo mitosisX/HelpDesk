@@ -51,7 +51,7 @@
                         </div>
                         <div @class([ 'step-item' , 'is-info' , 'is-active'=> $ticket->status === 'closed',
                             ])>
-                            <div @class([ 'step-marker' , 'pulse'=> $ticket->status === 'closed' && $ticket->resolved === 0,
+                            <div @class([ 'step-marker' , 'pulse'=> $ticket->status === 'closed' && $ticket->resolved == false,
                                 ])>3</div>
                             <div class="step-details">
                                 <p class="step-title">Resolved</p>
@@ -95,9 +95,16 @@
 
                                                             <button class="button is-primary" id='markDone'>
                                                                 <span class="icon">
-                                                                    <i class="mdi mdi-briefcase-account-outline"></i>
+                                                                    <i class="mdi mdi-checkbox-marked-circle-outline"></i>
                                                                 </span>
                                                                 <span>Confirm</span>
+                                                            </button>
+
+                                                            <button class="button is-danger" id='markDone'>
+                                                                <span class="icon">
+                                                                    <i class="mdi mdi-emoticon-sad-outline"></i>
+                                                                </span>
+                                                                <span>Not Resolved</span>
                                                             </button>
                                                         </div>
                                                         @elseif ($ticket->status == 'closed' && $ticket->resolved)

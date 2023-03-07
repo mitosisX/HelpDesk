@@ -220,23 +220,6 @@ class ManagerController extends Controller
 
         $categories = Category::all();
 
-        $staffRole = Role::where('name', 'staff')
-            ->first()
-            ->id;
-
-        $userRole = Role::where('name', 'user')
-            ->first()
-            ->id;
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $staffs = User::where('role_id', $staffRole)
-            ->get();
-
-        $users = User::where('role_id', $userRole)
-            ->get();
-
         return view(
             'manager.tickets.all_tickets',
             compact(
@@ -244,9 +227,6 @@ class ManagerController extends Controller
                 'newCount',
                 'openCount',
                 'closedCount',
-                'categories',
-                'staffs',
-                'users'
             )
         );
     }
@@ -406,12 +386,13 @@ class ManagerController extends Controller
             ]);
     }
 
-    public function dailyStats()
+    public function dailyStats(Request $input)
     {
-        $month = date('m');
+        $start_date = $input->start_date;
+        $end_date = $input->end_date;
 
         $tickets = Ticket::select(DB::raw("DATE_FORMAT(created_at, '%M %d') as date"), DB::raw('COUNT(*) as count'))
-            ->whereMonth('created_at', $month)
+            ->whereBetween('created_at', [$start_date, $end_date])
             ->groupBy('date')
             ->get();
 
