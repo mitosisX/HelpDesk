@@ -27,16 +27,16 @@
                                                 <span class="mdi mdi-account-supervisor-circle "></span>
                                             </div>
                                             <div class="name">
-                                                <span>ICT staff: Zeno Rocha</span>
+                                                <span>Reporter: {{ $ticket->reporter['name'] }}</span>
                                             </div>
                                         </div>
                                         <div class="conversation">
                                             <div class="conversation-container">
                                                 @forelse ($messages as $message)
                                                 @if ($message->users_id === Auth::user()->id)
-                                                <div class="message sent">{{ $message->message }}</div>
+                                                <div class="msg sent">{{ $message->message }}</div>
                                                 @else
-                                                <div class="message received">{{ $message->message }}</div>
+                                                <div class="msg received">{{ $message->message }}</div>
                                                 @endif
                                                 @empty
                                                 {{-- <div class="field is-horizontal">
@@ -67,7 +67,7 @@
 
                                                 </div>
                                                 <button class="send">
-                                                    <div class="circle">
+                                                    <div class="circle is-loading">
                                                         <i class="mdi mdi-send" id='sendMessage'></i>
                                                     </div>
                                                 </button>
@@ -123,7 +123,7 @@
 
                     // alert(JSON.stringify(data))
                     $('.conversation-container div:last')
-                        .after(`<div class="message sent">${message}</div>`);
+                        .after(`<div class="msg sent">${message}</div>`);
                 }
             });
         });

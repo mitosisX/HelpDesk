@@ -39,6 +39,7 @@ $counter = SpecialQueries::generalCounter();
         </a>
     </div>
     </div> --}}
+    @if (Auth::user()->s_staff)
     <div class="tile is-parent">
         <div class="card tile is-child">
             <a href="{{ route('staff.tickets.view', ['status' => 'new']) }}">
@@ -61,6 +62,7 @@ $counter = SpecialQueries::generalCounter();
             </a>
         </div>
     </div>
+    @endif
 
     <!-- Second Card - For Open -->
     <div class="tile is-parent">
@@ -76,7 +78,7 @@ $counter = SpecialQueries::generalCounter();
                         </div>
                         <div class="level-item has-widget-icon">
                             <div class="is-widget-icon">
-                                <span class="icon has-text-primary is-large">
+                                <span class="icon has-text-info is-large">
                                     <i class="mdi mdi-moon-full mdi-48px"></i></span>
                             </div>
                         </div>
@@ -100,7 +102,7 @@ $counter = SpecialQueries::generalCounter();
                         </div>
                         <div class="level-item has-widget-icon">
                             <div class="is-widget-icon">
-                                <span class="icon has-text-warning is-large"><i class="mdi mdi-moon-full mdi-48px"></i></span>
+                                <span class="icon has-text-success is-large"><i class="mdi mdi-moon-full mdi-48px"></i></span>
                             </div>
                         </div>
                     </div>
@@ -168,8 +170,8 @@ $counter = SpecialQueries::generalCounter();
                     <table data-toggle="table" data-pagination="true" data-search="true" class="table is-fullwidth is-striped is-hoverable is-fullwidth" id="tickets_table">
                         <thead>
                             <tr>
-                                <th>Ticket #</th>
-                                <th>Ticket name</th>
+                                <th>#</th>
+                                <th>Description</th>
                                 <th>Department</th>
                                 <th>Priority</th>
                                 <th>Status</th>
@@ -227,6 +229,7 @@ $counter = SpecialQueries::generalCounter();
                                             </a>
                                             @endif
 
+                                            @if (Auth::user()->s_staff)
                                             <a class="button is-rounded is-small is-info" href={{ route('staff.tickets.assign', ['ticket' => $ticket->id]) }}>
                                                 {{-- <button class="button is-rounded is-small is-primary" --}}
                                                 {{-- type="button"> --}}
@@ -236,6 +239,7 @@ $counter = SpecialQueries::generalCounter();
                                                 <span>Edit</span>
                                                 {{-- </button> --}}
                                             </a>
+                                            @endif
 
                                             <button class="button is-rounded is-small is-danger jb-modal" type="button">
                                                 <span class="icon">

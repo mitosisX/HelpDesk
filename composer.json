@@ -14,6 +14,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
+        "maatwebsite/excel": "3.*",
         "mckenziearts/laravel-notify": "^2.3",
         "realrashid/sweet-alert": "^5.1"
     },

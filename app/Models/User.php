@@ -29,7 +29,8 @@ class User extends Authenticatable
         'password',
         'location',
         'role_id',
-        'departments_id'
+        'departments_id',
+        's_staff'
     ];
 
     /**
@@ -51,6 +52,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        's_staff' => 'boolean'
     ];
 
     /**

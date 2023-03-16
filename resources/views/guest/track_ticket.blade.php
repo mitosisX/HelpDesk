@@ -100,12 +100,12 @@
                                                                 <span>Confirm</span>
                                                             </button>
 
-                                                            <button class="button is-danger" id='markDone'>
+                                                            <a class="button is-danger" href="{{ route('user.ticket.complaint',['ticket' => $ticket->id]) }}">
                                                                 <span class="icon">
                                                                     <i class="mdi mdi-emoticon-sad-outline"></i>
                                                                 </span>
                                                                 <span>Not Resolved</span>
-                                                            </button>
+                                                            </a>
                                                         </div>
                                                         @elseif ($ticket->status == 'closed' && $ticket->resolved)
                                                         <div class="content">

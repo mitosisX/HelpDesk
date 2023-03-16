@@ -6,26 +6,11 @@
 
 @section('breadcrumb')
 <li>Manage</li>
-<li>Tickets</li>
+<li>Ticket</li>
+<li>View</li>
 @endsection
 
 @section('content')
-{{-- <div class="toast active">
-
-        <div class="toast-content">
-            <i class="mdi mdi-check is-info"></i>
-
-            <div class="message">
-                <span class="text text-1">Success</span>
-                <span class="text text-2">Your changes has been saved</span>
-            </div>
-        </div>
-        <i class="fa-solid fa-xmark close"></i>
-
-        <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-        <div class="progress active"></div>
-    </div> --}}
-
 <section class="section is-main-section">
     <div class="columns">
         <div class="column is-2"></div>
@@ -165,56 +150,59 @@
                 </div>
             </div>
         </div>
-        <div class="column is-half pt-0">
+
+        <div class="column is-half pt-0 input-resize2">
             <label>Priority</label>
             <div>
-                <div class="select">
+                <input name="priority" class="input" value="{{ $ticket->priority }}" readonly>
+
+                {{-- <div class="select">
                     <select name="priority" readonly>
                         <option>{{ $ticket->priority }}</option>
-                    </select>
-                </div>
-            </div>
+                </select>
+            </div> --}}
         </div>
-        <div class="column is-half pt-0">
-            <label>Due Date</label>
+    </div>
+    <div class="column is-half pt-0">
+        <label>Due Date</label>
+        <div>
+            <input class="input bulmaCalendar" id="duedate" name="due_date" type="date" data-color="info" readonly>
+        </div>
+    </div>
+
+    <div class="column is-half pt-0"></div>
+
+    <div class="column is-half pt-0">
+        <label>Comment</label>
+        <div>
             <div>
-                <input class="input bulmaCalendar" id="duedate" name="due_date" type="date" data-color="info" readonly>
+                <textarea name="comment" class="textarea" readonly>{{ $ticket->comment }}</textarea>
             </div>
         </div>
+    </div>
 
-        <div class="column is-half pt-0"></div>
+    <div class="column is-half pt-0">
+    </div>
 
-        <div class="column is-half pt-0">
-            <label>Comment</label>
-            <div>
-                <div>
-                    <textarea name="comment" class="textarea" readonly>{{ $ticket->comment }}</textarea>
-                </div>
-            </div>
+    <div class="column is-half is-grouped">
+        <div class="control">
+            @if ($ticket->status === 'closed')
+            <button class="button is-success">
+                <span class="icon">
+                    <i class="mdi mdi-check"></i>
+                </span>
+                <span>Closed</span>
+            </button>
+            @else
+            <button class="button is-info" id='markDone'>
+                <span class="icon">
+                    <i class="mdi mdi-lead-pencil"></i>
+                </span>
+                <span>Mark as Done</span>
+            </button>
+            @endif
         </div>
-
-        <div class="column is-half pt-0">
-        </div>
-
-        <div class="column is-half is-grouped">
-            <div class="control">
-                @if ($ticket->status === 'closed')
-                <button class="button is-success">
-                    <span class="icon">
-                        <i class="mdi mdi-check"></i>
-                    </span>
-                    <span>Closed</span>
-                </button>
-                @else
-                <button class="button is-info" id='markDone'>
-                    <span class="icon">
-                        <i class="mdi mdi-lead-pencil"></i>
-                    </span>
-                    <span>Mark as Done</span>
-                </button>
-                @endif
-            </div>
-        </div>
+    </div>
     </div>
     </div>
     </div>

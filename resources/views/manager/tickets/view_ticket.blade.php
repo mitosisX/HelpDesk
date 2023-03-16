@@ -10,22 +10,6 @@
 @endsection
 
 @section('content')
-{{-- <div class="toast active">
-
-        <div class="toast-content">
-            <i class="mdi mdi-check is-info"></i>
-
-            <div class="message">
-                <span class="text text-1">Success</span>
-                <span class="text text-2">Your changes has been saved</span>
-            </div>
-        </div>
-        <i class="fa-solid fa-xmark close"></i>
-
-        <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-        <div class="progress active"></div>
-    </div> --}}
-
 <section class="section is-main-section">
     <div class="columns">
         <div class="column is-2"></div>
@@ -82,11 +66,22 @@
                             </div>
 
                             <div class="column is-half pt-0">
-                                <label>Department</label>
-                                <div>
-                                    <span class="tag is-info is-medium is-rounded">{{ $ticket->reporter->department['name'] }}</span>
+                                <div class="columns">
+                                    <div class="column is-6">
+                                        <label>Department</label>
+                                        <div>
+                                            <span class="tag is-info is-medium is-size-7">{{ $ticket->reporter->department['name'] }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="column is-6">
+                                        <label>Location</label>
+                                        <div>
+                                            <span class="tag is-info is-size-7">{{ $ticket->reporter->location }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="column is-half pt-0 input-resize2">
                                 <label>Priority</label>
                                 <div class="control">

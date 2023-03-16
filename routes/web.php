@@ -186,6 +186,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('user/ticket/messages/{ticket}', 'getMessages')->name('user.ticket.message');
         Route::post('user/tickets/manage/markdone/json', 'markTicketDone')->name('user.ticket.manage.markdone');
         Route::post('user/tickets/message/send/json', 'sendMessage')->name('user.ticket.message.send');
+
+        Route::get('user/tickets/complaint/{ticket}', 'sendComplaint')->name('user.ticket.complaint');
+        Route::post('user/tickets/complaint/json', 'reportComplaint')->name('user.ticket.complaint.report');
     });
 
     Route::resource('user', GuestController::class)->names([

@@ -25,94 +25,47 @@ $counter = SpecialQueries::ticketCounter();
             <div class="columns is-multiline is-12">
                 <div class="column is-1"></div>
                 <div class="column box is-10">
+
                     <div class="tabs is-boxed is-centered">
                         <ul>
-                            <li id='tab_general' class="is-active" onclick="openTab(event, 'prior_status_div')"><a>General</a></li>
-                            <li id='tab_departmental' onclick="openTab(event, 'months_div')"><a>Months Report</a></li>
-                            <li id='tab_locational' onclick="openTab(event, 'dept_loc_div')"><a>Location & Departments</a></li>
+                            <li class="is-active"><a id="1"><span>General</span></a></li>
+                            <li><a id="2"><span>Location & Departments</span></a></li>
+                            <li><a id="3"><span>Months Report</span></a></li>
                         </ul>
                     </div>
 
-                    <div class="content-tab" id='prior_status_div'>
-                        <div class="columns is-multiline">
-                            <div class="column">
-                                <div class="card tile is-child">
-                                    <div class="card-header">
-                                        <span class="icon"><i class="mdi mdi-finance"></i></span>
-                                        Status
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="level is-mobile">
-                                            <div class="level-item">
-                                                <div class="is-widget-label">
-                                                    <canvas id="statusChart" width="200" height="200"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="card tile is-child">
-                                    <div class="card-header">
-                                        <span class="icon"><i class="mdi mdi-finance"></i></span>
-                                        Priorities
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="level is-mobile">
-                                            <div class="level-item">
-                                                <div class="is-widget-label">
-                                                    <canvas id="priorityChart" width="200" height="200"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Department and location --}}
-                    <div class="content-tab" id='dept_loc_div' style="display: none">
-                        <div class="columns is-multiline">
-                            <div class="column is-12">
-                                <div class="card tile is-child">
-                                    <div class="card-header">
-                                        <span class="icon"><i class="mdi mdi-finance"></i></span>
-                                        Ticket Stats #1
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="level">
-                                            <div class="level-item">
-                                                <div class="is-widget-label">
-                                                    <canvas id="ticketsLocations" width="300" height="200"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column">
-                                <div class="card tile is-child">
-                                    <div class="card-header">
-                                        <p class="card-header-title">
+                    <div class="tab-content">
+                        <div class="tab-pane is-active" id="1">
+                            <div class="columns is-multiline">
+                                <div class="column">
+                                    <div class="card tile is-child">
+                                        <div class="card-header">
                                             <span class="icon"><i class="mdi mdi-finance"></i></span>
-                                            Ticket Stats #2
-                                        </p>
-                                        <a class="card-header-icon">
-                                            <label for="start_date">From</label>
-                                            <input class="input bulmaCalendar" id="start_date" name="due_date" type="date" data-color="info">
-
-                                            <label for="end_date">To</label>
-                                            <input class="input bulmaCalendar" id="end_date" name="due_date" type="date" data-color="info">
-                                        </a>
+                                            Status
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="level is-mobile">
+                                                <div class="level-item">
+                                                    <div class="is-widget-label">
+                                                        <canvas id="statusChart" width="200" height="200"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-content">
-                                        <div class="level">
-                                            <div class="level-item">
-                                                <div class="is-widget-label">
-                                                    <canvas id="ticketsDepartments" width="300" height="200"></canvas>
+                                </div>
+                                <div class="column">
+                                    <div class="card tile is-child">
+                                        <div class="card-header">
+                                            <span class="icon"><i class="mdi mdi-finance"></i></span>
+                                            Priorities
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="level is-mobile">
+                                                <div class="level-item">
+                                                    <div class="is-widget-label">
+                                                        <canvas id="priorityChart" width="200" height="200"></canvas>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,32 +73,80 @@ $counter = SpecialQueries::ticketCounter();
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    {{-- Filter by month --}}
-                    <div class="content-tab" id='months_div' style="display: none">
-                        <div class="columns is-multiline>
-                            <div class=" column">
-                            <div class="card tile is-child">
-                                <div class="card-header">
-                                    <p class="card-header-title">
-                                        <span class="icon"><i class="mdi mdi-finance"></i></span>
-                                        Ticket Stats #3
-                                    </p>
-                                    <a class="card-header-icon">
-                                        <label for="start_date">From</label>
-                                        <input class="input" id="monthly_start_date" name="monthly_start_date" type="date" data-color="info">
-
-                                        <label for="end_date">To</label>
-                                        <input class="input" id="monthly_end_date" name="monthly_end_date" type="date" data-color="info">
-
-                                    </a>
+                        <div class="tab-pane" id="2">
+                            <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <div class="card tile is-child">
+                                        <div class="card-header">
+                                            <span class="icon"><i class="mdi mdi-finance"></i></span>
+                                            Ticket Stats #1
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="level">
+                                                <div class="level-item">
+                                                    <div class="is-widget-label">
+                                                        <canvas id="ticketsLocations" width="300" height="200"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-content">
-                                    <div class="level">
-                                        <div class="level-item">
-                                            <div class="is-widget-label">
-                                                <canvas id="monthTicketsCount" width="700" height="300"></canvas>
+
+                                <div class="column">
+                                    <div class="card tile is-child">
+                                        <div class="card-header">
+                                            <p class="card-header-title">
+                                                <span class="icon"><i class="mdi mdi-finance"></i></span>
+                                                Ticket Stats #2
+                                            </p>
+                                            <a class="card-header-icon">
+                                                <label for="start_date">From</label>
+                                                <input class="input bulmaCalendar" id="start_date" name="due_date" type="date" data-color="info">
+
+                                                <label for="end_date">To</label>
+                                                <input class="input bulmaCalendar" id="end_date" name="due_date" type="date" data-color="info">
+                                            </a>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="level">
+                                                <div class="level-item">
+                                                    <div class="is-widget-label">
+                                                        <canvas id="ticketsDepartments" width="300" height="200"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="3">
+                            <div class="columns is-multiline">
+                                <div class="column">
+                                    <div class="card tile is-child">
+                                        <div class="card-header">
+                                            <p class="card-header-title">
+                                                <span class="icon"><i class="mdi mdi-finance"></i></span>
+                                                Ticket Stats #3
+                                            </p>
+                                            <a class="card-header-icon">
+                                                <label for="start_date">From</label>
+                                                <input class="input" id="monthly_start_date" name="monthly_start_date" type="date" data-color="info">
+
+                                                <label for="end_date">To</label>
+                                                <input class="input" id="monthly_end_date" name="monthly_end_date" type="date" data-color="info">
+
+                                            </a>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="level">
+                                                <div class="level-item">
+                                                    <div class="is-widget-label">
+                                                        <canvas id="monthTicketsCount" width="700" height="300"></canvas>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -154,16 +155,14 @@ $counter = SpecialQueries::ticketCounter();
                         </div>
                     </div>
                 </div>
-
+                <div class="column is-1"></div>
             </div>
-            <div class="column is-1"></div>
+        </section>
+        <!-- END ISSUES LIST -->
     </div>
-</section>
-<!-- END ISSUES LIST -->
-</div>
 
 
-{{-- <div class="tile is-ancestor">
+    {{-- <div class="tile is-ancestor">
         <div class="tile is-parent">
             <div class="card tile is-child">
                 <div class="card-content">
@@ -175,62 +174,62 @@ $counter = SpecialQueries::ticketCounter();
                                 </h3>
                                 <h1 class="title">
                                     {{ $counter['newCount'] }}
-</h1>
-</div>
-</div>
-<div class="level-item has-widget-icon">
-    <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+    </h1>
     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tile is-parent">
-    <div class="card tile is-child">
-        <div class="card-content">
-            <div class="level is-mobile">
-                <div class="level-item">
-                    <div class="is-widget-label">
-                        <h3 class="subtitle is-spaced">
-                            Open
-                        </h3>
-                        <h1 class="title">
-                            {{ $counter['openCount'] }}
-                        </h1>
+    </div>
+    <div class="level-item has-widget-icon">
+        <div class="is-widget-icon"><span class="icon has-text-info is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content">
+                <div class="level is-mobile">
+                    <div class="level-item">
+                        <div class="is-widget-label">
+                            <h3 class="subtitle is-spaced">
+                                Open
+                            </h3>
+                            <h1 class="title">
+                                {{ $counter['openCount'] }}
+                            </h1>
+                        </div>
                     </div>
-                </div>
-                <div class="level-item has-widget-icon">
-                    <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+                    <div class="level-item has-widget-icon">
+                        <div class="is-widget-icon"><span class="icon has-text-primary is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="tile is-parent">
-    <div class="card tile is-child">
-        <div class="card-content">
-            <div class="level is-mobile">
-                <div class="level-item">
-                    <div class="is-widget-label">
-                        <h3 class="subtitle is-spaced">
-                            Closed
-                        </h3>
-                        <h1 class="title">
-                            {{ $counter['closedCount'] }}
-                        </h1>
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content">
+                <div class="level is-mobile">
+                    <div class="level-item">
+                        <div class="is-widget-label">
+                            <h3 class="subtitle is-spaced">
+                                Closed
+                            </h3>
+                            <h1 class="title">
+                                {{ $counter['closedCount'] }}
+                            </h1>
+                        </div>
                     </div>
-                </div>
-                <div class="level-item has-widget-icon">
-                    <div class="is-widget-icon"><span class="icon has-text-warning is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+                    <div class="level-item has-widget-icon">
+                        <div class="is-widget-icon"><span class="icon has-text-warning is-large"><i class="mdi mdi-circle mdi-48px"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div> --}}
+    </div> --}}
 </section>
 @endsection
 
@@ -244,7 +243,7 @@ $counter = SpecialQueries::ticketCounter();
 
     $(document).ready(function() {
         // $('#dept_loc_div').hide();
-        // $('#months_div').hide();
+        $('#tab_general').css('is-active');
 
         $('#monthly_end_date').change(function() {
             let start_date = $('#monthly_start_date').val()

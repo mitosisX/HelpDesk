@@ -129,7 +129,7 @@
 .conversation {
   height: calc(100% - 12px);
   position: relative;
-  background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat;
+  background: #efe7dd url("inbox-bg.jpg") repeat;
   z-index: 0;
 }
 
@@ -162,22 +162,22 @@
   clear: both;
 }
 
-/* Messages */
+/* msgs */
 
-.message {
+.msg {
   color: #000;
   clear: both;
   line-height: 18px;
   font-size: 15px;
   padding: 8px;
   position: relative;
-  margin: 8px 0;
+  /* margin: 8px 0; */
   max-width: 85%;
   word-wrap: break-word;
   z-index: -1;
 }
 
-.message:after {
+.msg:after {
   position: absolute;
   content: "";
   width: 0;
@@ -237,34 +237,40 @@
           transform: perspective(800px) rotateY(-179.9deg);
 }
 
-.message:first-child {
+.msg.sent:first-child {
   margin: 16px 0 8px;
 }
 
-.message.received {
+.msg.sent:first-of-type,
+.msg.received + .msg.sent:not(:last-of-type) {
+  background-color: red;
+}
+
+.msg.received {
   background: #fff;
   border-radius: 0px 5px 5px 5px;
   float: left;
 }
 
-.message.received .metadata {
+.msg.received .metadata {
   padding: 0 0 0 16px;
 }
 
-.message.received:after {
+.msg.received:after {
   border-width: 0px 10px 10px 0;
   border-color: transparent #fff transparent transparent;
   top: 0;
   left: -10px;
 }
 
-.message.sent {
+.msg.sent {
   background: #e1ffc7;
   border-radius: 5px 0px 5px 5px;
   float: right;
+  margin-bottom: 5px;
 }
 
-.message.sent:after {
+.msg.sent:after {
   border-width: 0px 0 10px 10px;
   border-color: transparent transparent transparent #e1ffc7;
   top: 0;

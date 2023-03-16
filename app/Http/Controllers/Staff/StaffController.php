@@ -279,6 +279,8 @@ class StaffController extends Controller
             ->id;
 
         $staffs = User::where('role_id', $staffRole)
+            ->where('s_staff', false)
+            ->where('id', '!=', Auth::user()->id)
             ->get();
 
         $users = User::where('role_id', $userRole)

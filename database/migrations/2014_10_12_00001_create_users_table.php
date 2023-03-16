@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('location')->nullable();
+
+            // s_staff = Senior Staff. Instead of creating
+            // different roles, this boolean shall be used
+            $table->boolean('s_staff')->default(false);
             $table->unsignedInteger('departments_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -285,6 +285,7 @@ class ManagerController extends Controller
             ->id;
 
         $staffs = User::where('role_id', $staffRole)
+            ->where('s_staff', false)
             ->get();
 
         $users = User::where('role_id', $userRole)

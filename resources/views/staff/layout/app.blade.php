@@ -73,7 +73,11 @@
         <aside class="aside is-placed-left is-expanded">
             <div class="aside-tools">
                 <div class="aside-tools-label">
-                    <span><b>STAFF</b> account</span>
+                    @if (Auth::user()->s_staff == true)
+                    <span><b>SENIOR</b> ICT account</span>
+                    @else
+                    <span><b>ICT </b>Staff</span>
+                    @endif
                 </div>
             </div>
             <div class="menu is-menu-main">
@@ -131,21 +135,6 @@
             </div>
         </section>
 
-        {{-- <section class="hero is-hero-bar">
-            <div class="hero-body">
-                <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <h1 class="title">Dashboard</h1>
-                        </div>
-                    </div>
-                    <div class="level-right" style="display: none">
-                        <div class="level-item"></div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-
         @yield('content')
 
         {{-- <footer class="footer" style="width:100%;position:sticky;bottom:0px;">
@@ -163,29 +152,6 @@
             </div>
         </footer> --}}
     </div>
-
-    <div id="sample-modal" class="modal">
-        <div class="modal-background jb-modal-close"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Confirm action</p>
-                <button class="delete jb-modal-close" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <p>This will permanently delete <b>Some Object</b></p>
-                <p>This is sample modal</p>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button jb-modal-close">Cancel</button>
-                <button class="button is-danger jb-modal-close">Delete</button>
-            </footer>
-        </div>
-        <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
-    </div>
-
-    <!-- Scripts below are for demo only -->
-    <!-- Scripts below are for demo only -->
-    {{-- <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> --}}
 
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/chartjs/Chart.min.js') }}"></script>
