@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(
             Route::get('manager/tickets/show/{ticket}', 'editTicket')->name('manager.tickets.edit');
             Route::post('manager/tickets/show/{ticket?}', 'updateTicket')->name('manager.tickets.update');
             Route::get('manager/tickets/view/{status?}', 'viewTickets')->name('manager.tickets.view');
-            Route::get('manager/dashboard', 'dashboard')->name('manager.dashboard');
+            Route::get('manager/dashboard/{type?}', 'dashboard')->name('manager.dashboard');
 
             //Authentication
             Route::get('manager/auth/login', 'login')->name('manager.auth.login');
@@ -90,16 +90,14 @@ Route::middleware(['auth'])->group(
         });
 
         Route::controller(AccountController::class)->group(function () {
-            Route::post('manager/account/staff/create', 'satffCreate')
-                ->name('account.staff.create');
+            Route::post('admin/account/staff/create', 'staffCreate')
+                ->name('admin.account.staff.create');
 
-            Route::post('manager/account/manager/create', 'adminCreate')
-                ->name('account.manager.create');
+            Route::post('admin/account/manager/create', 'adminCreate')
+                ->name('admin.account.manager.create');
 
-            Route::post('manager/account/user/create', 'userCreate')
-                ->name('account.user.store');
-
-            Route::post('admin/manage/accounts/create', 'userCreate')->name('admin.accounts.create');
+            Route::post('admin/account/user/create', 'userCreate')
+                ->name('admin.account.user.store');
         });
 
         Route::controller(DepartmentsController::class)->group(function () {

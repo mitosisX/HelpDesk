@@ -139,12 +139,26 @@ class ManagerController extends Controller
         //
     }
 
-    public function dashboard()
+    public function dashboard($type = "general")
     {
         // $tickets = Ticket::all();
         // return view('manager.tickets.all', compact('tickets'));
 
         // Alert::alert('Title', 'Message', 'Type');
+        switch ($type) {
+            case ('general'):
+                session(['for-reports' => 'general']);
+                break;
+
+            case ('locdept'):
+                session(['for-reports' => 'locdept']);
+                break;
+
+            case ('months'):
+                session(['for-reports' => 'months']);
+                break;
+        }
+
         return view('manager.tickets.dashboard');
     }
 
@@ -347,6 +361,34 @@ class ManagerController extends Controller
 
     public function stats()
     {
+        $start_date = '2023-01-01';
+        $end_date = '2023-03-31';
+
+        // Query the tickets and users based on the date range
+        $ticketsByLocation = Ticket::join('users', 'tickets.reported_by', '=', 'users.id')
+            ->whereBetween('tickets.created_at', [$start_date, $end_date])
+            ->select('users.location', DB::raw('COUNT(*) as count'))
+            ->groupBy('users.location')
+            ->get();
+
+        // Extract the locations and counts from the query results
+        $locations = $ticketsByLocation->pluck('location');
+        $countByLocation = $ticketsByLocation->pluck('count');
+
+        // Query the tickets and users based on the individual months
+        $ticketCounts = [];
+        for ($m = 3; $m <= 5; $m++) {
+            $month = str_pad($m, 2, '0', STR_PAD_LEFT);
+            $ticketsByMonth = Ticket::join('users', 'tickets.reported_by', '=', 'users.id')
+                ->whereMonth('tickets.created_at', '=', $month)
+                ->select('users.location', DB::raw('COUNT(*) as count'))
+                ->groupBy('users.location')
+                ->get();
+            $countByMonth = $ticketsByMonth->pluck('count');
+            $ticketCounts[] = $countByMonth;
+        }
+
+        return response()->json($ticketCounts);
     }
 
     public function ticketDepartmentsStats()

@@ -11,6 +11,7 @@
     <!-- Bulma is included -->
 
     <link rel="stylesheet" href="{{ asset('css/bulma-badge.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/inbox.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/messages.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-steps.min.css') }}" />
@@ -26,8 +27,8 @@
     <link href="{{ asset('css/nunito.css') }}" rel="stylesheet" />
 
     @php
-        use App\Queries\SpecialQueries;
-        $counter = SpecialQueries::ticketCounter();
+    use App\Queries\SpecialQueries;
+    $counter = SpecialQueries::ticketCounter();
     @endphp
 </head>
 
@@ -46,8 +47,7 @@
             </div>
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">
-                    <div
-                        class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
                         <a class="navbar-link is-arrowless">
                             <div class="is-user-name"><span>{{ Auth::user()->name }}</span></div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>

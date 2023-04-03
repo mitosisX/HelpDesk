@@ -8,6 +8,7 @@
     @yield('title')
 
     <!-- Bulma is included -->
+    <link rel="stylesheet" href="{{ asset('css/inbox.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/extensions/bulma-calendar.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/popper.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
@@ -215,7 +216,7 @@
     <script type="text/javascript" src="{{ asset('js/bulma-calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/sweetalerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bulma.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/bulma-tabs.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/bulma-tabs.js') }}"></script> --}}
     <script>
         // new JSTable("table");
 

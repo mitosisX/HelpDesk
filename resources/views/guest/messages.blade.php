@@ -14,6 +14,83 @@
     <div class="columns">
         <div class="column is-2"></div>
         <div class="column is-8">
+
+            <div class="card has-table has-mobile-sort-spaced">
+                <div class="page my-3">
+                    <div class="marvel-device">
+                        <div class="screen">
+                            <div class="screen-container">
+                                <div class="chat">
+                                    <div class="chat-container">
+                                        <div class="user-bar">
+                                            <div class="avatar">
+                                                <span class="mdi mdi-account-supervisor-circle "></span>
+                                            </div>
+                                            <div class="name">
+                                                <span>Reporter: {{ $ticket->reporter['name'] }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="conversation">
+                                            <div class="conversation-container">
+                                                @forelse ($messages as $message)
+                                                @if ($message->users_id === Auth::user()->id)
+                                                <div class="msg sent">{{ $message->message }}</div>
+                                                @else
+                                                <div class="msg received">{{ $message->message }}</div>
+                                                @endif
+                                                @empty
+                                                {{-- <div class="field is-horizontal">
+                                                    <div class="field-body">
+                                                        <div class="field ">
+                                                            <div class="control">
+                                                                <div class="card box">
+                                                                    <div class="card-content">
+                                                                        <h1 class="title is-4 is-centered">No messages available</h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                                @endforelse
+
+                                                {{-- <div class="message received" style="visibility: hidden">
+                                                    <span id="random">You were hugging an old man with a beard screaming "DUMBLEDORE YOU'RE ALIVE!"</span>
+                                                    <span class="metadata"><span class="time"></span></span>
+                                                </div> --}}
+                                            </div>
+                                            <div class="conversation-compose">
+                                                <div class="emoji">
+                                                </div>
+                                                <textarea class="input-msg" id="messageContent" placeholder="Type a message" autocomplete="off" autofocus></textarea>
+                                                <div class="photo">
+
+                                                </div>
+                                                <button class="send">
+                                                    <div class="circle is-loading">
+                                                        <i class="mdi mdi-send" id='sendMessage'></i>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column is-2"></div>
+    </div>
+</section>
+@endsection
+
+{{-- @section('contesnt')
+<section class="section is-main-section">
+    <div class="columns">
+        <div class="column is-2"></div>
+        <div class="column is-8">
             <div class="card has-table has-mobile-sort-spaced">
                 <header class="card-header">
                     <p class="card-header-title">
@@ -31,44 +108,44 @@
                                             @forelse ($messages as $message)
                                             @if ($message->users_id === Auth::user()->id)
                                             <div class="bubble recipient first">{{ $message->message }}</div>
-                                            @else
-                                            <div class="bubble sender first">{{ $message->message }}</div>
-                                            @endif
-                                            @empty
-                                            <div class="field is-horizontal">
-                                                <div class="field-body">
-                                                    <div class="field ">
-                                                        <div class="control">
-                                                            <div class="card box">
-                                                                <div class="card-content">
-                                                                    <h1 class="title is-4 is-centered">No messages available</h1>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endforelse
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="field has-addons">
-                            <input class="input is-rounded" type="text" placeholder="Message" id='messageContent'>
-                            <button class="button is-rounded is-info" id='sendMessage'>Send</button>
-                        </div>
+@else
+<div class="bubble sender first">{{ $message->message }}</div>
+@endif
+@empty
+<div class="field is-horizontal">
+    <div class="field-body">
+        <div class="field ">
+            <div class="control">
+                <div class="card box">
+                    <div class="card-content">
+                        <h1 class="title is-4 is-centered">No messages available</h1>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="column is-2"></div>
     </div>
+</div>
+@endforelse
 </section>
-@endsection
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="column">
+    <div class="field has-addons">
+        <input class="input is-rounded" type="text" placeholder="Message" id='messageContent'>
+        <button class="button is-rounded is-info" id='sendMessage'>Send</button>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="column is-2"></div>
+</div>
+</section>
+@endsection --}}
 
 @section('scripts')
 <script>
